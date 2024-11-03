@@ -12,6 +12,9 @@ def main():
             if attack_or_dodge == "A":
                 enemy_health -= strength
                 print(f"The monster's health is now {enemy_health}!")
+                if enemy_health <= 0:
+                    print("YOU WIN!")
+                    break
                 print("The monster attacks you.")
                 new_health -= enemy_attack
                 print(f"Your health is {new_health}")
@@ -26,9 +29,6 @@ def main():
 
             if new_health <= 0:
                 print("You died...")
-                break
-            if enemy_health <= 0:
-                print("YOU WIN!")
                 break
 
 main()
