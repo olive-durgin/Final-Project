@@ -1,3 +1,16 @@
+import time
+
+def anim_print(AIUI_speech):
+
+    for character in AIUI_speech:
+        print(character, end = "", flush = True)
+        time.sleep(0.052)
+    print()
+
+def opening_scene():
+    anim_print("Loading...")
+
+
 # Can input a name at the beginning.
 # Loading...
 # Hello. Please answer a few questions.
@@ -13,3 +26,6 @@
 # Loading...
 # Welcomed by the UI.
 # 
+
+if __name__ == "__main__":
+    opening_scene()
