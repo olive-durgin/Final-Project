@@ -77,7 +77,7 @@ def opening_scene():
     anim_print(f"Description: {username.title()} is {adjective_01} and kinda {adjective_02}. There's not much else to say.")
     time.sleep(1)
     anim_print("Health: 100")
-    anim_print(f"Attack: {attack:f.0}")
+    anim_print(f"Attack: {attack:.0f}")
     anim_print(f"Special Ability: {ability.capitalize()}")
     anim_print(f"Weakness: {weakness.capitalize()}")
     time.sleep(2)
@@ -93,12 +93,17 @@ def opening_scene():
                 anim_print("This is not what I asked for.")
 
     if character_choice == "Ana":
+        health = 100
+        attack = 6
+        ana_special_ability = "observation"
+        ana_weakness = "spiders"
         anim_print("Okay...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         time.sleep(2)
+        print()
         anim_print("You open your tired eyes and look around the room.")
         anim_print("The room you're in resembles a huge metal box, but time and nature started eating away at it.")
         anim_print("Now, the large bolts that kept the room in one piece started to rust.")
@@ -126,7 +131,7 @@ def opening_scene():
                 anim_print("Maybe you'll be able to leave. And hopefully find a way home.")
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
-                anim_print("You slip you fingers into the crack between the wall and the door...", delay=0.14)
+                anim_print("You slip you fingers into the crack between the wall and the door...", delay=0.75)
                 time.sleep(1)
                 anim_print("...but the door is too heavy to open.")
                 anim_print("Maybe there is something in the room that can help you.")
@@ -153,10 +158,10 @@ def opening_scene():
                 anim_print("As your legs start to feel better, you make your way towards the pile of leaves.")
                 anim_print("You reach down to move the leaves around and see if you find something.")
                 anim_print("A as your hands are in the wet, mushy pile of leaves, you find a crowbar.")
-                anim_print()
-                anim_print("A crowbar was added to your inventory.")
+                anim_print("It is covered in rust")
+                anim_print("A rusty crowbar was added to your inventory.")
                 with open(filename, 'a', newline='') as file:
-                    new_item = "crowbar"
+                    new_item = "rusty crowbar"
                     attack = 8
                     csv_writer = csv.writer(file)
                     csv_writer.writerow([new_item, attack])
@@ -180,18 +185,28 @@ def opening_scene():
         anim_print("")
 
     if character_choice == "Louis":
+        health = 100
+        attack = 4
+        louis_special_ability = "persuaasion"
+        louis_weakness = "mice"
         anim_print("Interesting...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
+        print()
 
     if character_choice == username:
+        health = 100
+        player_attack = attack
+        ana_special_ability = "observation"
+        ana_weakness = "mice"
         anim_print("I see...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
+        print()
 
 
 if __name__ == "__main__":
