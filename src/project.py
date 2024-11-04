@@ -106,7 +106,7 @@ def opening_scene():
         print()
         anim_print("You open your tired eyes and look around the room.")
         anim_print("The room you're in resembles a huge metal box, but time and nature started eating away at it.")
-        anim_print("Now, the large bolts that kept the room in one piece started to rust.")
+        anim_print("Now, the large bolts that kept the room in one piece are starting to rust.")
         anim_print("And the metal plating that used to be the walls are warped and falling apart.")
         anim_print("Sunlight seeps through the cracks and gaps in the walls, and a strong smell of rain overwhelms your senses.")
         anim_print("You can hear the faint squeak of mice in the distance along with the rustling of trees.")
@@ -120,7 +120,7 @@ def opening_scene():
                 leave_or_look = False
                 anim_print("You look at your surroundings.")
                 anim_print("You notice moss is slowly but surely inching its way along the walls.")
-                anim_print("In time, the walls will surely be covered in it.")
+                anim_print("In time, the walls will inevitably be covered in it.")
                 time.sleep(.75)
                 anim_print("You see that leaves adorn the floor of the metal room closest to the broken wall.")
                 anim_print("Leaves must have fallen into the room from outside.")
@@ -194,6 +194,7 @@ def opening_scene():
                 anim_print("You go towards the wall where the light from the outside world is shining through.")                    
                 anim_print("The smell of rain is stronger closer to the wall, " + 
                            "and you stand on the leaves that had fallen through the hole in the wall.")
+                anim_print("They uncomfortably crunch and squish underneath your feet.")
                 anim_print("You don't hear any rain though. Just the rustling of trees from the wind.")
                 anim_print("It must have rained recently. You should really get out of here before it starts to rain again.")
                 anim_print("Now that you're so close to the wall, you notice a window near the ceiling.")
@@ -218,7 +219,7 @@ def opening_scene():
                         time.sleep(1.5)
                         anim_print("And again.")
                         time.sleep(1.5)
-                        anim_print("You pull at the bar a final time and the chair slides across the ground.")
+                        anim_print("You pull at the bar a final time and the chair slides across the floor.")
                         anim_print("You fall.",delay=0.25)
                         time.sleep(2)
                         anim_print("When you open your eyes, you look around.")
@@ -227,17 +228,75 @@ def opening_scene():
                         anim_print("There is a metal bar lying on the floor at your feet along with pieces of the wall.")
                         anim_print("A metal bar was added to your inventory.")
                         with open(filename, 'a', newline='') as file:
-                            new_item = "strange, metal key"
-                            attack = 3
+                            new_item = "thick, metal bar"
+                            attack = 12
                             csv_writer = csv.writer(file)
                             csv_writer.writerow([new_item, attack])
                     else:
                         elevated_surface = True
                         anim_print("You don't know if that will work.")
-        anim_print("After you've looked around the room, ")
-        anim_print("")
-        anim_print("")
-        anim_print("")
+        anim_print("After you've looked around the room, you go back over to the door.")
+        anim_print("You've found some things that could help you open the door.")
+        anim_print("To view your inventory, press E. You can only view your inventory when prompted.")
+        anim_print("Type anything else to close prompt.")
+        inventory = True
+        while inventory:
+            view_inventory = anim_input("View your inventory? ").capitalize()
+            print()
+            if view_inventory == "E":
+                inventory = True
+                with open(filename, 'r') as collected_items:
+                    choice = csv.reader(collected_items)
+                    for row in choice:
+                        new_item, attack = row
+                        print(f"{new_item.title()}: {attack} damage")
+            else:
+                inventory = False
+                print()
+                anim_print("Verywell then...")
+                
+        anim_print("What can help you open the door?")
+        opening_door = True
+        while opening_door:
+            inventory = True
+            with open(filename, 'r') as collected_items:
+                reader = csv.reader(collected_items)
+                items = list(reader)
+                item_to_remove = anim_input("Enter the item to remove: ").capitalize()
+                items = [row for row in items if row[0].capitalize() != item_to_remove]
+                with open(filename, 'w', newline='') as collected_items:
+                    writer = csv.writer(collected_items)
+                    writer.writerows(items)
+                    print()
+
+            if item_to_remove != "thick, metal bar" or item_to_remove != "crowbar":
+                opening_door = True
+                anim_print(f"You try to use the {item_to_remove} to pry open the door.")
+                anim_print("It does not work.")
+                with open(filename, 'a', newline='') as file:
+                        new_item = item_to_remove
+                        attack = 2
+                        csv_writer = csv.writer(file)
+                        csv_writer.writerow([new_item, attack])
+                anim_print("That item is now damaged, and will be weaker if used as a weapon.")
+
+            elif item_to_remove == "crowbar":
+                opening_door = True
+                anim_print("You try to use the crowbar to pry open the door.")
+                anim_print("But due to its significant amount of rust...")
+                anim_print("It breaks.")
+            elif item_to_remove == "thick, metal bar":
+                    opening_door = False
+                    anim_print("You try to use the thick, metal bar to pry open the door.")
+                    anim_print("And despite you limited strength, the bar was strong enough to open the door without breaking.")
+                    anim_print("Unfortunately the bar is bent.")
+                    with open(filename, 'a', newline='') as file:
+                        new_item = "bent, metal bar"
+                        attack = 2
+                        csv_writer = csv.writer(file)
+                        csv_writer.writerow([new_item, attack])
+
+        anim_print("Finally, with the door open, you can leave the room.")
         anim_print("")
 
     if character_choice == "Louis":
