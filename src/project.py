@@ -19,11 +19,11 @@ def opening_scene():
     anim_print("Running interactive program...", delay=0.135)
     time.sleep(1.5)
     filename = "project_inventory.csv"
-    username = anim_input("Input your name: ").capitalize()
+    username = anim_input("Input a name: ").capitalize()
     adjective_01 = anim_input("Adjective 01: ")
     adjective_02 = anim_input("Adjective 02: ")
-    ability = anim_input("What are you good at? ")
-    weakness = anim_input("What scares you? ")
+    ability = anim_input("What is a good skill to have? ")
+    weakness = anim_input("In one word, what scares you? ")
     strength = True
     while strength:
         try:
@@ -120,7 +120,7 @@ def opening_scene():
                 leave_or_look = False
                 anim_print("You look at your surroundings.")
                 anim_print("You notice moss is slowly but surely inching its way along the walls.")
-                anim_print("In time, the walls will be covered in it.")
+                anim_print("In time, the walls will surely be covered in it.")
                 time.sleep(.75)
                 anim_print("You see that leaves adorn the floor of the metal room closest to the broken wall.")
                 anim_print("Leaves must have fallen into the room from outside.")
@@ -131,7 +131,7 @@ def opening_scene():
                 anim_print("Maybe you'll be able to leave. And hopefully find a way home.")
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
-                anim_print("You slip you fingers into the crack between the wall and the door...", delay=0.75)
+                anim_print("You slip you fingers into the crack between the wall and the door...", delay=0.2)
                 time.sleep(1)
                 anim_print("...but the door is too heavy to open.")
                 anim_print("Maybe there is something in the room that can help you.")
@@ -158,26 +158,82 @@ def opening_scene():
                 anim_print("As your legs start to feel better, you make your way towards the pile of leaves.")
                 anim_print("You reach down to move the leaves around and see if you find something.")
                 anim_print("A as your hands are in the wet, mushy pile of leaves, you find a crowbar.")
-                anim_print("It is covered in rust")
+                anim_print("It is covered in rust.")
                 anim_print("A rusty crowbar was added to your inventory.")
+                anim_print("Maybe there is something else here.")
                 with open(filename, 'a', newline='') as file:
                     new_item = "rusty crowbar"
                     attack = 8
                     csv_writer = csv.writer(file)
                     csv_writer.writerow([new_item, attack])
             if to_look == "table":
+                looking = True
                 anim_print("You walk back over to the table you woke up next to.")
                 anim_print("When you crouch down, to look under the table.")
-                anim_print("You see nothing but scratches on the floor from the table legs and greenish coloured water stains.")
+                anim_print("You see nothing but scratches on the floor from the table legs along with greenish coloured water stains.")
                 anim_print("When you get up, you hit your head on the table.")
                 anim_print("You found nothing but a headache.")
+                time.sleep(1)
                 anim_print("A headache was added to your inventory.")
-                anim_print("As you stand there thinking about your headache, you hear soething fall to the floor.")
+                with open(filename, 'a', newline='') as file:
+                    new_item = "headache"
+                    attack = 15
+                    csv_writer = csv.writer(file)
+                    csv_writer.writerow([new_item, attack])
+                anim_print("As you stand there thinking about your headache, you hear something fall to the floor.")
                 anim_print("You look under the table again and see a strange, metal key on the floor.")
                 anim_print("It must have been taped to the bottom of the table.")
                 anim_print("A strange, metal key was added to your inventory.")
+                with open(filename, 'a', newline='') as file:
+                    new_item = "strange, metal key"
+                    attack = 3
+                    csv_writer = csv.writer(file)
+                    csv_writer.writerow([new_item, attack])
             if to_look == "wall":
-                anim_print()
+                looking = False
+                anim_print("You go towards the wall where the light from the outside world is shining through.")                    
+                anim_print("The smell of rain is stronger closer to the wall, " + 
+                           "and you stand on the leaves that had fallen through the hole in the wall.")
+                anim_print("You don't hear any rain though. Just the rustling of trees from the wind.")
+                anim_print("It must have rained recently. You should really get out of here before it starts to rain again.")
+                anim_print("Now that you're so close to the wall, you notice a window near the ceiling.")
+                anim_print("You think that maybe you can get out. If only you can reach the window.")
+                anim_print("Maybe there is something that you can use to reach the window.")
+                grab_item = anim_input("You have an idea and you grab the ").lower()
+                elevated_surface = True
+                while elevated_surface:
+                    if grab_item == "chair":
+                        elevated_surface = False
+                        anim_print("You grab the chair and set it on the floor underneath where the window is.")
+                        anim_print("You put one foot on the chair and then the other and carefully climb onto the chair.")
+                        anim_print("You almost fall due to the ground being slippery.")
+                        anim_print("Once higher up, you find that there are thick, metal bars along the window.")
+                        anim_print("They have yet to be claimed by rust, so they are unlikely to break.")
+                        anim_print("But the walls themselves are cracking and you might be able to break off some of the bars and escape.")
+                        anim_print("You grab one of the slick bars and pull.")
+                        time.sleep(.5)
+                        anim_print("The wall cracks a bit.")
+                        time.sleep(.5)
+                        anim_print("You pull at the bar again.")
+                        time.sleep(.5)
+                        anim_print("And again.")
+                        time.sleep(1)
+                        anim_print("You pull at the bar a final time and the chair slides across the ground.")
+                        anim_print("You fall.",delay=0.25)
+                        time.sleep(2)
+                        anim_print("When you open your eyes, you look around.")
+                        anim_print("It's a little darker outside. You must have been knocked out for a while.")
+                        anim_print("When you try to get up, you foot hits something.")
+                        anim_print("There is a metal bar lying on the floor at your feet along with pieces of the wall.")
+                        anim_print("A metal bar was added to your inventory.")
+                        with open(filename, 'a', newline='') as file:
+                            new_item = "strange, metal key"
+                            attack = 3
+                            csv_writer = csv.writer(file)
+                            csv_writer.writerow([new_item, attack])
+                    else:
+                        elevated_surface = True
+                        anim_print("I don't know if that will work.")
         anim_print("")
         anim_print("")
         anim_print("")
@@ -207,7 +263,6 @@ def opening_scene():
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         print()
-
 
 if __name__ == "__main__":
     opening_scene()
