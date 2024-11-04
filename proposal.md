@@ -1,4 +1,5 @@
 # Game Title
+Mystery of Seona (placeholder)
 
 ## Repository
 https://github.com/olive-durgin/Final-Project.git
@@ -17,8 +18,7 @@ I am going to code a text-based, choose your own adventure with turn-based fight
 ## Challenges
 - I need to research how to make a loop that asks for an integer as an input and does not crash when a non-numerical value is input.
 - I need to do more research on having the characters personality/abilities affect and change the story without having to copy and paste huge sections of the script.
-- Fixing any/all import bugs for custom scripts since when working on CYOA scripts in the past, there have been many issues
-with this.
+- Fixing any/all import bugs for custom scripts since when working on CYOA scripts in the past, there have been many issues with this.
 
 ## Outcomes
 Ideal Outcome:
