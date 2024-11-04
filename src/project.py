@@ -225,7 +225,7 @@ def opening_scene():
                         time.sleep(2)
                         anim_print("When you open your eyes, you look around.")
                         anim_print("It's a little darker outside. You must have been knocked out for a while.")
-                        anim_print("When you try to get up, you foot hits something.")
+                        anim_print("When you try to get up, your foot hits something.")
                         anim_print("There is a metal bar lying on the floor at your feet along with pieces of the wall.")
                         anim_print("A metal bar was added to your inventory.")
                         with open(filename, 'a', newline='') as file:
@@ -255,7 +255,6 @@ def opening_scene():
             else:
                 inventory = False
                 anim_print("Verywell then...")
-                
         anim_print("What can help you open the door?")
         opening_door = True
         while opening_door:
@@ -263,19 +262,28 @@ def opening_scene():
             with open(filename, 'r') as collected_items:
                 reader = csv.reader(collected_items)
                 items = list(reader)
-                item_to_remove = anim_input("Enter the item to remove: ").capitalize()
-                items = [row for row in items if row[0].capitalize() != item_to_remove]
-                with open(filename, 'w', newline='') as collected_items:
-                    writer = csv.writer(collected_items)
-                    writer.writerows(items)
-                    print()
-
-            if item_to_remove == "rusty crowbar":
-                opening_door = True
-                anim_print("You try to use the rusty crowbar to pry open the door.")
-                anim_print("But due to its significant amount of rust...")
-                anim_print("It breaks.")
-            if item_to_remove == "thick, metal bar":
+                print()
+                nonexistent_item = True
+                while nonexistent_item:
+                    item_to_remove = anim_input("What are you going to use? ").strip().capitalize()
+                    item_exists = any(row[0].capitalize() == item_to_remove for row in items)
+                    if item_exists:
+                        nonexistent_item = False
+                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        with open(filename, 'w', newline='') as collected_items:
+                            writer = csv.writer(collected_items)
+                            writer = csv.writer(collected_items)
+                            writer.writerows(items)
+                    else:
+                        nonexistent_item = True
+                        print(f"{item_to_remove} is not in your inventory.")
+                        print()
+                if item_to_remove == "Rusty crowbar".capitalize():
+                    opening_door = True
+                    anim_print("You try to use the rusty crowbar to pry open the door.")
+                    anim_print("But due to its significant amount of rust...")
+                    anim_print("It breaks.")
+                elif item_to_remove == "thick, metal bar".capitalize():
                     opening_door = False
                     anim_print("You try to use the thick, metal bar to pry open the door.")
                     anim_print("And despite you limited strength, the bar was strong enough to open the door without breaking.")
@@ -285,16 +293,16 @@ def opening_scene():
                         attack = 9
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-            elif item_to_remove != "thick, metal bar" or item_to_remove != "rusty crowbar":
-                opening_door = True
-                anim_print(f"You try to use the {item_to_remove} to pry open the door.")
-                anim_print("It does not work.")
-                with open(filename, 'a', newline='') as file:
+                elif item_to_remove != "Thick, metal bar" and item_to_remove != "Rusty crowbar":
+                    opening_door = True
+                    anim_print(f"You try to use the {item_to_remove} to pry open the door.")
+                    print("It does not work.")
+                    with open(filename, 'a', newline='') as file:
                         new_item = item_to_remove
                         attack = 2
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-                anim_print("That item is now damaged, and will be weaker if used as a weapon.")
+                    anim_print(f"Your {item_to_remove} is now damaged, and will be weaker if used as a weapon.")
 
         anim_print("Finally, with the door open, you can leave the room.")
         anim_print("")
