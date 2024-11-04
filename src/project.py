@@ -119,6 +119,12 @@ def opening_scene():
             if leave_or_look == "Look":
                 leave_or_look = False
                 anim_print("You look at your surroundings.")
+                anim_print("You look at the table and chair in front of you.")
+                anim_print("You can't really remember anything about yourself which makes you feel uneasy.")
+                anim_print("But you have a faint memory of standing on a chair once.")
+                anim_print("You slipped and fell.")
+                anim_print("You look around the room a little more.")
+                time.sleep(1)
                 anim_print("You notice moss is slowly but surely inching its way along the walls.")
                 anim_print("In time, the walls will inevitably be covered in it.")
                 time.sleep(.75)
@@ -131,7 +137,7 @@ def opening_scene():
                 anim_print("Maybe you'll be able to leave. And hopefully find a way home.")
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
-                anim_print("You slip you fingers into the crack between the wall and the door...")
+                anim_print("You slip your fingers into the crack between the wall and the door...")
                 time.sleep(2)
                 anim_print("...but the door is too heavy to open.")
                 anim_print("Maybe there is something in the room that can help you.")
@@ -326,6 +332,7 @@ def opening_scene():
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         print()
+        # Louis finds himself in the middle of the woods at night.
 
     if character_choice == username:
         health = 100
