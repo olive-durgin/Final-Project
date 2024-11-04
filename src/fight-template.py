@@ -15,6 +15,9 @@ def main():
                 if enemy_health <= 0:
                     print("YOU WIN!")
                     break
+                if  new_health <= 0:
+                    print("You died...")
+                    break
                 print("The monster attacks you.")
                 new_health -= enemy_attack
                 print(f"Your health is {new_health}")
@@ -22,13 +25,21 @@ def main():
                 print("You attack too!")
                 enemy_health -= strength
                 print(f"The monster's health is now {enemy_health}!")
+                if enemy_health <= 0:
+                    print("YOU WIN!")
+                    break
+                if new_health <= 0:
+                    print("You died...")
+                    break
             else:
                 new_health -= strength
                 print("You've been hit! What are you doing?")
                 print(f"Your health: {new_health}!")
-
             if new_health <= 0:
                 print("You died...")
+                break
+            if enemy_health <= 0:
+                print("YOU WIN!")
                 break
 
 main()
