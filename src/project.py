@@ -1,4 +1,4 @@
-import time
+import time, csv
 
 def anim_print(UI_text, delay=0.052):
     for character in UI_text:
@@ -16,8 +16,9 @@ def opening_scene():
     time.sleep(.07)
     anim_print("Loading...", delay=0.135)
     time.sleep(1.5)
-    anim_print("Running info collection program...", delay=0.135)
+    anim_print("Running interactive program...", delay=0.135)
     time.sleep(1.5)
+    filename = "project_inventory.csv"
     username = anim_input("Input your name: ").capitalize()
     adjective_01 = anim_input("Adjective 01: ")
     adjective_02 = anim_input("Adjective 02: ")
@@ -26,7 +27,7 @@ def opening_scene():
     strength = True
     while strength:
         try:
-            anim_print(f"Pick a number between one and ten.")
+            anim_print(f"Pick a number between 1 and 10.")
             attack = float(anim_input("Choose wisely: "))
             if 1 <= attack <= 10:
                 strength = False
@@ -76,7 +77,7 @@ def opening_scene():
     anim_print(f"Description: {username.title()} is {adjective_01} and kinda {adjective_02}. There's not much else to say.")
     time.sleep(1)
     anim_print("Health: 100")
-    anim_print(f"Attack: {attack}")
+    anim_print(f"Attack: {attack:f.0}")
     anim_print(f"Special Ability: {ability.capitalize()}")
     anim_print(f"Weakness: {weakness.capitalize()}")
     time.sleep(2)
@@ -154,6 +155,11 @@ def opening_scene():
                 anim_print("A as your hands are in the wet, mushy pile of leaves, you find a crowbar.")
                 anim_print()
                 anim_print("A crowbar was added to your inventory.")
+                with open(filename, 'a', newline='') as file:
+                    new_item = "crowbar"
+                    attack = 8
+                    csv_writer = csv.writer(file)
+                    csv_writer.writerow([new_item, attack])
             if to_look == "table":
                 anim_print("You walk back over to the table you woke up next to.")
                 anim_print("When you crouch down, to look under the table.")
@@ -164,7 +170,7 @@ def opening_scene():
                 anim_print("As you stand there thinking about your headache, you hear soething fall to the floor.")
                 anim_print("You look under the table again and see a strange, metal key on the floor.")
                 anim_print("It must have been taped to the bottom of the table.")
-                anim_print("A strange, metal key was added to your inventory. ")
+                anim_print("A strange, metal key was added to your inventory.")
             if to_look == "wall":
                 anim_print()
         anim_print("")
