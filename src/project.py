@@ -21,24 +21,18 @@ def opening_scene():
     adjective_01 = anim_input("Adjective 01: ")
     adjective_02 = anim_input("Adjective 02: ")
 
-    def attack_level():
-        strength = True
-        while strength:
-            try:
-                anim_print(f"Pick a number between one and ten.")
-                attack = float(input("Choose wisely: "))
-                if 1 <= attack <= 10:
-                    strength = False
-                else:
-                    anim_print("This is not what I asked for.")
-                    time.sleep(0.75)
-            except ValueError:
-                anim_print("Do you call that a number...?")
-
-        return attack
-
-    attack_level()
-
+    strength = True
+    while strength:
+        try:
+            anim_print(f"Pick a number between one and ten.")
+            attack = float(input("Choose wisely: "))
+            if 1 <= attack <= 10:
+                strength = False
+            else:
+                anim_print("This is not what I asked for.")
+                time.sleep(0.75)
+        except ValueError:
+            anim_print("Do you call that a number...?")
     anim_print("Loading...", delay=0.135)
     time.sleep(1.5)
     anim_print(f"Hello, {username}!")
@@ -58,11 +52,8 @@ def opening_scene():
     anim_print("Description: ___")
     time.sleep(1)
     anim_print("Health: 100")
-    time.sleep(1)
     anim_print("Attack: 4")
-    time.sleep(1)
     anim_print("Special Abilitiy: Discernment")
-    time.sleep(1)
     anim_print("Weakness: ")
     time.sleep(1.5)
     print()
@@ -81,10 +72,9 @@ def opening_scene():
     time.sleep(1.5)
     print()
 
-    attack = attack_level()
     anim_print(f"Character: {username}")
     time.sleep(1)
-    anim_print("Description: ___")
+    anim_print(f"Description: {username} is {adjective_01} and kinda {adjective_02}. There's not much else to say.")
     time.sleep(1)
     anim_print("Health: 100")
     time.sleep(1)
@@ -94,6 +84,7 @@ def opening_scene():
     time.sleep(1)
     anim_print("Weakness: ")
     time.sleep(1.5)
+
 
 # Player has the choice of picking between 3 different characters.
     # Characters have a descirption using adjectives.
