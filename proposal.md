@@ -31,12 +31,16 @@ Minimal Viable Outcome:
 
 - Week 1
   1. Finish the story design for the CYOA game.
-  2. Finish the initial character choice feature + Fix any bugs.
+  2. Finish introduction to Ana's story.
+  3. Finish Ana's story.
+  4. Fix any bugs + continuity errors in the story.
 
 - Week 2
-  1. Finish the main part of the story.
-  2. Fix any bugs and continuity errors in the story.
+  1. Finish introduction Louis' story.
+  2. Finish Louis' story.
+  3. Fix any bugs + continuity errors in the story.
 
-- Week N (Final)
-  1. Wrap up the story + fix an continuity errors.
-  2. Fix any bugs.
+- Week 3 (final)
+  1. Finish username's story.
+  2. Fix an continuity errors.
+  3. Fix any bugs.
