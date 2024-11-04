@@ -1,5 +1,5 @@
 # Game Title
-Mystery of Seona (placeholder)
+Mystery of Seona (demo)
 
 ## Repository
 https://github.com/olive-durgin/Final-Project.git
