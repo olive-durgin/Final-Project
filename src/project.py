@@ -1,6 +1,10 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import time, csv, pygame
+pygame.init()
+trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
+breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
+player_falls = pygame.mixer.Sound(r'sounds\character_hits_ground.mp3')
 
 def anim_print(UI_text, delay=0.052):
     for character in UI_text:
@@ -105,10 +109,14 @@ def opening_scene():
         anim_print("Okay...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
+        time.sleep(1.5)
+        anim_print("Importing sounds...",delay=0.135)
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         time.sleep(2)
         print()
+        trees_rustle.play(loops=-1)
+        trees_rustle.set_volume(0.5)
         anim_print("You open your tired eyes and look around the room.")
         anim_print("The room you're in resembles a huge metal box, but time and nature started eating away at it.")
         anim_print("Now, the large bolts that kept the room in one piece are starting to rust.")
@@ -152,8 +160,8 @@ def opening_scene():
                 anim_print("You decide to try and find a way out of the metal box and you notice a door across the room.")
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
-                anim_print("You slip your fingers into the crack between the wall and the door...", delay=0.13)
-                time.sleep(1)
+                anim_print("You slip your fingers into the crack between the wall and the door...")
+                time.sleep(2)
                 anim_print("...but the door is too heavy to open.")
                 anim_print("Maybe you should look around for something to help you.")
                 break
@@ -208,7 +216,8 @@ def opening_scene():
                         csv_writer.writerow([new_item, attack])
                 if to_look == "wall":
                     looking = True
-                    anim_print("You go towards the wall where the light from the outside world is shining through.")                    
+                    anim_print("You go towards the wall where the light from the outside world is shining through.")
+                    trees_rustle.set_volume(0.8)
                     anim_print("The smell of rain is stronger closer to the wall, " + 
                     "and you stand on the leaves that had fallen through the hole in the wall.")
                     anim_print("They uncomfortably crunch and squish underneath your feet.")
@@ -230,16 +239,23 @@ def opening_scene():
                             anim_print("But the walls themselves are cracking and you might be able to break off some of the bars and escape.")
                             anim_print("You grab one of the slick bars and pull.")
                             time.sleep(1.5)
+                            breaking_wall.play()
                             anim_print("The wall cracks a bit.")
                             time.sleep(1.5)
+                            breaking_wall.play()
                             anim_print("You pull at the bar again.")
                             time.sleep(1.5)
+                            breaking_wall.play()
                             anim_print("And again...", delay=0.135)
                             time.sleep(1.5)
+                            breaking_wall.play()
                             anim_print("You pull at the bar a final time and the chair slides across the floor.")
                             time.sleep(1.5)
+                            player_falls.play()
                             anim_print("You fall.",delay=0.25)
+                            trees_rustle.set_volume(0)
                             time.sleep(2)
+                            trees_rustle.play(fade_ms=2500)
                             anim_print("When you open your eyes, you look around.")
                             anim_print("It's a little darker outside. You must have been knocked out for a while.")
                             anim_print("When you try to get up, your foot hits something.")
