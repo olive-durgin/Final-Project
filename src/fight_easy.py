@@ -21,6 +21,7 @@ def anim_input(prompt):
     return input()
 
 def easy_fight(strength):
+        sound.set_volume(3)
         sound.play(loops=-1)
         anim_print("You've been ambushed by a low-level enemy!")
         anim_print("The rules are simple.")
@@ -33,7 +34,8 @@ def easy_fight(strength):
         anim_print("You won't need an inventory for this fight either.")
         anim_print("Unfortunately, since this is your first fight, you're nervous.")
         anim_print("So, you're attacks aren't as strong.")
-        anim_print("Your attack is set to 5")
+        anim_print("Your attack is set to 5.")
+        anim_print("And your health is 100!")
         strength = float(5)
         health = float(100)
         enemy_attack = float(5)
@@ -42,7 +44,8 @@ def easy_fight(strength):
         # access inventory
         anim_print("The enemy in front of you boasts sharp teeth!")
         anim_print("The enemy moves slowly but still manages to hit you!")
-        new_health -= enemy_attack
+        monster_attack.play()
+        health -= enemy_attack
         anim_print(f"Your health decreases by {enemy_attack}!")
         anim_print(f"Your health dropped to {new_health}!")
         anim_print("Now is your chance!")
@@ -55,20 +58,19 @@ def easy_fight(strength):
                 enemy_health -= strength
                 anim_print(f"The monster's health is now {enemy_health}!")
                 if enemy_health <= 0:
-                    sound.stop()
-                    anim_print("YOU WIN!")                   
+                    anim_print("YOU WIN!")
+                    win_sound.set_volume(2)              
                     win_sound.play()
-                    time.sleep(5)
-                    win_sound.stop()
+                    time.sleep(3)
                     break
                 if new_health <= 0:
+                    enemy_health = True
                     anim_print("You died...")
+                    sound.stop()
                     time.sleep(4)
-                    lose_sound.stop()
                     anim_print("Overriding program...")
                     time.sleep(2)
                     anim_print("Resetting...")
-                    lose_sound.play()
                     break
                 anim_print("The monster attacks you.")
                 monster_attack.play()
@@ -84,15 +86,16 @@ def easy_fight(strength):
                 if enemy_health <= 0:
                     sound.stop()
                     anim_print("YOU WIN!")
+                    win_sound.set_volume(2)
                     win_sound.play()
-                    time.sleep(5)
-                    win_sound.stop()
+                    time.sleep(3)
                     break
                 if new_health <= 0:
+                    enemy_health = True
                     lose_sound.play()
+                    sound.stop()
                     anim_print("You died...")
                     time.sleep(4)
-                    lose_sound.stop()
                     anim_print("Overriding program...")
                     time.sleep(2)
                     anim_print("Resetting...")
@@ -103,10 +106,11 @@ def easy_fight(strength):
                 anim_print("You've been hit! What are you doing?")
                 anim_print(f"Your health: {new_health}!")
             if new_health <= 0:
+                enemy_health = True
                 print("You died...")
                 lose_sound.play()
+                sound.stop()
                 time.sleep(4)
-                lose_sound.stop()
                 anim_print("Overriding program...")
                 time.sleep(2)
                 anim_print("Resetting...")
@@ -114,11 +118,13 @@ def easy_fight(strength):
             if enemy_health <= 0:
                 sound.stop()
                 anim_print("YOU WIN!")
+                win_sound.set_volume(2)
                 win_sound.play()
-                time.sleep(5)
+                time.sleep(3)
                 win_sound.stop()
                 break
-
+        time.sleep(2)
+        sound.stop()
         anim_print("Loading...", delay=0.135)
         time.sleep(3)
 
