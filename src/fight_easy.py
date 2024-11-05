@@ -1,4 +1,4 @@
-import pygame, time, csv
+import pygame, time, csv, project
 pygame.init()
 sound = pygame.mixer.Sound(r'sounds\easy_fight.mp3')
 win_sound = pygame.mixer.Sound(r'sounds\winner.mp3')
@@ -18,16 +18,32 @@ def anim_input(prompt):
         time.sleep(0.062)
     return input()
 
-def easy_fight():
-
-        strength = float(10)
+def easy_fight(strength):
+        sound.play(loops=-1)
+        anim_print("You've been ambushed by a low-level enemy!")
+        anim_print("The rules are simple.")
+        anim_print("Try not to get hit.")
+        anim_print("Right after the enemy attack, you have a window of opportunity to fight back.")
+        anim_print("Don't miss this chance.")
+        anim_print("Be strategic about this, because sometimes, the enemy can be smarter than it looks.")
+        anim_print("You shouldn't have any issues with this particular enemy though.")
+        anim_print("Feel free to take your time.")
+        anim_print("You won't need an inventory for this fight either.")
+        strength = 10
         health = float(100)
         enemy_attack = float(5)
         enemy_health = float(15)
         new_health = health - enemy_attack
         # access inventory
-        sound.play(loops=-1)
         while enemy_health > 0:
+            anim_print("The enemy in front of you boasts sharp teeth!")
+            anim_print("The enemy moves slowly but still manages to hit you!")
+            new_health -= enemy_attack
+            anim_print(f"Your health decreases by {enemy_attack}!")
+            anim_print(f"Your health dropped to {new_health}!")
+            anim_print("Now is your chance!")
+            anim_print("Show that monster what you got before it gets a chance to attack again!")
+
             attack_or_dodge = input("Type A to 'attack' or D to 'dodge': ")
             attack_or_dodge = attack_or_dodge.capitalize()
             if attack_or_dodge == "A":
