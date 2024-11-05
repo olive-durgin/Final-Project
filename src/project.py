@@ -5,6 +5,7 @@ pygame.init()
 trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
 breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
 player_falls = pygame.mixer.Sound(r'sounds\character_hits_ground.mp3')
+city_rain = pygame.mixer.Sound(r'sounds\rain_concrete.mp3')
 
 def anim_print(UI_text, delay=0.052):
     for character in UI_text:
@@ -116,7 +117,7 @@ def opening_scene():
         time.sleep(2)
         print()
         trees_rustle.play(loops=-1)
-        trees_rustle.set_volume(0.5)
+        trees_rustle.set_volume(0.075)
         anim_print("You open your tired eyes and look around the room.")
         anim_print("The room you're in resembles a huge metal box, but time and nature started eating away at it.")
         anim_print("Now, the large bolts that kept the room in one piece are starting to rust.")
@@ -217,7 +218,7 @@ def opening_scene():
                 if to_look == "wall":
                     looking = True
                     anim_print("You go towards the wall where the light from the outside world is shining through.")
-                    trees_rustle.set_volume(0.8)
+                    trees_rustle.set_volume(0.225)
                     anim_print("The smell of rain is stronger closer to the wall, " + 
                     "and you stand on the leaves that had fallen through the hole in the wall.")
                     anim_print("They uncomfortably crunch and squish underneath your feet.")
@@ -252,10 +253,10 @@ def opening_scene():
                             anim_print("You pull at the bar a final time and the chair slides across the floor.")
                             time.sleep(1.5)
                             player_falls.play()
-                            anim_print("You fall.",delay=0.25)
                             trees_rustle.set_volume(0)
+                            anim_print("You fall.",delay=0.25)
                             time.sleep(2)
-                            trees_rustle.play(fade_ms=2500)
+                            trees_rustle.set_volume(0.125)
                             anim_print("When you open your eyes, you look around.")
                             anim_print("It's a little darker outside. You must have been knocked out for a while.")
                             anim_print("When you try to get up, your foot hits something.")
@@ -321,7 +322,7 @@ def opening_scene():
                 elif item_to_remove == "thick, metal bar".capitalize():
                     opening_door = False
                     anim_print("You try to use the thick, metal bar to pry open the door.")
-                    anim_print("And despite you limited strength, the bar was strong enough to open the door without it breaking.")
+                    anim_print("And despite your limited strength, the bar was strong enough to open the door without it breaking.")
                     anim_print("Unfortunately the bar is bent.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "bent, metal bar"
@@ -349,6 +350,10 @@ def opening_scene():
         anim_print("Concrete was not something you were expecting to find under your feet.")
         anim_print("You were expecting the welcoming dirt of the earth.")
         anim_print("But as you look around, you find that you're nowhere near the ground.")
+        anim_print("And it starting to rain.")
+        trees_rustle.stop()
+        city_rain.play(loops=-1)
+        city_rain.set_volume(.5)
         # On the 4th floor of a concrete and steel labratory building.
         # The forest is below you. Maybe a 80ft drop.
         # The trees are tall enough to where you can touch the tips of them if you go to the edge of the building and reach out.
@@ -360,13 +365,14 @@ def opening_scene():
         anim_print("Surprised, you are unable to avoid it!")
         anim_print("It must have been attracted by the smell of your blood!")
         anim_print("Loading...", delay=0.135)
-        import fight_easy
-        fight_easy
+        city_rain.stop()
+        import first_fight
+        first_fight
         anim_print("You were able to defend yourself from the rat, and it drops dead.")
         anim_print("You are able to retrieve clean bandages from it.")
         time.sleep(2)
         anim_print("What an odd thing to find on a rat...")
-        time.sleep(2)
+        time.sleep(1.25)
         anim_print("Clean bandages were added to your inventory.")
         with open(filename, 'a', newline='') as file:
             new_item = "clean bandages"
@@ -404,7 +410,7 @@ def opening_scene():
     if character_choice == "Louis":
         health = 100
         attack = 4
-        louis_special_ability = "persuaasion"
+        louis_special_ability = "persuasion"
         louis_weakness = "mice"
         anim_print("Interesting...")
         time.sleep(1)
