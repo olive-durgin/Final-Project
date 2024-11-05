@@ -1,4 +1,6 @@
-import time, csv
+import os
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import time, csv, pygame
 
 def anim_print(UI_text, delay=0.052):
     for character in UI_text:
@@ -87,8 +89,11 @@ def opening_scene():
     while not correct_choice:
             anim_print("Who are you?")
             character_choice = anim_input("Choose wisely: ").capitalize()
-            if character_choice == "Ana" or character_choice == "Louis" or character_choice == username:
+            if character_choice == "Ana":
                 correct_choice = True
+            elif character_choice == "Louis" or character_choice == username.capitalize() or character_choice == username.lower():
+                correct_choice = False
+                anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
             else:
                 anim_print("This is not what I asked for.")
 
@@ -162,7 +167,7 @@ def opening_scene():
         while looking:
             to_look = anim_input("You look at the leaves, table, or wall: ").lower()
             if to_look in seen_inputs:
-                anim_print("You already looked there. Try again.")
+                anim_print("You already looked there. Look somewhere else.")
             else:
                 seen_inputs.add(to_look)
                 if to_look == "leaves":
@@ -229,7 +234,7 @@ def opening_scene():
                             time.sleep(1.5)
                             anim_print("You pull at the bar again.")
                             time.sleep(1.5)
-                            anim_print("And again.")
+                            anim_print("And again...", delay=0.135)
                             time.sleep(1.5)
                             anim_print("You pull at the bar a final time and the chair slides across the floor.")
                             time.sleep(1.5)
@@ -300,7 +305,7 @@ def opening_scene():
                 elif item_to_remove == "thick, metal bar".capitalize():
                     opening_door = False
                     anim_print("You try to use the thick, metal bar to pry open the door.")
-                    anim_print("And despite you limited strength, the bar was strong enough to open the door without breaking.")
+                    anim_print("And despite you limited strength, the bar was strong enough to open the door without it breaking.")
                     anim_print("Unfortunately the bar is bent.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "bent, metal bar"
@@ -317,9 +322,68 @@ def opening_scene():
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
                     anim_print(f"Your {item_to_remove} is now damaged, and will be weaker if used as a weapon.")
+        anim_print("Finally, with the door wedged open, you can leave the room.")
+        time.sleep(1)
+        print()
+        anim_print("The door was too heavy to open all the way, so you have to carefully squeeze out of the room.")
+        anim_print("The cold metal of the wall wipes against your face as the edge of the door presses into your back.")
+        anim_print("Once you finally are free of the door's grasp, you feel a sharp sting in your shoulder.")
+        anim_print("You look down at your shoulder and find that it's cut.")
+        anim_print("Blood from your shoulder drips down your arm and onto the concrete ground.")
+        anim_print("Concrete was not something you were expecting to find under your feet.")
+        anim_print("You were expecting the welcoming dirt of the earth.")
+        anim_print("But as you look around, you find that you're nowhere near the ground.")
+        # On the 4th floor of a concrete and steel labratory building.
+        # The forest is below you. Maybe a 80ft drop.
+        # The trees are tall enough to where you can touch the tips of them if you go to the edge of the building and reach out.
 
-        anim_print("Finally, with the door open, you can leave the room.")
+        anim_print("Not long after escaping your prison, the distant squeaks that you heard from inside the room quickly grow louder.")
+        anim_print("In the distance, you see a large figure.")
+        anim_print("The closer it gets, the more you can make out what it is.")
+        anim_print("It's a huge, mutated rat!")
+        anim_print("Surprised, you are unable to avoid it!")
+        anim_print("It must have been attracted by the smell of your blood!")
+        anim_print("Loading...", delay=0.135)
+        import fight_easy
+        fight_easy
+        anim_print("You were able to defend yourself from the rat, and it drops dead.")
+        anim_print("You are able to retrieve clean bandages from it.")
+        time.sleep(2)
+        anim_print("What an odd thing to find on a rat...")
+        time.sleep(2)
+        anim_print("Clean bandages were added to your inventory.")
+        with open(filename, 'a', newline='') as file:
+            new_item = "clean bandages"
+            attack = 0
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_item, attack])
+        anim_print("Would you like to access your inventory before you continue your journey?")
+        inventory = True
+        while inventory:
+            print()
+            view_inventory = anim_input("View your inventory (E)? ").capitalize()
+            print()
+            if view_inventory == "E":
+                inventory = True
+                with open(filename, 'r') as collected_items:
+                    choice = csv.reader(collected_items)
+                    for row in choice:
+                        new_item, attack = row
+                        print(f"{new_item.title()}: {attack} damage")
+            else:
+                inventory = False
+                anim_print("Verywell then...")
+                time.sleep(1)
         anim_print("")
+
+        # Explore the nearby town and its abandoned buildings.
+        # Town name: Seona
+            # produce market
+            # school + woods behind the school
+            # hospital
+            # playground
+            # murky pond
+        # Final fight is spider queen.
 
     if character_choice == "Louis":
         health = 100
