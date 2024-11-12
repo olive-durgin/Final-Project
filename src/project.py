@@ -354,11 +354,19 @@ def opening_scene():
         trees_rustle.stop()
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
-        # On the 4th floor of a concrete and steel labratory building.
-        # The forest is below you. Maybe a 80ft drop.
-        # The trees are tall enough to where you can touch the tips of them if you go to the edge of the building and reach out.
-
-        anim_print("Not long after escaping your prison, the distant squeaks that you heard from inside the room quickly grow louder.")
+        anim_print("You look around and see that you're in an outdoor, concrete hallway of a sort.")
+        anim_print("There is a cracked concrete wall that protects anyone from falling over the edge.")
+        anim_print("And after you walk over and look over the edge, you see nothing but the tops of trees.")
+        anim_print("The trees are tall enough to where you can touch the tips of them if you reach out.")
+        anim_print("You can't see the ground, and assume that it's a long way down.")
+        anim_print("It's best to avoid looking over the edge for too long. You don't want to fall.")
+        time.sleep(.5)
+        anim_print("You back up a bit and continue to look around.")
+        anim_print("You look back at the room you just left and notice that the outside of the door has something written on it.")
+        anim_print("You can't tell what language it is.")
+        time.sleep(.5)
+        anim_print("You start to look around again...")
+        anim_print("But not long after escaping your prison, the distant squeaks that you heard from inside the room quickly grow louder.")
         anim_print("In the distance, you see a large figure.")
         anim_print("The closer it gets, the more you can make out what it is.")
         anim_print("It's a huge, mutated rat!")
@@ -379,7 +387,7 @@ def opening_scene():
             attack = 0
             csv_writer = csv.writer(file)
             csv_writer.writerow([new_item, attack])
-        anim_print("Would you like to access your inventory before you continue your journey?")
+        anim_print("Would you like to view your inventory before you continue your journey?")
         inventory = True
         while inventory:
             print()
@@ -398,6 +406,37 @@ def opening_scene():
                 time.sleep(1)
         anim_print("")
 
+
+        seen_towns = set()
+        all_choices = {"market", "school", "hospital", "playground", "pond"}
+        explore = True
+        while explore:
+            to_explore = anim_input("You decide to eplore the market, school, hospital, playground, or pond: ").lower()
+            if to_explore in seen_towns:
+                anim_print("You already looked there. Look somewhere else.")
+            else:
+                seen_towns.add(to_explore)
+                if to_explore == "market":
+                    explore = True
+                    anim_print("")
+                if to_explore == "school":
+                    explore = True
+                    anim_print("")
+                if to_explore == "hospital":
+                    explore = True
+                    anim_print("")
+                if to_explore == "playground":
+                    explore = True
+                    anim_print("")
+                if to_explore == "pond":
+                    explore = True
+                    anim_print("")
+            if seen_towns == all_choices:
+                looking = False
+        anim_print("")
+
+
+        anim_print("")
         # Explore the nearby town and its abandoned buildings.
         # Town name: Seona
             # produce market
