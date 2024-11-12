@@ -23,7 +23,7 @@ def anim_input(prompt):
 def easy_fight(strength):
         sound.set_volume(3)
         sound.play(loops=-1)
-        anim_print("You've been ambushed by a low-level enemy!")
+        anim_print("You've been ambushed by a mutated rat!")
         anim_print("The rules are simple.")
         anim_print("Try not to get hit.")
         anim_print("Right after the enemy attacks, you have a window of opportunity to fight back.")
@@ -42,21 +42,21 @@ def easy_fight(strength):
         enemy_health = float(15)
         new_health = health - enemy_attack
         # access inventory
-        anim_print("The enemy in front of you boasts sharp teeth!")
-        anim_print("The enemy moves slowly but still manages to hit you!")
+        anim_print("The grotesque rat in front of you boasts its sharp teeth!")
+        anim_print("The rat moves slowly but still manages to hit you!")
         monster_attack.play()
         health -= enemy_attack
         anim_print(f"Your health decreases by {enemy_attack}!")
         anim_print(f"Your health dropped to {new_health}!")
         anim_print("Now is your chance!")
-        anim_print("Show that monster what you got before it gets a chance to attack again!")
+        anim_print("Show that rat what you got before it gets a chance to attack again!")
         while enemy_health > 0:
             attack_or_dodge = input("Type A to 'attack' or D to 'dodge': ")
             attack_or_dodge = attack_or_dodge.capitalize()
             if attack_or_dodge == "A":
                 hero_attack.play()
                 enemy_health -= strength
-                anim_print(f"The monster's health is now {enemy_health}!")
+                anim_print(f"The rat's health is now {enemy_health}!")
                 if enemy_health <= 0:
                     anim_print("YOU WIN!")
                     win_sound.set_volume(2)              
@@ -72,17 +72,18 @@ def easy_fight(strength):
                     time.sleep(2)
                     anim_print("Resetting...")
                     break
-                anim_print("The monster attacks you.")
+                anim_print("The rat lunges at you!")
                 monster_attack.play()
                 new_health -= enemy_attack
-                anim_print(f"Your health is {new_health}")
+                anim_print(f"Your health is {new_health}!")
             elif attack_or_dodge == "D":
-                anim_print("You successfully dodged the monster's attack!")
+                anim_print("The rat lunges at you with the intention to kill!")
+                anim_print("But you successfully dodged the rat's attack!")
                 anim_print("Be careful! Next time you might not be so lucky!")
-                anim_print("You're are able to attack while the monster picks itself up off the ground!")
+                anim_print("The rat falls to the ground after missing, and you're are able to attack while the rat picks itself up off the ground!")
                 hero_attack.play()
                 enemy_health -= strength
-                anim_print(f"The monster's health is now {enemy_health}!")
+                anim_print(f"The rat's health is now {enemy_health}!")
                 if enemy_health <= 0:
                     sound.stop()
                     anim_print("YOU WIN!")
