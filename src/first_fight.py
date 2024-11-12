@@ -31,6 +31,7 @@ def easy_fight(strength):
         anim_print("Be strategic about this, because sometimes, the enemy can be smarter than it looks.")
         anim_print("You shouldn't have any issues with this particular enemy though.")
         anim_print("Feel free to take your time.")
+        anim_print("There is no consiquence for waiting to long.")
         anim_print("You won't need an inventory for this fight either.")
         anim_print("Unfortunately, since this is your first fight, you're nervous.")
         anim_print("So, you're attacks aren't as strong.")
@@ -105,7 +106,7 @@ def easy_fight(strength):
                 new_health -= strength
                 monster_attack.play()
                 anim_print("You've been hit! What are you doing?")
-                anim_print(f"Your health: {new_health}!")
+                anim_print(f"Your health is {new_health}!")
             if new_health <= 0:
                 enemy_health = True
                 print("You died...")
@@ -115,7 +116,6 @@ def easy_fight(strength):
                 anim_print("Overriding program...")
                 time.sleep(2)
                 anim_print("Resetting...")
-                break
             if enemy_health <= 0:
                 sound.stop()
                 anim_print("YOU WIN!")
