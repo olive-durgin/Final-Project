@@ -26,7 +26,14 @@ def opening_scene():
     anim_print("Running interactive program...", delay=0.135)
     time.sleep(1.5)
     filename = "project_inventory.csv"
-    username = anim_input("Input a name: ").capitalize()
+    wrong_username = True
+    while wrong_username:
+        username = anim_input("Input a name: ").capitalize()
+        if username == "Ana" or username == "Louis":
+            wrong_username = True
+            anim_print("That name is in use.")
+        else:
+            wrong_username = False
     adjective_01 = anim_input("Adjective 01: ")
     adjective_02 = anim_input("Adjective 02: ")
     ability = anim_input("What is a good skill to have? ")
@@ -186,7 +193,6 @@ def opening_scene():
                     anim_print("As your hands are in the wet, mushy pile of leaves, you find a crowbar.")
                     anim_print("It is covered in rust.")
                     anim_print("A rusty crowbar was added to your inventory.")
-                    anim_print("Maybe there is something else here.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "rusty crowbar"
                         attack = 8
@@ -237,7 +243,7 @@ def opening_scene():
                             anim_print("You almost fall due to the floor being slippery.")
                             anim_print("Once higher up, you find that there are thick, metal bars along the window.")
                             anim_print("They have yet to be claimed by rust, so they are unlikely to break.")
-                            anim_print("But the walls themselves are cracking and you might be able to break off some of the bars and escape.")
+                            anim_print("But the walls themselves are cracking and you might be able to break off some of the bars from the wall and escape.")
                             anim_print("You grab one of the slick bars and pull.")
                             time.sleep(1.5)
                             breaking_wall.play()
@@ -254,7 +260,7 @@ def opening_scene():
                             time.sleep(1.5)
                             player_falls.play()
                             trees_rustle.set_volume(0)
-                            anim_print("You fall.",delay=0.25)
+                            anim_print("You fall...",delay=0.25)
                             time.sleep(2)
                             trees_rustle.set_volume(0.125)
                             anim_print("When you open your eyes, you look around.")
@@ -270,6 +276,9 @@ def opening_scene():
                         else:
                             elevated_surface = True
                             anim_print("You don't know if that will work.")
+            if seen_inputs != all_choices:
+                looking = True
+                anim_print("Maybe there's somehting else here.")
             if seen_inputs == all_choices:
                 looking = False
         anim_print("After you've looked around the room, you go back over to the door.")
@@ -354,6 +363,7 @@ def opening_scene():
         trees_rustle.stop()
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
+        time.sleep(1)
         anim_print("You look around and see that you're in an outdoor, concrete hallway of a sort.")
         anim_print("There is a cracked concrete wall that protects anyone from falling over the edge.")
         anim_print("And after you walk over and look over the edge, you see nothing but the tops of trees.")
@@ -369,6 +379,7 @@ def opening_scene():
         anim_print("But not long after escaping your prison, the distant squeaks that you heard from inside the room quickly grow louder.")
         anim_print("In the distance, you see a large figure.")
         anim_print("The closer it gets, the more you can make out what it is.")
+        anim_print("Those squeaks weren't from mice!")
         anim_print("It's a huge, mutated rat!")
         anim_print("Surprised, you are unable to avoid it!")
         anim_print("It must have been attracted by the smell of your blood!")
@@ -435,7 +446,7 @@ def opening_scene():
                 anim_print("You think to yourself 'Maybe I can unlock this after the game is completed...'")
                 anim_print("Whatever that means...")
                 time.sleep(.5)
-            if door == "right":
+            elif door == "right":
                 choose_door = False
                 anim_print("")
             else:
@@ -443,6 +454,8 @@ def opening_scene():
                 anim_print("What?")
                 time.sleep(.5)
 
+
+        # go to abandoned towns.
         seen_towns = set()
         all_choices = {"market", "school", "hospital", "playground", "pond"}
         explore = True
