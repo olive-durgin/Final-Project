@@ -192,7 +192,7 @@ def opening_scene():
                         attack = 8
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-                if to_look == "table":
+                elif to_look == "table":
                     looking = True
                     anim_print("You walk back over to the table you woke up next to.")
                     anim_print("When you crouch down, to look under the table.")
@@ -215,7 +215,7 @@ def opening_scene():
                         attack = 3
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-                if to_look == "wall":
+                elif to_look == "wall":
                     looking = True
                     anim_print("You go towards the wall where the light from the outside world is shining through.")
                     trees_rustle.set_volume(0.225)
@@ -229,7 +229,7 @@ def opening_scene():
                     anim_print("Maybe there is something in the room that you can use to reach the window.")
                     elevated_surface = True
                     while elevated_surface:
-                        grab_item = anim_input("You have an idea and you grab the ").lower()
+                        grab_item = anim_input("You have an idea and you grab the... ").lower()
                         if grab_item == "chair":
                             elevated_surface = False
                             anim_print("You grab the chair and set it on the floor underneath where the window is.")
@@ -376,6 +376,8 @@ def opening_scene():
         city_rain.stop()
         import first_fight
         first_fight
+        city_rain.play(loops=-1)
+        city_rain.set_volume(.5)
         anim_print("You were able to defend yourself from the rat, and it drops dead.")
         anim_print("You are able to retrieve clean bandages from it.")
         time.sleep(2)
@@ -404,8 +406,42 @@ def opening_scene():
                 inventory = False
                 anim_print("Verywell then...")
                 time.sleep(1)
-        anim_print("")
+        anim_print("Your arm still aches after the attack and you decide to use the bandage that you just got from the rat.")
+        item_to_remove = "clean bandages"
+        with open(filename, 'r') as collected_items:
+            reader = csv.reader(collected_items)
+            items = list(reader)
+            items = [row for row in items if row[0].capitalize() != item_to_remove]
 
+        with open(filename, 'w', newline='') as collected_items:
+            writer = csv.writer(collected_items)
+            writer.writerows(items)
+        anim_print("The bandage was removed from your inventory.")
+        anim_print("It's best if you get out of this area.")
+        anim_print("You make your way down the hallway of the building you just came from.")
+        anim_print("The smell of rain overwhelms your senses.")
+        anim_print("You hope that you'll get used to it soon.")
+        anim_print("As you reach the end of the hallway, you see two sepparate metal doors.")
+        anim_print("The left door looks like it leads to the rest of the complex.")
+        anim_print("The right door might lead to the stairs.")
+        anim_print("Which one do you choose?")
+        choose_door = True
+        while choose_door:
+            door = anim_input("Left or right?: ").lower()
+            if door == "left":
+                choose_door = True
+                anim_print("You reach your hand out to open the door on the left...")
+                anim_print("But its locked...")
+                anim_print("You think to yourself 'Maybe I can unlock this after the game is completed...'")
+                anim_print("Whatever that means...")
+                time.sleep(.5)
+            if door == "right":
+                choose_door = False
+                anim_print("")
+            else:
+                choose_door = True
+                anim_print("What?")
+                time.sleep(.5)
 
         seen_towns = set()
         all_choices = {"market", "school", "hospital", "playground", "pond"}
@@ -418,12 +454,15 @@ def opening_scene():
                 seen_towns.add(to_explore)
                 if to_explore == "market":
                     explore = True
+                    city_rain.stop()
                     anim_print("")
                 if to_explore == "school":
                     explore = True
+                    city_rain.stop()
                     anim_print("")
                 if to_explore == "hospital":
                     explore = True
+                    city_rain.stop()
                     anim_print("")
                 if to_explore == "playground":
                     explore = True
