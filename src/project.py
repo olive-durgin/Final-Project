@@ -156,6 +156,7 @@ def opening_scene():
                 time.sleep(.10)
                 anim_print("There is a door...")
                 anim_print("Maybe you'll be able to leave. And hopefully find a way home.")
+                anim_print("Maybe by time you leave, you'll remember where home is.")
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
                 anim_print("You slip your fingers into the crack between the wall and the door...")
@@ -183,6 +184,7 @@ def opening_scene():
         while looking:
             to_look = anim_input("You look at the leaves, table, or wall: ").lower()
             if to_look in seen_inputs:
+                looking = True
                 anim_print("You already looked there. Look somewhere else.")
             else:
                 seen_inputs.add(to_look)
@@ -198,6 +200,8 @@ def opening_scene():
                         attack = 8
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
+                    if seen_inputs == all_choices:
+                        anim_print("Maybe there's something else here.")
                 elif to_look == "table":
                     looking = True
                     anim_print("You walk back over to the table you woke up next to.")
@@ -221,6 +225,8 @@ def opening_scene():
                         attack = 3
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
+                    if seen_inputs == all_choices:
+                        anim_print("Maybe there's something else here.")
                 elif to_look == "wall":
                     looking = True
                     anim_print("You go towards the wall where the light from the outside world is shining through.")
@@ -235,7 +241,7 @@ def opening_scene():
                     anim_print("Maybe there is something in the room that you can use to reach the window.")
                     elevated_surface = True
                     while elevated_surface:
-                        grab_item = anim_input("You have an idea and you grab the... ").lower()
+                        grab_item = anim_input("You have an idea to grab something to stand on, and you grab the... ").lower()
                         if grab_item == "chair":
                             elevated_surface = False
                             anim_print("You grab the chair and set it on the floor underneath where the window is.")
@@ -273,14 +279,14 @@ def opening_scene():
                                 attack = 12
                                 csv_writer = csv.writer(file)
                                 csv_writer.writerow([new_item, attack])
+                            if seen_inputs == all_choices:
+                                anim_print("Maybe there's something else here.")
                         else:
                             elevated_surface = True
                             anim_print("You don't know if that will work.")
-            if seen_inputs != all_choices:
-                looking = True
-                anim_print("Maybe there's somehting else here.")
             if seen_inputs == all_choices:
                 looking = False
+                break
         anim_print("After you've looked around the room, you go back over to the door.")
         anim_print("You've found some things that could help you open the door.")
         anim_print("To view your inventory, press E. You can only view your inventory when prompted.")
@@ -321,7 +327,7 @@ def opening_scene():
                             writer.writerows(items)
                     else:
                         nonexistent_item = True
-                        print(f"{item_to_remove} is not in your inventory.")
+                        anim_print(f"{item_to_remove} is not in your inventory.")
                         print()
                 if item_to_remove == "Rusty crowbar".capitalize():
                     opening_door = True
@@ -331,7 +337,7 @@ def opening_scene():
                 elif item_to_remove == "thick, metal bar".capitalize():
                     opening_door = False
                     anim_print("You try to use the thick, metal bar to pry open the door.")
-                    anim_print("And despite your limited strength, the bar was strong enough to open the door without it breaking.")
+                    anim_print("And despite your limited strength, the bar was strong enough to pry open the door just enough for you to slip through without the bar breaking.")
                     anim_print("Unfortunately the bar is bent.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "bent, metal bar"
@@ -383,6 +389,7 @@ def opening_scene():
         anim_print("It's a huge, mutated rat!")
         anim_print("Surprised, you are unable to avoid it!")
         anim_print("It must have been attracted by the smell of your blood!")
+        time.sleep(1)
         anim_print("Loading...", delay=0.135)
         city_rain.stop()
         import first_fight
@@ -453,7 +460,6 @@ def opening_scene():
                 choose_door = True
                 anim_print("What?")
                 time.sleep(.5)
-
 
         # go to abandoned towns.
         seen_towns = set()
