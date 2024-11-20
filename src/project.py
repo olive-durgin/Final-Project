@@ -583,5 +583,6 @@ def opening_scene():
         anim_print("Loading...", delay=0.135)
         print()
 
+
 if __name__ == "__main__":
     opening_scene()
