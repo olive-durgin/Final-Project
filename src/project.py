@@ -26,6 +26,8 @@ def opening_scene():
     anim_print("Running interactive program...", delay=0.135)
     time.sleep(1.5)
     filename = "project_inventory.csv"
+    statistics = "stats.csv"
+
     wrong_username = True
     while wrong_username:
         username = anim_input("Input a name: ").capitalize()
@@ -50,6 +52,37 @@ def opening_scene():
                 time.sleep(0.75)
         except ValueError:
             anim_print("Do you call that a number...?")
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your name"
+        you = username
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, you])
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your description"
+        description = adjective_01, adjective_02
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, description])
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your ability"
+        player_ability = ability
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, player_ability])
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your weakness"
+        player_weakness = weakness
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, player_weakness])
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your attack"
+        kill_power = attack
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, kill_power])
+    with open(statistics, 'a', newline='') as file:
+        new_stat = "your health"
+        life = 100
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_stat, life])
+
     anim_print("Loading...", delay=0.135)
     time.sleep(1.5)
     print()
@@ -96,20 +129,19 @@ def opening_scene():
     anim_print(f"Weakness: {weakness.capitalize()}")
     time.sleep(2)
     print()
-    correct_choice = True
     correct_choice = False
     while not correct_choice:
             anim_print("Who are you?")
             character_choice = anim_input("Choose wisely: ").capitalize()
-            if character_choice == "Ana":
+            if character_choice == character_choice == username.capitalize() or character_choice == username.lower():
                 correct_choice = True
-            elif character_choice == "Louis" or character_choice == username.capitalize() or character_choice == username.lower():
+            elif character_choice == "Louis" or "Ana":
                 correct_choice = False
                 anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
             else:
                 anim_print("This is not what I asked for.")
 
-    if character_choice == "Ana":
+    if character_choice == username:
         health = 100
         attack = 6
         ana_special_ability = "observation"
@@ -124,7 +156,7 @@ def opening_scene():
         time.sleep(2)
         print()
         trees_rustle.play(loops=-1)
-        trees_rustle.set_volume(0.075)
+        trees_rustle.set_volume(0.125)
         anim_print("You open your tired eyes and look around the room.")
         anim_print("The room you're in resembles a huge metal box, but time and nature started eating away at it.")
         anim_print("Now, the large bolts that kept the room in one piece are starting to rust.")
@@ -157,6 +189,7 @@ def opening_scene():
                 anim_print("There is a door...")
                 anim_print("Maybe you'll be able to leave. And hopefully find a way home.")
                 anim_print("Maybe by time you leave, you'll remember where home is.")
+                time.sleep(1)
                 anim_print("Your legs feel numb as you stand, and you stumble your way towards the door.")
                 anim_print("Once closer, you find that the door is cracked open slightly.")
                 anim_print("You slip your fingers into the crack between the wall and the door...")
@@ -323,7 +356,6 @@ def opening_scene():
                         items = [row for row in items if row[0].capitalize() != item_to_remove]
                         with open(filename, 'w', newline='') as collected_items:
                             writer = csv.writer(collected_items)
-                            writer = csv.writer(collected_items)
                             writer.writerows(items)
                     else:
                         nonexistent_item = True
@@ -339,6 +371,7 @@ def opening_scene():
                     anim_print("You try to use the thick, metal bar to pry open the door.")
                     anim_print("And despite your limited strength, the bar was strong enough to pry open the door just enough for you to slip through without the bar breaking.")
                     anim_print("Unfortunately the bar is bent.")
+                    time.sleep(1)
                     with open(filename, 'a', newline='') as file:
                         new_item = "bent, metal bar"
                         attack = 9
@@ -365,7 +398,7 @@ def opening_scene():
         anim_print("Concrete was not something you were expecting to find under your feet.")
         anim_print("You were expecting the welcoming dirt of the earth.")
         anim_print("But as you look around, you find that you're nowhere near the ground.")
-        anim_print("And it starting to rain.")
+        anim_print("And it's starting to rain.")
         trees_rustle.stop()
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
@@ -390,8 +423,8 @@ def opening_scene():
         anim_print("Surprised, you are unable to avoid it!")
         anim_print("It must have been attracted by the smell of your blood!")
         time.sleep(1)
-        anim_print("Loading...", delay=0.135)
         city_rain.stop()
+        anim_print("Loading...", delay=0.135)
         import first_fight
         first_fight
         city_rain.play(loops=-1)
@@ -407,6 +440,9 @@ def opening_scene():
             attack = 0
             csv_writer = csv.writer(file)
             csv_writer.writerow([new_item, attack])
+        anim_print("Congradulations on your first victory!")
+        anim_print("You can now view your statistics when you view your inventory.")
+        anim_print("To keep things simple, it will still be refered to as 'inventory'.")
         anim_print("Would you like to view your inventory before you continue your journey?")
         inventory = True
         while inventory:
@@ -415,16 +451,28 @@ def opening_scene():
             print()
             if view_inventory == "E":
                 inventory = True
+                with open(statistics, 'r') as file:
+                    anim_print("YOUR STATISTICS")
+                    time.sleep(1)
+                    choice = csv.reader(file)
+                    for row in choice:
+                        new_stat, kill_power = row
+                        print(f"{new_stat.title()}: {kill_power}")
+                        time.sleep(2)
+                        print()
                 with open(filename, 'r') as collected_items:
+                    anim_print("YOUR INVENTORY")
                     choice = csv.reader(collected_items)
                     for row in choice:
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
+                        time.sleep(1)
             else:
                 inventory = False
                 anim_print("Verywell then...")
                 time.sleep(1)
         anim_print("Your arm still aches after the attack and you decide to use the bandage that you just got from the rat.")
+        time.sleep(1)
         item_to_remove = "clean bandages"
         with open(filename, 'r') as collected_items:
             reader = csv.reader(collected_items)
@@ -435,6 +483,7 @@ def opening_scene():
             writer = csv.writer(collected_items)
             writer.writerows(items)
         anim_print("The bandage was removed from your inventory.")
+        time.sleep(1)
         anim_print("It's best if you get out of this area.")
         anim_print("You make your way down the hallway of the building you just came from.")
         anim_print("The smell of rain overwhelms your senses.")
@@ -452,22 +501,24 @@ def opening_scene():
                 anim_print("But its locked...")
                 anim_print("You think to yourself 'Maybe I can unlock this after the game is completed...'")
                 anim_print("Whatever that means...")
-                time.sleep(.5)
+                time.sleep(1)
             elif door == "right":
                 choose_door = False
                 anim_print("")
             else:
                 choose_door = True
-                anim_print("What?")
+                anim_print("What?", delay=0.1)
                 time.sleep(.5)
 
         # go to abandoned towns.
+        # you find a map of the whole area.
         seen_towns = set()
         all_choices = {"market", "school", "hospital", "playground", "pond"}
         explore = True
         while explore:
-            to_explore = anim_input("You decide to eplore the market, school, hospital, playground, or pond: ").lower()
+            to_explore = anim_input("You decide to explore the market, school, hospital, playground, or pond: ").lower()
             if to_explore in seen_towns:
+                looking = True
                 anim_print("You already looked there. Look somewhere else.")
             else:
                 seen_towns.add(to_explore)
@@ -475,22 +526,22 @@ def opening_scene():
                     explore = True
                     city_rain.stop()
                     anim_print("")
-                if to_explore == "school":
+                elif to_explore == "school":
                     explore = True
                     city_rain.stop()
                     anim_print("")
-                if to_explore == "hospital":
+                elif to_explore == "hospital":
                     explore = True
                     city_rain.stop()
                     anim_print("")
-                if to_explore == "playground":
+                elif to_explore == "playground":
                     explore = True
                     anim_print("")
-                if to_explore == "pond":
+                elif to_explore == "pond":
                     explore = True
                     anim_print("")
             if seen_towns == all_choices:
-                looking = False
+                break
         anim_print("")
 
 
@@ -503,6 +554,9 @@ def opening_scene():
             # playground
             # murky pond
         # Final fight is spider queen.
+        # To clear ALL of the contents of a CSV file at once, type the following...
+        # "with open('FILENAME.csv', 'w', newline='') as file:
+        # pass"
 
     if character_choice == "Louis":
         health = 100
@@ -517,7 +571,7 @@ def opening_scene():
         print()
         # Louis finds himself in the middle of the woods at night.
 
-    if character_choice == username:
+    if character_choice == "Ana":
         health = 100
         player_attack = attack
         ana_special_ability = "observation"
