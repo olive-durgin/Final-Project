@@ -2,6 +2,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, time, csv, project
 pygame.init()
+
 sound = pygame.mixer.Sound(r'sounds\easy_fight.mp3')
 win_sound = pygame.mixer.Sound(r'sounds\winner.mp3')
 lose_sound = pygame.mixer.Sound(r'sounds\death.mp3')
@@ -147,5 +148,5 @@ def easy_fight():
     sound.stop()
     anim_print("Loading...", delay=0.135)
     time.sleep(3)
-    
+
 easy_fight()
