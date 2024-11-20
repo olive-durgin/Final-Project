@@ -143,8 +143,6 @@ def easy_fight():
     with open('stats.csv', 'w', newline="") as file:
         writer = csv.writer(file)
         writer.writerows(data)
-
-    anim_print(f"Your final health is {new_health}")
     time.sleep(2)
     sound.stop()
     anim_print("Loading...", delay=0.135)
