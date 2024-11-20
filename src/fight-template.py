@@ -147,4 +147,5 @@ def easy_fight():
     sound.stop()
     anim_print("Loading...", delay=0.135)
     time.sleep(3)
+    
 easy_fight()
