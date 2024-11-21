@@ -343,7 +343,7 @@ def random_enemy():
                     break
             elif attack_or_dodge == "R":
                 chance = random.randint(1, 100)
-                if chance >= 10:
+                if chance >= 25:
                     game_is_running = True
                     anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
                     time.sleep(2)
@@ -378,7 +378,7 @@ def random_enemy():
                             new_health = 100
                             game_is_running = True
                             break
-                elif chance > 10:
+                else:
                     anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
                     time.sleep(2)
                     anim_print(f"And you feel as if you're light as air as you run!")
@@ -390,7 +390,7 @@ def random_enemy():
                     win_sound.play()
                     anim_print("You successfully ran away!")
                     time.sleep(3)
-                    attack_or_dodge = False
+                    game_is_running = False
                     break
             else:
                 monster_attack.play()
