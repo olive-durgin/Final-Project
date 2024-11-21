@@ -257,7 +257,7 @@ def random_enemy():
     while game_is_running:
         while enemy_health > 0:
             # add inventory option
-            attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, or 'R' to run away: ").capitalize()
+            attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access you inventory: ").capitalize()
             chance = random.choice([True, False])
             if attack_or_dodge == "A":
                 if chance == True:
@@ -392,6 +392,8 @@ def random_enemy():
                     time.sleep(3)
                     game_is_running = False
                     break
+            elif attack_or_dodge == "E":
+                print()
             else:
                 monster_attack.play()
                 anim_print("You've been hit! What are you doing?")
