@@ -272,7 +272,7 @@ def random_enemy():
     game_is_running = True
     while game_is_running:
         while enemy_health > 0:
-            attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access you inventory: ").capitalize()
+            attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access your inventory: ").capitalize()
             if attack_or_dodge == "E" and last_input == "E":
                 anim_print("You entered the same input. Please try again.")
             else:
@@ -284,10 +284,26 @@ def random_enemy():
                         anim_print("You go in to defend yourself against your attacker by striking a blow...")
                         time.sleep(2)
                         anim_print("But you lose your balance and you miss...")
-                        monster_attack.play()
-                        anim_print(f"{enemies[idx]} turns around and {enemy_desc} at you! {attack_type}")
-                        new_health -= enemy_attack
-                        anim_print(f"Your health is now {new_health}")
+                        if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
+                            monster_attack.play()
+                            anim_print(f"{enemies[idx]} turns around and {enemy_desc} at you! {attack_type}")
+                            new_health -= enemy_attack
+                            anim_print(f"Your health is now {new_health}")
+                        else:
+                            enemy_attack_chance = random.choice([True,False])
+                            if enemy_attack_chance == True:
+                                game_is_running = True
+                                anim_print(f"{enemies[idx]} goes in for the attack.")
+                                time.sleep(2)
+                                anim_print(f"But {enemies[idx]} misses!")
+                                anim_print("You got lucky.")
+                            elif enemy_attack_chance == False:
+                                game_is_running = True
+                                anim_print(f"{enemies[idx]} goes in for the attack.")
+                                time.sleep(2)
+                                anim_print(f"And {enemies[idx]} hits you!")
+                                new_health -= enemy_attack
+                                anim_print(f"Your health is now {new_health}!")
                     if chance == False:
                         game_is_running = True
                         anim_print("You go in to defend yourself against your attacker by striking a blow...")
@@ -331,17 +347,37 @@ def random_enemy():
                             break
                 elif attack_or_dodge == "D":
                     if chance == True:
-                        game_is_running = True
-                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
-                        time.sleep(2)
-                        anim_print("But you trip and fall.")
-                        time.sleep(1)
-                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
-                        monster_attack.play()
-                        anim_print("The attack hurts more than you think it should.")
-                        new_health -= (enemy_attack * 1.5)
-                        anim_print("The attack was 1.5 times stronger.")
-                        anim_print(f"Your health is now {new_health}")
+                        if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
+                            game_is_running = True
+                            anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
+                            time.sleep(2)
+                            anim_print("But you trip and fall.")
+                            time.sleep(1)
+                            anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
+                            monster_attack.play()
+                            anim_print("The attack hurts more than you think it should.")
+                            new_health -= (enemy_attack * 1.5)
+                            anim_print("The attack was 1.5 times stronger.")
+                            anim_print(f"Your health is now {new_health}")
+                        else:
+                            enemy_attack_chance = random.choice([True,False])
+                            if enemy_attack_chance == True:
+                                game_is_running = True
+                                anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
+                                time.sleep(2)
+                                anim_print("But you trip and fall.")
+                                time.sleep(2)
+                                anim_print(f"Luckily for you, {enemies[idx]} misses!")
+                                anim_print("You got lucky.")
+                            elif enemy_attack_chance == False:
+                                game_is_running = True
+                                anim_print(f"{the_or_no}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
+                                time.sleep(2)
+                                anim_print("But you trip and fall.")
+                                time.sleep(2)
+                                anim_print(f"And {enemies[idx]} hits you!")
+                                new_health -= enemy_attack
+                                anim_print(f"Your health is now {new_health}!")
                     if chance == False:
                         game_is_running = True
                         anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
@@ -362,16 +398,43 @@ def random_enemy():
                         break
                 elif attack_or_dodge == "R":
                     chance = random.randint(1, 100)
-                    if chance >= 25:
-                        game_is_running = True
-                        anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
-                        time.sleep(2)
-                        anim_print("But you trip and fall.")
-                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
-                        anim_print("The attack hurts more than you think it should.")
-                        anim_print("The attack was 2 times stronger.")
-                        new_health -= (enemy_attack * 2)
-                        anim_print(f"Your health is now {new_health}")
+                    if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
+                        if chance >= 25:
+                            game_is_running = True
+                            anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                            time.sleep(2)
+                            anim_print("But you trip and fall.")
+                            anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
+                            anim_print("The attack hurts more than you think it should.")
+                            anim_print("The attack was 2 times stronger.")
+                            new_health -= (enemy_attack * 2)
+                            anim_print(f"Your health is now {new_health}")
+                        else:
+                            enemy_attack_chance = random.choice([True,False])
+                            if enemy_attack_chance == True:
+                                game_is_running = True
+                                anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                                time.sleep(2)
+                                anim_print("But you trip and fall.")
+                                time.sleep(2)
+                                anim_print(f"{the_or_no.capitalize()}{enemies[idx]} tries to strike you while you're down.")
+                                time.sleep(2)
+                                anim_print(f"But {enemies[idx]} misses!")
+                                anim_print("You quickly get up to avoid another attack!")
+                                anim_print("You got lucky.")
+                            elif enemy_attack_chance == False:
+                                game_is_running = True
+                                anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                                time.sleep(2)
+                                anim_print("But you trip and fall.")
+                                time.sleep(2)
+                                anim_print(f"{the_or_no.capitalize()}{enemies[idx]} tries to strike you while you're down.")
+                                time.sleep(2)
+                                anim_print(f"And {enemies[idx]} succeeds!")
+                                anim_print("The attack hurts more than you think it should.")
+                                anim_print("The attack was 2 times stronger.")
+                                new_health -= (enemy_attack * 2)
+                                anim_print(f"Your health is now {new_health}")
                         if new_health < 10:
                             if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                                 sound.stop()
