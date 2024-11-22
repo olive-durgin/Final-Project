@@ -7,6 +7,8 @@ win_sound = pygame.mixer.Sound(r'sounds\winner.mp3')
 lose_sound = pygame.mixer.Sound(r'sounds\death.mp3')
 hero_attack = pygame.mixer.Sound(r'sounds\hero_attack.mp3')
 monster_attack = pygame.mixer.Sound(r'sounds\monster_bite.mp3')
+filename = "project_inventory.csv"
+statistics = "stats.csv"
 
 def anim_print(UI_text, delay=0.052):
     for character in UI_text:
@@ -228,8 +230,8 @@ def random_enemy():
     
     # anim_print("This is something you haven't seen before!")
     
-    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} in front of you prepares to attack!")
-    anim_print("You've been hit!")
+    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} prepares to attack!")
+    anim_print("Since you weren't expecting the attack, you've been hit!")
     monster_attack.play()
     new_health -= enemy_attack
     anim_print(f"Your health decreases by {enemy_attack}!")
@@ -244,6 +246,7 @@ def random_enemy():
     time.sleep(1)
     anim_print("They might.")
     time.sleep(1)
+    anim_print("Remember...")
     anim_print(f"Your attack is {strength:.0f}.")
     anim_print(f"Your health is {new_health:.0f}!")
     anim_print("Get ready!")
@@ -253,107 +256,54 @@ def random_enemy():
     new_health -= enemy_attack
     anim_print(f"Your health decreases by {enemy_attack} and your health is now {new_health}!")
 
+    data = []
+    with open('stats.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            new_stat, life = row
+            data.append(row)
+            if row[0] == "your health":
+                row[1] = str(new_health)
+    with open('stats.csv', 'w', newline="") as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
+
+    last_input = None
     game_is_running = True
     while game_is_running:
         while enemy_health > 0:
-            # add inventory option
             attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access you inventory: ").capitalize()
-            chance = random.choice([True, False])
-            if attack_or_dodge == "A":
-                if chance == True:
-                    game_is_running = True
-                    anim_print("You go in to defend yourself against your attacker by striking a blow...")
-                    time.sleep(2)
-                    anim_print("But you lose your balance and you miss...")
-                    monster_attack.play()
-                    anim_print(f"{enemies[idx]} turns around and {enemy_desc} at you! {attack_type}")
-                    new_health -= enemy_attack
-                    anim_print(f"Your health is now {new_health}")
-                if chance == False:
-                    game_is_running = True
-                    anim_print("You go in to defend yourself against your attacker by striking a blow...")
-                    time.sleep(2)
-                    anim_print(f"And you hit {the_or_no}{enemies[idx]} successfully!")
-                    hero_attack.play()
-                    enemy_health -= strength
-                    anim_print(f"{enemies[idx]}'s health is {enemy_health}")
-                if enemy_health <= 0:
-                    game_is_running = False
-                    sound.stop()
-                    win_sound.set_volume(2)
-                    win_sound.play()
-                    anim_print("YOU WIN!")
-                    break
-                if new_health <= 0:
-                    if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
-                        sound.stop()
-                        anim_print(f"{enemies[idx]} feels bad and cries.")
-                        sound.stop()
-                        time.sleep(2)
-                        anim_print("You died...")
-                        time.sleep(4)
-                        anim_print("Overriding program...")
-                        time.sleep(2)
-                        anim_print("Resetting...")
-                        time.sleep(1)
-                        new_health = 100
+            if attack_or_dodge == "E" and last_input == "E":
+                anim_print("You entered the same input. Please try again.")
+            else:
+                last_input = attack_or_dodge
+                chance = random.choice([True, False])
+                if attack_or_dodge == "A":
+                    if chance == True:
                         game_is_running = True
-                        break
-                    else:
-                        sound.stop()
-                        anim_print("You died...")
-                        time.sleep(4)
-                        anim_print("Overriding program...")
+                        anim_print("You go in to defend yourself against your attacker by striking a blow...")
                         time.sleep(2)
-                        anim_print("Resetting...")
-                        time.sleep(1)
-                        new_health = 100
+                        anim_print("But you lose your balance and you miss...")
+                        monster_attack.play()
+                        anim_print(f"{enemies[idx]} turns around and {enemy_desc} at you! {attack_type}")
+                        new_health -= enemy_attack
+                        anim_print(f"Your health is now {new_health}")
+                    if chance == False:
                         game_is_running = True
+                        anim_print("You go in to defend yourself against your attacker by striking a blow...")
+                        time.sleep(2)
+                        anim_print(f"And you hit {the_or_no}{enemies[idx]} successfully!")
+                        hero_attack.play()
+                        enemy_health -= strength
+                        anim_print(f"{enemies[idx]}'s health is {enemy_health}")
+                    if enemy_health <= 0:
+                        game_is_running = False
+                        sound.stop()
+                        win_sound.set_volume(2)
+                        win_sound.play()
+                        anim_print("YOU WIN!")
                         break
-            elif attack_or_dodge == "D":
-                if chance == True:
-                    game_is_running = True
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
-                    time.sleep(2)
-                    anim_print("But you trip and fall.")
-                    time.sleep(1)
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
-                    monster_attack.play()
-                    anim_print("The attack hurts more than you think it should.")
-                    new_health -= (enemy_attack * 1.5)
-                    anim_print("The attack was 1.5 times stronger.")
-                    anim_print(f"Your health is now {new_health}")
-                if chance == False:
-                    game_is_running = True
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
-                    time.sleep(2)
-                    anim_print(f"But you successfully dodged {the_or_no}{enemies[idx]}'s attack!")
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} falls to the ground after missing," +
-                                f" and you're are able to attack while {the_or_no}{enemies[idx]} picks {herself_himself_itself} up off the ground!")
-                    hero_attack.play()
-                    enemy_health -= strength
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]}'s health is now {enemy_health}!")
-                if enemy_health <= 0:
-                    game_is_running = False
-                    sound.stop()
-                    win_sound.set_volume(2)
-                    win_sound.play()
-                    anim_print("YOU WIN!")
-                    time.sleep(3)
-                    break
-            elif attack_or_dodge == "R":
-                chance = random.randint(1, 100)
-                if chance >= 25:
-                    game_is_running = True
-                    anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
-                    time.sleep(2)
-                    anim_print("But you trip and fall.")
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
-                    anim_print("The attack hurts more than you think it should.")
-                    anim_print("The attack was 2 times stronger.")
-                    new_health -= (enemy_attack * 2)
-                    anim_print(f"Your health is now {new_health}")
-                    if new_health < 10:
+                    if new_health <= 0:
                         if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                             sound.stop()
                             anim_print(f"{enemies[idx]} feels bad and cries.")
@@ -367,6 +317,7 @@ def random_enemy():
                             time.sleep(1)
                             new_health = 100
                             game_is_running = True
+                            break
                         else:
                             sound.stop()
                             anim_print("You died...")
@@ -378,59 +329,198 @@ def random_enemy():
                             new_health = 100
                             game_is_running = True
                             break
-                else:
-                    anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
-                    time.sleep(2)
-                    anim_print(f"And you feel as if you're light as air as you run!")
-                    anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
-                    anim_print("But you think you made it somewhere safe!")
-                    sound.stop()
-                    time.sleep(2)
-                    win_sound.set_volume(2)
-                    win_sound.play()
-                    anim_print("You successfully ran away!")
-                    time.sleep(3)
-                    game_is_running = False
-                    break
-            elif attack_or_dodge == "E":
-                print()
-            else:
-                monster_attack.play()
-                anim_print("You've been hit! What are you doing?")
-                anim_print("I mean...",delay=0.005)
-                anim_print(f"You froze, unable to act and {the_or_no}{enemies[idx]} hits you!")
-                new_health -= (enemy_attack * 2.5)
-                anim_print(f"{the_or_no}{enemies[idx]}'s attack was 2.5 times stronger!")
-                anim_print(f"Your health is {new_health}!")
-                time.sleep(1)
-                if new_health <= 0:
-                    if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
-                        sound.stop()
-                        anim_print(f"{enemies[idx]} feels bad and cries.")
-                        sound.stop()
-                        time.sleep(2)
-                        anim_print("You died...")
-                        time.sleep(4)
-                        anim_print("Overriding program...")
-                        time.sleep(2)
-                        anim_print("Resetting...")
-                        time.sleep(1)
-                        new_health = 100
+                elif attack_or_dodge == "D":
+                    if chance == True:
                         game_is_running = True
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
+                        time.sleep(2)
+                        anim_print("But you trip and fall.")
+                        time.sleep(1)
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
+                        monster_attack.play()
+                        anim_print("The attack hurts more than you think it should.")
+                        new_health -= (enemy_attack * 1.5)
+                        anim_print("The attack was 1.5 times stronger.")
+                        anim_print(f"Your health is now {new_health}")
+                    if chance == False:
+                        game_is_running = True
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
+                        time.sleep(2)
+                        anim_print(f"But you successfully dodged {the_or_no}{enemies[idx]}'s attack!")
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} falls to the ground after missing," +
+                                    f" and you're are able to attack while {the_or_no}{enemies[idx]} picks {herself_himself_itself} up off the ground!")
+                        hero_attack.play()
+                        enemy_health -= strength
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]}'s health is now {enemy_health}!")
+                    if enemy_health <= 0:
+                        game_is_running = False
+                        sound.stop()
+                        win_sound.set_volume(2)
+                        win_sound.play()
+                        anim_print("YOU WIN!")
+                        time.sleep(3)
                         break
+                elif attack_or_dodge == "R":
+                    chance = random.randint(1, 100)
+                    if chance >= 25:
+                        game_is_running = True
+                        anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                        time.sleep(2)
+                        anim_print("But you trip and fall.")
+                        anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
+                        anim_print("The attack hurts more than you think it should.")
+                        anim_print("The attack was 2 times stronger.")
+                        new_health -= (enemy_attack * 2)
+                        anim_print(f"Your health is now {new_health}")
+                        if new_health < 10:
+                            if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                                sound.stop()
+                                anim_print(f"{enemies[idx]} feels bad and cries.")
+                                sound.stop()
+                                time.sleep(2)
+                                anim_print("You died...")
+                                time.sleep(4)
+                                anim_print("Overriding program...")
+                                time.sleep(2)
+                                anim_print("Resetting...")
+                                time.sleep(1)
+                                new_health = 100
+                                game_is_running = True
+                            else:
+                                sound.stop()
+                                anim_print("You died...")
+                                time.sleep(4)
+                                anim_print("Overriding program...")
+                                time.sleep(2)
+                                anim_print("Resetting...")
+                                time.sleep(1)
+                                new_health = 100
+                                game_is_running = True
+                                break
                     else:
-                        sound.stop()
-                        anim_print("You died...")
-                        time.sleep(4)
-                        anim_print("Overriding program...")
+                        anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
                         time.sleep(2)
-                        anim_print("Resetting...")
-                        time.sleep(1)
-                        new_health = 100
-                        game_is_running = True
+                        anim_print(f"And you feel as if you're light as air as you run!")
+                        anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
+                        anim_print("But you think you made it somewhere safe!")
+                        sound.stop()
+                        time.sleep(2)
+                        win_sound.set_volume(2)
+                        win_sound.play()
+                        anim_print("You successfully ran away!")
+                        time.sleep(3)
+                        game_is_running = False
                         break
-                elif new_health > 0:
-                    anim_print("Try not to make a mistake next time.")
+                elif attack_or_dodge == "E":
+                    print()
+                    with open(statistics, 'r') as file:
+                        anim_print("YOUR STATISTICS")
+                        time.sleep(1)
+                        choice = csv.reader(file)
+                        for row in choice:
+                            new_stat, kill_power = row
+                            print(f"{new_stat.title()}: {kill_power}")
+                            time.sleep(2)
+                    with open(filename, 'r') as collected_items:
+                        print()
+                        anim_print("YOUR INVENTORY")
+                        choice = csv.reader(collected_items)
+                        for row in choice:
+                            new_item, attack = row
+                            print(f"{new_item.title()}: {attack} damage")
+                            time.sleep(1)
+                    print()
+                    inventory_yes_or_no = True
+                    while inventory_yes_or_no:
+                        anim_print(f"Do you want to use something against {the_or_no}{enemies[idx]}?")
+                        yes_no = anim_input("'Y' for yes or 'N' for no: ").upper()
+                        if yes_no == "Y":
+                            anim_print("Select something to use against your enemy.")
+                            item_as_weapon = True
+                            while item_as_weapon:
+                                item_as_weapon = True
+                                with open('project_inventory.csv', 'r') as collected_items:
+                                    reader = csv.reader(collected_items)
+                                    items = list(reader)
+                                    nonexistent_item = True
+                                    while nonexistent_item:
+                                        item_to_remove = anim_input("Choose an item to use: ").strip().capitalize()
+                                        item_exists = any(row[0].capitalize() == item_to_remove for row in items)
+                                        if item_exists:
+                                            nonexistent_item = False
+                                            for row in items:
+                                                if row[0].capitalize() == item_to_remove.capitalize():
+                                                    item_attack = row[1]
+
+                                                    enemy_health -= float(item_attack)
+                                                    anim_print(f"You successfully attack the enemy with your {item_to_remove.lower()}!")
+                                                    anim_print(f"The enemy's health is now {enemy_health}!")
+                                                    attack_or_dodge = True
+                                                    break
+                                            items = [row for row in items if row[0].capitalize() != item_to_remove]
+                                            with open('project_inventory.csv', 'w', newline='') as collected_items:
+                                                writer = csv.writer(collected_items)
+                                                writer.writerows(items)
+                                        else:
+                                            nonexistent_item = True
+                                            anim_print(f"{item_to_remove} is not in your inventory.")
+                                            print()
+                                break
+                            if enemy_health <= 0:
+                                game_is_running = False
+                                sound.stop()
+                                win_sound.set_volume(2)
+                                win_sound.play()
+                                anim_print("YOU WIN!")
+                                time.sleep(3)
+                                break
+                            break
+                        if yes_no == "N":
+                            anim_print("Very well.")
+                            print()
+                            attack_or_dodge = True
+                            break
+                        else:
+                            anim_print("That's not what I asked.")
+                            time.sleep(1)
+                            attack_or_dodge = True
+                else:
+                    monster_attack.play()
+                    anim_print("You've been hit! What are you doing?")
+                    anim_print("I mean...",delay=0.005)
+                    anim_print(f"You froze, unable to act and {the_or_no}{enemies[idx]} hits you!")
+                    new_health -= (enemy_attack * 2.5)
+                    anim_print(f"{the_or_no}{enemies[idx]}'s attack was 2.5 times stronger!")
+                    anim_print(f"Your health is {new_health}!")
+                    time.sleep(1)
+                    if new_health <= 0:
+                        if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                            sound.stop()
+                            anim_print(f"{enemies[idx]} feels bad and cries.")
+                            sound.stop()
+                            time.sleep(2)
+                            anim_print("You died...")
+                            time.sleep(4)
+                            anim_print("Overriding program...")
+                            time.sleep(2)
+                            anim_print("Resetting...")
+                            time.sleep(1)
+                            new_health = 100
+                            game_is_running = True
+                            break
+                        else:
+                            sound.stop()
+                            anim_print("You died...")
+                            time.sleep(4)
+                            anim_print("Overriding program...")
+                            time.sleep(2)
+                            anim_print("Resetting...")
+                            time.sleep(1)
+                            new_health = 100
+                            game_is_running = True
+                            break
+                    elif new_health > 0:
+                        anim_print("Try not to make a mistake next time.")
 
     data = []
     with open('stats.csv', 'r') as file:
