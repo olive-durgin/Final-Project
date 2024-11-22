@@ -251,11 +251,6 @@ def random_enemy():
     anim_print(f"Your health is {new_health:.0f}!")
     anim_print("Get ready!")
     time.sleep(1)
-    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} prepares to attack!")
-    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} manages to hit you despite your attempt to avoid {her_him_it}!")
-    new_health -= enemy_attack
-    anim_print(f"Your health decreases by {enemy_attack} and your health is now {new_health}!")
-
     data = []
     with open('stats.csv', 'r') as file:
         reader = csv.reader(file)
