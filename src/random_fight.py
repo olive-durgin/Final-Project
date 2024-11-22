@@ -96,8 +96,8 @@ def random_enemy():
         description = "This is the description for the screaming, little freak!"
         attack_type = "(ie. the [enemy]'s teeth sinks its into your skin and you scream.)"
         # appearance scares player and their guard is down. health is lowered and strength is lowered too.
-        strength = float(5)
-        health = float(100)
+        enemy_attack = float(5)
+        enemy_health = float(100)
         enemy_health = float(45)
         enemy_attack = float(20)
         enemy_desc = "runs"
@@ -412,78 +412,87 @@ def random_enemy():
                         game_is_running = False
                         break
                 elif attack_or_dodge == "E":
-                    print()
-                    with open(statistics, 'r') as file:
-                        anim_print("YOUR STATISTICS")
-                        time.sleep(1)
-                        choice = csv.reader(file)
-                        for row in choice:
-                            new_stat, kill_power = row
-                            print(f"{new_stat.title()}: {kill_power}")
-                            time.sleep(2)
+                    inventory_empty = True
                     with open(filename, 'r') as collected_items:
-                        print()
-                        anim_print("YOUR INVENTORY")
                         choice = csv.reader(collected_items)
                         for row in choice:
+                            inventory_empty = False
                             new_item, attack = row
-                            print(f"{new_item.title()}: {attack} damage")
+                    if inventory_empty:
+                        anim_print("There is nothing in your inventory.")
+                    else:
+                        print()
+                        with open(statistics, 'r') as file:
+                            anim_print("YOUR STATISTICS")
                             time.sleep(1)
-                    print()
-                    inventory_yes_or_no = True
-                    while inventory_yes_or_no:
-                        anim_print(f"Do you want to use something against {the_or_no}{enemies[idx]}?")
-                        yes_no = anim_input("'Y' for yes or 'N' for no: ").upper()
-                        if yes_no == "Y":
-                            anim_print("Select something to use against your enemy.")
-                            item_as_weapon = True
-                            while item_as_weapon:
-                                item_as_weapon = True
-                                with open('project_inventory.csv', 'r') as collected_items:
-                                    reader = csv.reader(collected_items)
-                                    items = list(reader)
-                                    nonexistent_item = True
-                                    while nonexistent_item:
-                                        item_to_remove = anim_input("Choose an item to use: ").strip().capitalize()
-                                        item_exists = any(row[0].capitalize() == item_to_remove for row in items)
-                                        if item_exists:
-                                            nonexistent_item = False
-                                            for row in items:
-                                                if row[0].capitalize() == item_to_remove.capitalize():
-                                                    item_attack = row[1]
-
-                                                    enemy_health -= float(item_attack)
-                                                    anim_print(f"You successfully attack the enemy with your {item_to_remove.lower()}!")
-                                                    anim_print(f"The enemy's health is now {enemy_health}!")
-                                                    attack_or_dodge = True
-                                                    break
-                                            items = [row for row in items if row[0].capitalize() != item_to_remove]
-                                            with open('project_inventory.csv', 'w', newline='') as collected_items:
-                                                writer = csv.writer(collected_items)
-                                                writer.writerows(items)
-                                        else:
-                                            nonexistent_item = True
-                                            anim_print(f"{item_to_remove} is not in your inventory.")
-                                            print()
-                                break
-                            if enemy_health <= 0:
-                                game_is_running = False
-                                sound.stop()
-                                win_sound.set_volume(2)
-                                win_sound.play()
-                                anim_print("YOU WIN!")
-                                time.sleep(3)
-                                break
-                            break
-                        if yes_no == "N":
-                            anim_print("Very well.")
+                            choice = csv.reader(file)
+                            for row in choice:
+                                new_stat, kill_power = row
+                                print(f"{new_stat.title()}: {kill_power}")
+                                time.sleep(2)
+                        with open(filename, 'r') as collected_items:
                             print()
-                            attack_or_dodge = True
-                            break
-                        else:
-                            anim_print("That's not what I asked.")
-                            time.sleep(1)
-                            attack_or_dodge = True
+                            anim_print("YOUR INVENTORY")
+                            choice = csv.reader(collected_items)
+                            for row in choice:
+                                new_item, attack = row
+                                print(f"{new_item.title()}: {attack} damage")
+                                time.sleep(1)
+                        print()
+                        inventory_yes_or_no = True
+                        while inventory_yes_or_no:
+                            anim_print(f"Do you want to use something against {the_or_no}{enemies[idx]}?")
+                            yes_no = anim_input("'Y' for yes or 'N' for no: ").upper()
+                            if yes_no == "Y":
+                                anim_print("Select something to use against your enemy.")
+                                item_as_weapon = True
+                                while item_as_weapon:
+                                    item_as_weapon = True
+                                    with open('project_inventory.csv', 'r') as collected_items:
+                                        reader = csv.reader(collected_items)
+                                        items = list(reader)
+                                        nonexistent_item = True
+                                        while nonexistent_item:
+                                            item_to_remove = anim_input("Choose an item to use: ").strip().capitalize()
+                                            item_exists = any(row[0].capitalize() == item_to_remove for row in items)
+                                            if item_exists:
+                                                nonexistent_item = False
+                                                for row in items:
+                                                    if row[0].capitalize() == item_to_remove.capitalize():
+                                                        item_attack = row[1]
+
+                                                        enemy_health -= float(item_attack)
+                                                        anim_print(f"You successfully attack the enemy with your {item_to_remove.lower()}!")
+                                                        anim_print(f"The enemy's health is now {enemy_health}!")
+                                                        attack_or_dodge = True
+                                                        break
+                                                items = [row for row in items if row[0].capitalize() != item_to_remove]
+                                                with open('project_inventory.csv', 'w', newline='') as collected_items:
+                                                    writer = csv.writer(collected_items)
+                                                    writer.writerows(items)
+                                            else:
+                                                nonexistent_item = True
+                                                anim_print(f"{item_to_remove} is not in your inventory.")
+                                                print()
+                                    break
+                                if enemy_health <= 0:
+                                    game_is_running = False
+                                    sound.stop()
+                                    win_sound.set_volume(2)
+                                    win_sound.play()
+                                    anim_print("YOU WIN!")
+                                    time.sleep(3)
+                                    break
+                                break
+                            if yes_no == "N":
+                                anim_print("Very well.")
+                                print()
+                                attack_or_dodge = True
+                                break
+                            else:
+                                anim_print("That's not what I asked.")
+                                time.sleep(1)
+                                attack_or_dodge = True
                 else:
                     monster_attack.play()
                     anim_print("You've been hit! What are you doing?")
