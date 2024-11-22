@@ -31,7 +31,7 @@ def opening_scene():
     wrong_username = True
     while wrong_username:
         username = anim_input("Input a name: ").capitalize()
-        if username == "Ana" or username == "Louis":
+        if username == "Ana" or username == "Syuuran":
             wrong_username = True
             anim_print("That name is in use.")
         else:
@@ -108,9 +108,9 @@ def opening_scene():
     time.sleep(1.5)
     print()
 
-    anim_print("Character: LOUIS")
+    anim_print("Character: SYUURAN")
     time.sleep(1)
-    anim_print("Description: Louis is scared and kinda alone. There's not much else to say.")
+    anim_print("Description: Syuuran is scared and kinda alone. There's not much else to say.")
     time.sleep(1)
     anim_print("Health: 100")
     anim_print("Attack: 4")
@@ -133,12 +133,13 @@ def opening_scene():
     while not correct_choice:
             anim_print("Who are you?")
             character_choice = anim_input("Choose wisely: ").capitalize()
-            if character_choice == character_choice == username.capitalize() or character_choice == username.lower():
+            if character_choice == username.capitalize():
                 correct_choice = True
-            elif character_choice == "Louis" or "Ana":
+            elif character_choice == "Syuuran" or "Ana":
                 correct_choice = False
                 anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
             else:
+                correct_choice = False
                 anim_print("This is not what I asked for.")
 
     if character_choice == username:
@@ -459,7 +460,6 @@ def opening_scene():
                         new_stat, kill_power = row
                         print(f"{new_stat.title()}: {kill_power}")
                         time.sleep(2)
-                        print()
                 with open(filename, 'r') as collected_items:
                     anim_print("YOUR INVENTORY")
                     choice = csv.reader(collected_items)
@@ -540,8 +540,8 @@ def opening_scene():
                 elif to_explore == "pond":
                     explore = True
                     anim_print("")
-            if seen_towns == all_choices:
-                break
+                elif seen_towns == all_choices:
+                    break
         anim_print("")
 
 
@@ -557,19 +557,20 @@ def opening_scene():
         # To clear ALL of the contents of a CSV file at once, type the following...
         # "with open('FILENAME.csv', 'w', newline='') as file:
         # pass"
+        # inventory clears and stats clear when you finish the game so you can play again without having to clear your inventory manually.
 
-    if character_choice == "Louis":
+    if character_choice == "Syuuran":
         health = 100
         attack = 4
-        louis_special_ability = "persuasion"
-        louis_weakness = "mice"
+        syuuran_special_ability = "persuasion"
+        syuuran_weakness = "mice"
         anim_print("Interesting...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         print()
-        # Louis finds himself in the middle of the woods at night.
+        # Syuuran finds himself in the middle of the woods at night.
 
     if character_choice == "Ana":
         health = 100
@@ -582,7 +583,7 @@ def opening_scene():
         time.sleep(2)
         anim_print("Loading...", delay=0.135)
         print()
-
+        # ana finds a knife as her weapon in the story.
 
 if __name__ == "__main__":
     opening_scene()
