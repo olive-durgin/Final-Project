@@ -85,7 +85,7 @@ def random_enemy():
             sound.play(-1)
         description = "[This is the description for the WFEM]!"
         attack_type = "(ie. the [enemy]'s teeth sinks its into your skin and you scream.)"
-        enemy_health = float(30)
+        enemy_health = float(50)
         enemy_attack = float(12)
         enemy_desc = "thrusts"
         a_or_an = " a"
@@ -98,8 +98,6 @@ def random_enemy():
         description = "[This is the description for the screaming, little freak]!"
         attack_type = "(ie. the [enemy]'s teeth sinks its into your skin and you scream.)"
         # appearance scares player and their guard is down. health is lowered and strength is lowered too.
-        enemy_attack = float(5)
-        enemy_health = float(100)
         enemy_health = float(45)
         enemy_attack = float(20)
         enemy_desc = "runs"
@@ -238,6 +236,54 @@ def random_enemy():
     new_health -= enemy_attack
     anim_print(f"Your health decreases by {enemy_attack}!")
     anim_print(f"Your health dropped to {new_health}!")
+    if new_health <= 0:
+        if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+            sound.stop()
+            anim_print(f"{enemies[idx].capitalize()} feels bad for killing you so soon...")
+            sound.stop()
+            time.sleep(2)
+            anim_print("You died already...")
+            time.sleep(4)
+            anim_print("Overriding program...")
+            time.sleep(2)
+            anim_print("Resetting...")
+            time.sleep(2)
+            anim_print("Updating health to 100...")
+            time.sleep
+            data = []
+            with open('stats.csv', 'r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] == "your health" and float(row[1]) <= 0:
+                        row[1] = "100.0"
+                    data.append(row)
+            with open('stats.csv', 'w', newline="") as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
+        else:
+            sound.stop()
+            data = []
+            with open('stats.csv', 'r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] == "your health" and float(row[1]) <= 0:
+                        row[1] = "100.0"
+                    data.append(row)
+
+            with open('stats.csv', 'w', newline="") as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
+            time.sleep(2)
+            anim_print("You died already...")
+            time.sleep(4)
+            anim_print("Overriding program...")
+            time.sleep(2)
+            anim_print("Resetting...")
+            time.sleep(2)
+            anim_print("Updating health to 100...")
+            time.sleep(1)
+            anim_print("Continuing script where it left off...")
+            time.sleep(1)
     anim_print("Now is your chance!")
     anim_print("You remember what to do, right?")
     anim_print(f"Show that {enemies[idx]} what you got before {she_he_it} gets a chance to attack again!")
@@ -266,7 +312,6 @@ def random_enemy():
     with open('stats.csv', 'w', newline="") as file:
         writer = csv.writer(file)
         writer.writerows(data)
-    
     hint_list = [f"\nThe enemy's health is {enemy_health}.\nThe enemy's attack is {enemy_attack}", "There is a 5% chance of getting a really dangerous enemy",
                  "You have a 20% chance of running away successfully", "Type 'no secret is truly a secret' when you are asked to attack, dodge, run, or check your inventory"]
     last_input = None
@@ -275,7 +320,7 @@ def random_enemy():
     while game_is_running:
         if not secret_hint:
             hint_chance = random.randint(1,1000)
-            if hint_chance >= 10:
+            if hint_chance == 117:
                 hint_yes_or_no = anim_input("Do you want a hint? Yes or no: ").capitalize()
                 if hint_yes_or_no == "Yes":
                     hint = random.choice(hint_list)
@@ -289,7 +334,7 @@ def random_enemy():
                     anim_print("Incorrect input...")
                     secret_hint = True  
             else:
-                break
+                secret_hint = False
         while enemy_health > 0:
             with open('stats.csv', 'r') as file:
                 reader = csv.reader(file)
@@ -553,6 +598,15 @@ def random_enemy():
                             new_item, attack = row
                     if inventory_empty:
                         anim_print("There is nothing in your inventory.")
+                        anim_print("These are your statistics.")
+                        with open(statistics, 'r') as file:
+                            anim_print("YOUR STATISTICS")
+                            time.sleep(1)
+                            choice = csv.reader(file)
+                            for row in choice:
+                                new_stat, kill_power = row
+                                print(f"{new_stat.title()}: {kill_power}")
+                                time.sleep(1)
                     else:
                         print()
                         with open(statistics, 'r') as file:
@@ -636,33 +690,40 @@ def random_enemy():
                                 time.sleep(1)
                                 attack_or_dodge = True
                 elif attack_or_dodge == "No secret is truly a secret":
-                    inventory = []
-                    with open('project_inventory.csv', 'r') as file:
-                        reader = csv.reader(file)
-                        for row in reader:
-                            inventory.append(row[0])
-                    time.sleep(2)
-                    anim_print("Where did you hear that...?", delay=0.182)
-                    time.sleep(4)
-                    def add_to_inventory(item, attack):
-                        if item not in inventory:
-                            inventory.append(item)
-                            with open('project_inventory.csv', 'a', newline='') as file1, open('secret_items.csv', 'a', newline='') as file2:
-                                writer1 = csv.writer(file1)
-                                writer2 = csv.writer(file2)
-                                writer1.writerow([item, attack])
-                                writer2.writerow([item, attack])
-                            print(f"{item} added to inventory.")
+                    if attack_or_dodge == "No secret is truly a secret":
+                        secret_items = []
+                        with open('secret_items.csv', 'r') as file:
+                            reader = csv.reader(file)
+                            for row in reader:
+                                secret_items.append(row[0])
+                        if "ultimate sword" in secret_items:
+                            attack_or_dodge = False
                         else:
-                            print("")
-                    items_to_add = [("ultimate sword", 1000)]
-                    for item, attack in items_to_add:
-                        add_to_inventory(item, attack)
-                    time.sleep(2)
-                    anim_print("You got a new item.")
-                    time.sleep(1)
-                    anim_print("Check your inventory.")
-                    time.sleep(1)
+                            inventory = []
+                            with open('project_inventory.csv', 'r') as file:
+                                reader = csv.reader(file)
+                                for row in reader:
+                                    inventory.append(row[0])                            
+                        def add_to_inventory(item, attack):
+                            time.sleep(2)
+                            anim_print("Where did you hear that...?", delay=0.182)
+                            time.sleep(4)
+                            if item not in inventory:
+                                inventory.append(item)
+                                with open('project_inventory.csv', 'a', newline='') as file1, open('secret_items.csv', 'a', newline='') as file2:
+                                    writer1 = csv.writer(file1)
+                                    writer2 = csv.writer(file2)
+                                    writer1.writerow([item, attack])
+                                    writer2.writerow([item, attack])
+                        items_to_add = [("ultimate sword", 1000)]
+                        for item, attack in items_to_add:
+                            add_to_inventory(item, attack)
+                            time.sleep(2)
+                            anim_print("You got a new item.")
+                            time.sleep(1)
+                            anim_print("Check your inventory.")
+                            time.sleep(1)
+
                 else:
                     monster_attack.play()
                     anim_print("You've been hit! What are you doing?")
