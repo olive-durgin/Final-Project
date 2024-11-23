@@ -312,8 +312,11 @@ def random_enemy():
     with open('stats.csv', 'w', newline="") as file:
         writer = csv.writer(file)
         writer.writerows(data)
-    hint_list = [f"\nThe enemy's health is {enemy_health}.\nThe enemy's attack is {enemy_attack}", "There is a 5% chance of getting a really dangerous enemy",
-                 "You have a 20% chance of running away successfully", "Type 'no secret is truly a secret' when you are asked to attack, dodge, run, or check your inventory"]
+    hint_list = [f"\nThe enemy's health is {enemy_health}.\nThe enemy's attack is {enemy_attack}",
+                 "There is a 5% chance of getting a really dangerous enemy",
+                 "You have a 20% chance of running away successfully",
+                 "Type 'no secret is truly a secret' when you are asked to attack, dodge, run, or check your inventory",
+                 "There is a 10% chance of your item failing."]
     last_input = None
     secret_hint = False
     game_is_running = True
@@ -336,13 +339,17 @@ def random_enemy():
             else:
                 secret_hint = False
         while enemy_health > 0:
+            data = []
             with open('stats.csv', 'r') as file:
                 reader = csv.reader(file)
                 for row in reader:
-                    new_stat, life = row
-                    data.append(row)
                     if row[0] == "your health":
                         initial_health = float(row[1])
+                        row[1] = new_health
+                    data.append(row)
+            with open('stats.csv', 'w', newline="") as file:
+                writer = csv.writer(file)
+                writer.writerows(data)
             attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access your inventory: ").capitalize()
             if attack_or_dodge == "E" and last_input == "E":
                 anim_print("You can't access your inventory 2 times in a row.")
@@ -598,7 +605,9 @@ def random_enemy():
                             new_item, attack = row
                     if inventory_empty:
                         anim_print("There is nothing in your inventory.")
+                        time.sleep(1)
                         anim_print("These are your statistics.")
+                        print()
                         with open(statistics, 'r') as file:
                             anim_print("YOUR STATISTICS")
                             time.sleep(1)
@@ -607,6 +616,7 @@ def random_enemy():
                                 new_stat, kill_power = row
                                 print(f"{new_stat.title()}: {kill_power}")
                                 time.sleep(1)
+                        print()
                     else:
                         print()
                         with open(statistics, 'r') as file:
@@ -719,9 +729,7 @@ def random_enemy():
                         for item, attack in items_to_add:
                             add_to_inventory(item, attack)
                             time.sleep(2)
-                            anim_print("You got a new item.")
-                            time.sleep(1)
-                            anim_print("Check your inventory.")
+                            anim_print("Something's changed...")
                             time.sleep(1)
 
                 else:
@@ -783,6 +791,7 @@ def random_enemy():
                             break
                     elif new_health > 0:
                         anim_print("Try not to make a mistake next time.")
+                        time.sleep(1)
 
     data = []
     with open('stats.csv', 'r') as file:
