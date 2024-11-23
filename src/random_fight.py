@@ -391,12 +391,18 @@ def random_enemy():
                         enemy_health -= strength
                         anim_print(f"{enemies[idx].capitalize()}'s health is {enemy_health}")
                     if enemy_health <= 0:
-                        game_is_running = False
-                        sound.stop()
-                        win_sound.set_volume(2)
-                        win_sound.play()
-                        anim_print("YOU WIN!")
-                        break
+                        if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                            sound.stop()
+                            anim_print(f"You killed {enemies[idx]}...")
+                            time.sleep(2)
+                            anim_print(f"You have a feeling that you might see {her_him_it} again.")
+                        else:
+                            game_is_running = False
+                            sound.stop()
+                            win_sound.set_volume(2)
+                            win_sound.play()
+                            anim_print("YOU WIN!")
+                            break
                     if new_health <= 0:
                         if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                             sound.stop()
@@ -489,13 +495,18 @@ def random_enemy():
                         enemy_health -= strength
                         anim_print(f"{the_or_no.capitalize()}{enemies[idx]}'s health is now {enemy_health}!")
                     if enemy_health <= 0:
-                        game_is_running = False
-                        sound.stop()
-                        win_sound.set_volume(2)
-                        win_sound.play()
-                        anim_print("YOU WIN!")
-                        time.sleep(3)
-                        break
+                        if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                            sound.stop()
+                            anim_print(f"You killed {enemies[idx]}...")
+                            time.sleep(2)
+                            anim_print(f"You have a feeling that you might see {her_him_it} again.")
+                        else:
+                            game_is_running = False
+                            sound.stop()
+                            win_sound.set_volume(2)
+                            win_sound.play()
+                            anim_print("YOU WIN!")
+                            break
                 elif attack_or_dodge == "R":
                     chance = random.randint(1, 100)
                     if chance >= 20:
@@ -682,13 +693,18 @@ def random_enemy():
                                                 print()
                                     break
                                 if enemy_health <= 0:
-                                    game_is_running = False
-                                    sound.stop()
-                                    win_sound.set_volume(2)
-                                    win_sound.play()
-                                    anim_print("YOU WIN!")
-                                    time.sleep(3)
-                                    break
+                                    if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                                        sound.stop()
+                                        anim_print(f"You killed {enemies[idx]}...")
+                                        time.sleep(2)
+                                        anim_print(f"You have a feeling that you might see {her_him_it} again.")
+                                    else:
+                                        game_is_running = False
+                                        sound.stop()
+                                        win_sound.set_volume(2)
+                                        win_sound.play()
+                                        anim_print("YOU WIN!")
+                                        break
                                 break
                             if yes_no == "N":
                                 anim_print("Very well.")
@@ -731,7 +747,6 @@ def random_enemy():
                             time.sleep(2)
                             anim_print("Something's changed...")
                             time.sleep(1)
-
                 else:
                     monster_attack.play()
                     anim_print("You've been hit! What are you doing?")
