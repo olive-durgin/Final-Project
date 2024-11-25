@@ -459,7 +459,7 @@ def opening_scene():
                     for row in choice:
                         new_stat, kill_power = row
                         print(f"{new_stat.title()}: {kill_power}")
-                        time.sleep(2)
+                        time.sleep(1 )
                 with open(filename, 'r') as collected_items:
                     anim_print("YOUR INVENTORY")
                     choice = csv.reader(collected_items)
