@@ -516,6 +516,9 @@ def opening_scene():
         all_choices = {"market", "school", "hospital", "playground", "pond"}
         explore = True
         while explore:
+            if seen_towns == all_choices:
+                explore = False
+                break
             to_explore = anim_input("You decide to explore the market, school, hospital, playground, or pond: ").lower()
             if to_explore in seen_towns:
                 looking = True
@@ -540,12 +543,10 @@ def opening_scene():
                 elif to_explore == "pond":
                     explore = True
                     anim_print("")
-                elif seen_towns == all_choices:
-                    break
+
         anim_print("")
 
 
-        anim_print("")
         # Explore the nearby town and its abandoned buildings.
         # Town name: Seona
             # produce market
