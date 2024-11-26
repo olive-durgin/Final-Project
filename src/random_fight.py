@@ -576,26 +576,16 @@ def random_enemy():
                         data = []
                         with open('stats.csv', 'r') as file:
                             reader = csv.reader(file)
-                            new_health = initial_health
                             for row in reader:
-                                if row[0] == "your health":
-                                    row[1] = str(new_health)
                                 data.append(row)
+                                if row[0] == "initial health":
+                                    initial_health = float(row[1])
+                        for row in data:
+                            if row[0] == "your health":
+                                row[1] = str(initial_health)
                         with open('stats.csv', 'w', newline="") as file:
                             writer = csv.writer(file)
                             writer.writerows(data)
-                        with open(statistics, 'r') as file:
-                            reader = csv.reader(file)
-                            items = list(reader)
-                            item_to_remove = "initial health".strip().capitalize()
-                            items = [row for row in items if row[0].capitalize() != item_to_remove]
-                        with open(statistics, 'w', newline='') as file:
-                            writer = csv.writer(file)
-                            writer.writerows(items)
-                        with open(statistics, 'a', newline='') as file:
-                            new_item = "initial health"
-                            csv_writer = csv.writer(file)
-                            csv_writer.writerow([new_item, initial_health])
                         new_health = initial_health
                         enemy_health = initial_enemy_health
                         game_is_running = True
@@ -607,31 +597,19 @@ def random_enemy():
                         time.sleep(2)
                         anim_print("Resetting...")
                         time.sleep(1)
-                        with open(statistics, 'r') as file:
+                        data = []
+                        with open('stats.csv', 'r') as file:
                             reader = csv.reader(file)
-                            items = list(reader)
-                            item_to_remove = "your health".strip().capitalize()
-                            items = [row for row in items if row[0].capitalize() != item_to_remove]
-                        with open(statistics, 'w', newline='') as file:
+                            for row in reader:
+                                data.append(row)
+                                if row[0] == "initial health":
+                                    initial_health = float(row[1])
+                        for row in data:
+                            if row[0] == "your health":
+                                row[1] = str(initial_health)
+                        with open('stats.csv', 'w', newline="") as file:
                             writer = csv.writer(file)
-                            writer.writerows(items)
-                        with open(statistics, 'a', newline='') as file:
-                            new_item = "your health"
-                            csv_writer = csv.writer(file)
-                            csv_writer.writerow([new_item, new_health])
-                            new_health = 100
-                        with open(statistics, 'r') as file:
-                            reader = csv.reader(file)
-                            items = list(reader)
-                            item_to_remove = "initial health".strip().capitalize()
-                            items = [row for row in items if row[0].capitalize() != item_to_remove]
-                        with open(statistics, 'w', newline='') as file:
-                            writer = csv.writer(file)
-                            writer.writerows(items)
-                        with open(statistics, 'a', newline='') as file:
-                            new_item = "initial health"
-                            csv_writer = csv.writer(file)
-                            csv_writer.writerow([new_item, initial_health])
+                            writer.writerows(data)
                         new_health = initial_health
                         enemy_health = initial_enemy_health
                         game_is_running = True
@@ -747,24 +725,15 @@ def random_enemy():
                             with open('stats.csv', 'r') as file:
                                 reader = csv.reader(file)
                                 for row in reader:
-                                    if row[0] == "your health":
-                                        row[1] = str(new_health)
                                     data.append(row)
+                                    if row[0] == "initial health":
+                                        initial_health = float(row[1])
+                            for row in data:
+                                if row[0] == "your health":
+                                    row[1] = str(initial_health)
                             with open('stats.csv', 'w', newline="") as file:
                                 writer = csv.writer(file)
                                 writer.writerows(data)
-                            with open(statistics, 'r') as file:
-                                reader = csv.reader(file)
-                                items = list(reader)
-                                item_to_remove = "initial health".strip().capitalize()
-                                items = [row for row in items if row[0].capitalize() != item_to_remove]
-                            with open(statistics, 'w', newline='') as file:
-                                writer = csv.writer(file)
-                                writer.writerows(items)
-                            with open(statistics, 'a', newline='') as file:
-                                new_item = "initial health"
-                                csv_writer = csv.writer(file)
-                                csv_writer.writerow([new_item, initial_health])
                             new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
@@ -776,46 +745,36 @@ def random_enemy():
                             time.sleep(2)
                             anim_print("Resetting...")
                             time.sleep(1)
-                            new_health = initial_health
                             data = []
                             with open('stats.csv', 'r') as file:
                                 reader = csv.reader(file)
                                 for row in reader:
-                                    if row[0] == "your health":
-                                        row[1] = str(new_health)
                                     data.append(row)
+                                    if row[0] == "initial health":
+                                        initial_health = float(row[1])
+                            for row in data:
+                                if row[0] == "your health":
+                                    row[1] = str(initial_health)
                             with open('stats.csv', 'w', newline="") as file:
                                 writer = csv.writer(file)
                                 writer.writerows(data)
-                            with open(statistics, 'r') as file:
-                                reader = csv.reader(file)
-                                items = list(reader)
-                                item_to_remove = "initial health".strip().capitalize()
-                                items = [row for row in items if row[0].capitalize() != item_to_remove]
-                            with open(statistics, 'w', newline='') as file:
-                                writer = csv.writer(file)
-                                writer.writerows(items)
-                            with open(statistics, 'a', newline='') as file:
-                                new_item = "initial health"
-                                csv_writer = csv.writer(file)
-                                csv_writer.writerow([new_item, initial_health])
                             new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
-                else:
-                    anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
-                    time.sleep(2)
-                    anim_print(f"And you feel as if you're light as air as you run!")
-                    anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
-                    anim_print("But you think you made it somewhere safe!")
-                    sound.stop()
-                    time.sleep(2)
-                    win_sound.set_volume(2)
-                    win_sound.play()
-                    anim_print("You successfully ran away!")
-                    time.sleep(3)
-                    game_is_running = False
-                    break
+                    else:
+                        anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                        time.sleep(2)
+                        anim_print(f"And you feel as if you're light as air as you run!")
+                        anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
+                        anim_print("But you think you made it somewhere safe!")
+                        sound.stop()
+                        time.sleep(2)
+                        win_sound.set_volume(2)
+                        win_sound.play()
+                        anim_print("You successfully ran away!")
+                        time.sleep(3)
+                        game_is_running = False
+                        break
             elif attack_or_dodge == "E":
                 inventory_empty = True
                 with open(filename, 'r') as collected_items:
@@ -967,29 +926,19 @@ def random_enemy():
                                 time.sleep(2)
                                 anim_print("Resetting...")
                                 time.sleep(1)
-                                new_health = initial_health
                                 data = []
                                 with open('stats.csv', 'r') as file:
                                     reader = csv.reader(file)
                                     for row in reader:
-                                        if row[0] == "your health":
-                                            row[1] = str(new_health)
                                         data.append(row)
+                                        if row[0] == "initial health":
+                                            initial_health = float(row[1])
+                                for row in data:
+                                    if row[0] == "your health":
+                                        row[1] = str(initial_health)
                                 with open('stats.csv', 'w', newline="") as file:
                                     writer = csv.writer(file)
                                     writer.writerows(data)
-                                with open(statistics, 'r') as file:
-                                    reader = csv.reader(file)
-                                    items = list(reader)
-                                    item_to_remove = "initial health".strip().capitalize()
-                                    items = [row for row in items if row[0].capitalize() != item_to_remove]
-                                with open(statistics, 'w', newline='') as file:
-                                    writer = csv.writer(file)
-                                    writer.writerows(items)
-                                with open(statistics, 'a', newline='') as file:
-                                    new_item = "initial health"
-                                    csv_writer = csv.writer(file)
-                                    csv_writer.writerow([new_item, initial_health])
                                 new_health = initial_health
                                 enemy_health = initial_enemy_health
                                 game_is_running = True
@@ -1001,29 +950,19 @@ def random_enemy():
                                 time.sleep(2)
                                 anim_print("Resetting...")
                                 time.sleep(1)
-                                new_health = initial_health
                                 data = []
                                 with open('stats.csv', 'r') as file:
                                     reader = csv.reader(file)
                                     for row in reader:
-                                        if row[0] == "your health":
-                                            row[1] = str(new_health)
                                         data.append(row)
+                                        if row[0] == "initial health":
+                                            initial_health = float(row[1])
+                                for row in data:
+                                    if row[0] == "your health":
+                                        row[1] = str(initial_health)
                                 with open('stats.csv', 'w', newline="") as file:
                                     writer = csv.writer(file)
                                     writer.writerows(data)
-                                with open(statistics, 'r') as file:
-                                    reader = csv.reader(file)
-                                    items = list(reader)
-                                    item_to_remove = "initial health".strip().capitalize()
-                                    items = [row for row in items if row[0].capitalize() != item_to_remove]
-                                with open(statistics, 'w', newline='') as file:
-                                    writer = csv.writer(file)
-                                    writer.writerows(items)
-                                with open(statistics, 'a', newline='') as file:
-                                    new_item = "initial health"
-                                    csv_writer = csv.writer(file)
-                                    csv_writer.writerow([new_item, initial_health])
                                 new_health = initial_health
                                 enemy_health = initial_enemy_health
                                 game_is_running = True
@@ -1051,33 +990,22 @@ def random_enemy():
                             time.sleep(2)
                             anim_print("Resetting...")
                             time.sleep(1)
-                            new_health = initial_health
                             data = []
                             with open('stats.csv', 'r') as file:
                                 reader = csv.reader(file)
                                 for row in reader:
-                                    if row[0] == "your health":
-                                        row[1] = str(new_health)
                                     data.append(row)
+                                    if row[0] == "initial health":
+                                        initial_health = float(row[1])
+                            for row in data:
+                                if row[0] == "your health":
+                                    row[1] = str(initial_health)
                             with open('stats.csv', 'w', newline="") as file:
                                 writer = csv.writer(file)
                                 writer.writerows(data)
-                            with open(statistics, 'r') as file:
-                                reader = csv.reader(file)
-                                items = list(reader)
-                                item_to_remove = "initial health".strip().capitalize()
-                                items = [row for row in items if row[0].capitalize() != item_to_remove]
-                            with open(statistics, 'w', newline='') as file:
-                                writer = csv.writer(file)
-                                writer.writerows(items)
-                            with open(statistics, 'a', newline='') as file:
-                                new_item = "initial health"
-                                csv_writer = csv.writer(file)
-                                csv_writer.writerow([new_item, initial_health])
                             new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
-                            break
                         else:
                             sound.stop()
                             anim_print("You died...")
@@ -1086,30 +1014,20 @@ def random_enemy():
                             time.sleep(2)
                             anim_print("Resetting...")
                             time.sleep(1)
-                            new_health = initial_health
                             data = []
                             with open('stats.csv', 'r') as file:
                                 reader = csv.reader(file)
                                 for row in reader:
-                                    if row[0] == "your health":
-                                        row[1] = str(new_health)
                                     data.append(row)
+                                    if row[0] == "initial health":
+                                        initial_health = float(row[1])
+                            for row in data:
+                                if row[0] == "your health":
+                                    row[1] = str(initial_health)
                             with open('stats.csv', 'w', newline="") as file:
                                 writer = csv.writer(file)
                                 writer.writerows(data)
-                            with open(statistics, 'r') as file:
-                                reader = csv.reader(file)
-                                items = list(reader)
-                                item_to_remove = "initial health".strip().capitalize()
-                                items = [row for row in items if row[0].capitalize() != item_to_remove]
-                            with open(statistics, 'w', newline='') as file:
-                                writer = csv.writer(file)
-                                writer.writerows(items)
-                            with open(statistics, 'a', newline='') as file:
-                                new_item = "initial health"
-                                csv_writer = csv.writer(file)
-                                csv_writer.writerow([new_item, initial_health])
-                            new_health = float(initial_health)
+                            new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
                     elif new_health > 0:
