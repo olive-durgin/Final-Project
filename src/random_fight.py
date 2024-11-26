@@ -43,7 +43,7 @@ def random_enemy():
     else:
         the_or_no = ""
         a_or_an = ""
-    
+
     if enemies[idx] == "long cat":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
             eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
