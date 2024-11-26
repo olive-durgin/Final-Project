@@ -216,6 +216,9 @@ def opening_scene():
         all_choices = {"leaves", "table", "wall"}
         looking = True
         while looking:
+            if seen_inputs == all_choices:
+                looking = False
+                break
             to_look = anim_input("You look at the leaves, table, or wall: ").lower()
             if to_look in seen_inputs:
                 looking = True
@@ -318,9 +321,6 @@ def opening_scene():
                         else:
                             elevated_surface = True
                             anim_print("You don't know if that will work.")
-            if seen_inputs == all_choices:
-                looking = False
-                break
         anim_print("After you've looked around the room, you go back over to the door.")
         anim_print("You've found some things that could help you open the door.")
         anim_print("To view your inventory, press E. You can only view your inventory when prompted.")
