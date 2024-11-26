@@ -81,7 +81,8 @@ def random_enemy():
             sound.play(-1)
         description = "Like the first rat that ambushed you when you left that metal room, this one looks no different."\
         "\nBoth were rather disfigured.\nBoth were nearly as big as you were!"
-        attack_type = "\nAs the rat bites into the part of you that's closest to its mouth, you try to kick it off, but it won't let go!\nWhen it finally gets off of you, a chunk of your arm goes with it!"
+        attack_type = "\nAs the rat bites into the part of you that's closest to its mouth, you try to kick it off, but it won't let go!"\
+            "\nWhen it finally gets off of you, a chunk of your arm goes with it!"
         initial_enemy_health = float(15)
         enemy_health = initial_enemy_health
         enemy_attack = float(10)
@@ -140,10 +141,10 @@ def random_enemy():
             sound.play(-1)
         description = "It was hard to comprehend what was coming towards you at first, but as it got closer, you wish it didn't."\
         "\nIts twelve pair of backwards, twisted limbs thrusted the thing closer and closer to you."\
-        "\nIf you weren't mistaken, it smiled at you.\nOr maybe that's just how its decaying face looks.\n"\
-        "You have no idea what it is.\nOr what it was...\nYou don't want to know...\nSomething about it is terribly wrong..."
+        "\nIf you weren't mistaken, it smiled at you.\nOr maybe that's just how its decaying face looks."\
+        "\nYou have no idea what it is.\nOr what it was...\nYou don't want to know...\nSomething about it is terribly wrong..."
         attack_type = "\nIt grabs you using its many hands, and it attempts to bite off your face."\
-        "Luckily for you, it missed.\nBut it still managed to hurt you when it grabbed you roughly."
+        "\nLuckily for you, it missed.\nBut it still managed to hurt you when it grabbed you roughly."
         initial_enemy_health = float(50)
         enemy_health = initial_enemy_health
         enemy_attack = float(12)
@@ -173,7 +174,7 @@ def random_enemy():
         description = "You suddenly feel a chill as you see it...\nYou want to look away but you can't take your eyes off of it..."\
         "\nIt's shrill scream hurts your ears...\nIt's uncanny, yellow-toothed smile unsettles you..."\
         "\nIt moves like it doesn't belong here.\nIt's gross, oily, black hair sticks to its face and gets stuck between its teeth."\
-        "\nDoes it resemble a horse?\nA donkey?\nIt's something very wrong...\nIt terrifies you..."\
+        "\nDoes it resemble a horse?\nA mule?\nIt's something very wrong...\nIt terrifies you..."\
         "\nYou're too scared to properly defend yourself.\nYour attack is a quarter of what it should be..."
         attack_type = "\nYou wish it didn't touch you but it did.\nIt's hot breath felt uncomfortable on your skin."\
         "\nIt overstayed its welcome when it bit you with its square, blunt teeth.\nIt screams when you kick it off of you."
@@ -204,7 +205,7 @@ def random_enemy():
         else:
             sound.play(-1)
         description = "It would almost be a normal badger if something wasn't off about it.\nYou can't tell what it is."\
-        "Maybe its the odd badger's extra head."
+        "\nMaybe its the odd badger's extra head."
         attack_type = "\nWith it's long, dirty nails, it thrashes at you and breaks your skin!"
         initial_enemy_health = float(12)
         enemy_health = initial_enemy_health
@@ -236,7 +237,7 @@ def random_enemy():
         "\nYou only got a glimpse of it before it was right on top of you."\
         "\nIt smells like mold and wet hair."
         attack_type = "\nThe odd elk throws its antlers around, hoping to hit you.\nUnfortunately it succeeds and the odd elk hurts you!"\
-        "You're just happy that you didn't break a bone!"
+        "\nYou're just happy that you didn't break a bone!"
         initial_enemy_health = float(50)
         enemy_health = initial_enemy_health
         enemy_attack = float(20)
@@ -694,7 +695,7 @@ def random_enemy():
                 anim_print("But you lose your balance and you miss...")
                 if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
                     monster_attack.play()
-                    anim_print(f"{the_or_no.capitalize()}{enemies[idx].capitalize()} turns around and {enemy_desc} at you! {attack_type}")
+                    anim_print(f"{the_or_no.capitalize()}{enemies[idx]} turns around and {enemy_desc} at you! {attack_type}")
                     new_health -= enemy_attack
                     anim_print(f"Your health is now {new_health}")
                 else:
@@ -978,32 +979,54 @@ def random_enemy():
                 anim_print("These are your statistics.")
                 time.sleep(1)
                 print()
+                statistics = 'stats.csv'
                 with open(statistics, 'r') as file:
                     anim_print("YOUR STATISTICS")
                     time.sleep(1)
                     choice = csv.reader(file)
+                    stats = {}
                     for row in choice:
                         new_stat, kill_power = row
-                        if new_stat == "your description":
-                            words = kill_power.strip("()").replace("'", "").split(", ")
-                            print(f"{new_stat.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
-                        elif new_stat != "initial health":
-                            print(f"{new_stat.title()}: {kill_power.capitalize()}")
+                        stats[new_stat] = kill_power
+                    for key in ["your name", "your description", "your ability", "your weakness"]:
+                        if key in stats:
+                            if key == "your description":
+                                words = stats[key].strip("()").replace("'", "").split(", ")
+                                print(f"{key.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            else:
+                                print(f"{key.title()}: {stats[key].capitalize()}")
+                            time.sleep(1)
+                    if "your health" in stats:
+                        print(f"Your Health: {stats['your health'].capitalize()}")
+                        time.sleep(1)
+                    if "your attack" in stats:
+                        print(f"Your Attack: {stats['your attack'].capitalize()}")
                         time.sleep(1)
                 print()
             else:
                 print()
+                statistics = 'stats.csv'
                 with open(statistics, 'r') as file:
                     anim_print("YOUR STATISTICS")
                     time.sleep(1)
                     choice = csv.reader(file)
+                    stats = {}
                     for row in choice:
                         new_stat, kill_power = row
-                        if new_stat == "your description":
-                            words = kill_power.strip("()").replace("'", "").split(", ")
-                            print(f"{new_stat.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
-                        elif new_stat != "initial health":
-                            print(f"{new_stat.title()}: {kill_power.capitalize()}")
+                        stats[new_stat] = kill_power
+                    for key in ["your name", "your description", "your ability", "your weakness"]:
+                        if key in stats:
+                            if key == "your description":
+                                words = stats[key].strip("()").replace("'", "").split(", ")
+                                print(f"{key.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            else:
+                                print(f"{key.title()}: {stats[key].capitalize()}")
+                            time.sleep(1)
+                    if "your health" in stats:
+                        print(f"Your Health: {stats['your health'].capitalize()}")
+                        time.sleep(1)
+                    if "your attack" in stats:
+                        print(f"Your Attack: {stats['your attack'].capitalize()}")
                         time.sleep(1)
                 with open(filename, 'r') as collected_items:
                     print()
@@ -1241,6 +1264,23 @@ def random_enemy():
                     anim_print("Try not to make a mistake next time.")
                     time.sleep(1)
                     game_is_running = True
+
+
+    anim_print("You leveled up!")
+    anim_print("Your attack increased by 2!")
+    with open(statistics, 'r') as file:
+        reader = csv.reader(file)
+        items = list(reader)
+        item_to_remove = "your attack".strip().capitalize()
+        items = [row for row in items if row[0].capitalize() != item_to_remove]
+    with open(statistics, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(items)
+    with open(statistics, 'a', newline='') as file:
+        new_item = "your attack"
+        health = strength + 2
+        csv_writer = csv.writer(file)
+        csv_writer.writerow([new_item, health])
 
     data = []
     with open('stats.csv', 'r') as file:
