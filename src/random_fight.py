@@ -28,13 +28,22 @@ def random_enemy():
     selected_enemy = random.choice(enemies)
     idx = enemies.index(selected_enemy)
 
-    if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
+    if enemies[idx] != "Ana" and enemies[idx] != "Syuuran" and enemies[idx] != "odd badger" and enemies[idx] != "odd elk":
         the_or_no = "the "
         her_him_it = "it"
         she_he_it = "it"
         herself_himself_itself = "itself"
+        a_or_an = " a"
+    elif enemies[idx] == "odd badger" or enemies[idx] == "odd elk":
+        the_or_no = "the "
+        her_him_it = "it"
+        she_he_it = "it"
+        herself_himself_itself = "itself"
+        a_or_an = " an"
     else:
         the_or_no = ""
+        a_or_an = ""
+    
     if enemies[idx] == "long cat":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
             eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
@@ -48,7 +57,6 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(6)
         enemy_desc = "pounces"
-        a_or_an = " a"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -78,7 +86,6 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(10)
         enemy_desc = "snaps"
-        a_or_an = " a"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -141,7 +148,6 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(12)
         enemy_desc = "thrusts"
-        a_or_an = " a"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -165,19 +171,16 @@ def random_enemy():
         else:
             sound.play(-1)
         description = "You suddenly feel a chill as you see it...\nYou want to look away but you can't take your eyes off of it..."\
-        "It's shrill scream hurts your ears...\nIt's uncanny, yellow-toothed smile unsettles you..."\
-        "It moves like it doesn't belong here.\nIt's gross, oily, black hair sticks to its face and gets stuck between its teeth."\
-        "Does it resemble a horse?\nA donkey?\nIt's something very wrong...\nIt terrifies you...\nYour health is set to half."\
-        "\nYour attack is a quarter of what it should be..."
-        strength = strength/4
-        new_health = new_health/2        
+        "\nIt's shrill scream hurts your ears...\nIt's uncanny, yellow-toothed smile unsettles you..."\
+        "\nIt moves like it doesn't belong here.\nIt's gross, oily, black hair sticks to its face and gets stuck between its teeth."\
+        "\nDoes it resemble a horse?\nA donkey?\nIt's something very wrong...\nIt terrifies you..."\
+        "\nYou're too scared to properly defend yourself.\nYour attack is a quarter of what it should be..."
         attack_type = "\nYou wish it didn't touch you but it did.\nIt's hot breath felt uncomfortable on your skin."\
         "\nIt overstayed its welcome when it bit you with its square, blunt teeth.\nIt screams when you kick it off of you."
         initial_enemy_health = float(45)
         enemy_health = initial_enemy_health
         enemy_attack = float(20)
         enemy_desc = "runs"
-        a_or_an = " a"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -200,14 +203,13 @@ def random_enemy():
             eerie_sound.play(-1)
         else:
             sound.play(-1)
-        description = "It would almost be a normal badger if somethng wasn't off about it.\nYou can't tell what it is."\
+        description = "It would almost be a normal badger if something wasn't off about it.\nYou can't tell what it is."\
         "Maybe its the odd badger's extra head."
         attack_type = "\nWith it's long, dirty nails, it thrashes at you and breaks your skin!"
         initial_enemy_health = float(12)
         enemy_health = initial_enemy_health
         enemy_attack = float(6)
         enemy_desc = "thrashes"
-        a_or_an = " an"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -231,15 +233,14 @@ def random_enemy():
         else:
             sound.play(-1)
         description = "The thing approaching you is rather strange!\nWait a minute...\nIt's running at you a little too fast!"\
-        "You only got a glimpse of it before it was right on top of you."\
-        "It smells like mold and wet hair."
+        "\nYou only got a glimpse of it before it was right on top of you."\
+        "\nIt smells like mold and wet hair."
         attack_type = "\nThe odd elk throws its antlers around, hoping to hit you.\nUnfortunately it succeeds and the odd elk hurts you!"\
         "You're just happy that you didn't break a bone!"
         initial_enemy_health = float(50)
         enemy_health = initial_enemy_health
         enemy_attack = float(20)
         enemy_desc = "charges"
-        a_or_an = " an"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -268,7 +269,6 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(3)
         enemy_desc = "rushes"
-        a_or_an = " a"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -295,7 +295,9 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(6)
         enemy_desc = "swings"
-        a_or_an = ""
+        she_he_it = "she"
+        her_him_it = "her"
+        herself_himself_itself = "herself"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -322,7 +324,9 @@ def random_enemy():
         enemy_health = initial_enemy_health
         enemy_attack = float(4)
         enemy_desc = "swings"
-        a_or_an = ""
+        she_he_it = "he"
+        her_him_it = "him"
+        herself_himself_itself = "himself"
         inventory = []
         with open('achievements.csv', 'r') as file:
             reader = csv.reader(file)
@@ -351,6 +355,9 @@ def random_enemy():
             elif row[0] == "initial health":
                 new_stat, new_life = row
                 initial_health = float(new_life)
+    if enemies[idx] == "screaming, little freak":
+        strength = strength/4
+        new_health = new_health/2   
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}!")
     if enemies[idx] == "Ana":
         anim_print("ERROR...")
@@ -376,7 +383,6 @@ def random_enemy():
         attack_type = "\nWith her knife loosely grasped in her shaking hands, Ana tries to stab you."\
         "\nThe knife cuts a deep gash in your skin.\nShe feels bad for hurting you."
         enemy_desc = "swings"
-        a_or_an = ""
     if enemies[idx] == "Syuuran":
         anim_print("ERROR...")
         time.sleep(1)
@@ -401,19 +407,9 @@ def random_enemy():
         attack_type = "With an old frying pan in his hands, Syuuran takes a swing at you."\
         "You've never thought of a frying pan as being a weapon...\nIt still hurts..."
         enemy_desc = "swings"
-        a_or_an = ""
     if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
         anim_print(description)
-    if enemies[idx] == "Ana":
-        she_he_it = "she"
-        her_him_it = "her"
-        herself_himself_itself = "herself"
-    elif enemies[idx] == "Syuuran":
-        she_he_it = "he"
-        her_him_it = "him"
-        herself_himself_itself = "himself"
     anim_print(see_or_not)
-
     inventory = []
     with open('stats.csv', 'r') as file:
         reader = csv.reader(file)
