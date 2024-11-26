@@ -719,7 +719,7 @@ def random_enemy():
                 anim_print(f"And you hit {the_or_no}{enemies[idx]} successfully!")
                 hero_attack.play()
                 enemy_health -= strength
-                anim_print(f"{the_or_no.capitalize()}{enemies[idx].capitalize()}'s health is {enemy_health}")
+                anim_print(f"{the_or_no.capitalize()}{enemies[idx]}'s health is {enemy_health}")
             if enemy_health <= 0:
                 if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                     sound.stop()
