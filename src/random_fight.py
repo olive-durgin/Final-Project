@@ -695,8 +695,9 @@ def random_enemy():
                             anim_print(f"But {enemies[idx]} misses!")
                             anim_print("You quickly get up to avoid another attack!")
                             anim_print("You got lucky.")
-                        elif enemy_attack_chance == False:
                             game_is_running = True
+                            break
+                        elif enemy_attack_chance == False:
                             anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
                             time.sleep(2)
                             anim_print("But you trip and fall.")
@@ -708,6 +709,8 @@ def random_enemy():
                             anim_print("The attack was 2 times stronger.")
                             new_health -= (enemy_attack * 2)
                             anim_print(f"Your health is now {new_health}")
+                            game_is_running = True
+                            break
                     if new_health <= 0:
                         if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                             sound.stop()
@@ -737,6 +740,7 @@ def random_enemy():
                             new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
+                            break
                         else:
                             sound.stop()
                             anim_print("You died...")
@@ -761,20 +765,20 @@ def random_enemy():
                             new_health = initial_health
                             enemy_health = initial_enemy_health
                             game_is_running = True
-                    else:
-                        anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
-                        time.sleep(2)
-                        anim_print(f"And you feel as if you're light as air as you run!")
-                        anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
-                        anim_print("But you think you made it somewhere safe!")
-                        sound.stop()
-                        time.sleep(2)
-                        win_sound.set_volume(2)
-                        win_sound.play()
-                        anim_print("You successfully ran away!")
-                        time.sleep(3)
-                        game_is_running = False
-                        break
+                else:
+                    anim_print(f"You attempt to run away from {the_or_no}{enemies[idx]}...")
+                    time.sleep(2)
+                    anim_print(f"And you feel as if you're light as air as you run!")
+                    anim_print(f"You're not sure if {the_or_no}{enemies[idx]} chased after you. You were too scared to look behind you.")
+                    anim_print("But you think you made it somewhere safe!")
+                    sound.stop()
+                    time.sleep(2)
+                    win_sound.set_volume(2)
+                    win_sound.play()
+                    anim_print("You successfully ran away!")
+                    time.sleep(3)
+                    game_is_running = False
+                    break
             elif attack_or_dodge == "E":
                 inventory_empty = True
                 with open(filename, 'r') as collected_items:
@@ -794,7 +798,11 @@ def random_enemy():
                         choice = csv.reader(file)
                         for row in choice:
                             new_stat, kill_power = row
-                            print(f"{new_stat.title()}: {kill_power}")
+                            if new_stat == "your description":
+                                words = kill_power.strip("()").replace("'", "").split(", ")
+                                print(f"{new_stat.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            elif new_stat != "initial health":
+                                print(f"{new_stat.title()}: {kill_power.capitalize()}")
                             time.sleep(1)
                     print()
                 else:
@@ -805,7 +813,11 @@ def random_enemy():
                         choice = csv.reader(file)
                         for row in choice:
                             new_stat, kill_power = row
-                            print(f"{new_stat.title()}: {kill_power}")
+                            if new_stat == "your description":
+                                words = kill_power.strip("()").replace("'", "").split(", ")
+                                print(f"{new_stat.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            elif new_stat != "initial health":
+                                print(f"{new_stat.title()}: {kill_power.capitalize()}")
                             time.sleep(1)
                     with open(filename, 'r') as collected_items:
                         print()
@@ -1034,7 +1046,7 @@ def random_enemy():
                         anim_print("Try not to make a mistake next time.")
                         time.sleep(1)
                         game_is_running = True
-                        
+
     data = []
     with open('stats.csv', 'r') as file:
         reader = csv.reader(file)
