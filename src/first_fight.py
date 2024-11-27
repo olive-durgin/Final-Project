@@ -103,7 +103,7 @@ def easy_fight():
             elif attack_or_dodge == "D":
                 anim_print("The rat lunges at you with the intention to kill!")
                 anim_print("But you successfully dodged the rat's attack!")
-                anim_print("The rat falls to the ground after missing, and you're are able to attack while the rat picks itself up off the ground!")
+                anim_print("The rat falls to the ground after missing, and you are able to attack while the rat picks itself up off the ground!")
                 hero_attack.play()
                 enemy_health -= strength
                 anim_print(f"The rat's health is now {enemy_health}!")
