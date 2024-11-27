@@ -34,12 +34,46 @@ def opening_scene():
         if username == "Ana" or username == "Syuuran":
             wrong_username = True
             anim_print("That name is in use.")
+        elif username == "":
+            anim_print("This input is no good...")
+            time.sleep(1)
         else:
             wrong_username = False
-    adjective_01 = anim_input("Adjective 01: ")
-    adjective_02 = anim_input("Adjective 02: ")
-    ability = anim_input("What is a good skill to have? ")
-    weakness = anim_input("In one word, what scares you? ")
+    creating_stats = True
+    while creating_stats:
+        adjective_01 = anim_input("Adjective 01: ")
+        if adjective_01 == "":
+            creating_stats = True
+            anim_print("This input is no good...")
+            anim_print("Retry your input.")
+            time.sleep(1)
+        else:
+            creating_stats = False
+        adjective_02 = anim_input("Adjective 02: ")
+        if adjective_02 == "":
+            creating_stats = True
+            anim_print("This input is no good...")
+            anim_print("Retry your input.")
+            time.sleep(1)
+        else:
+            creating_stats = False
+        ability = anim_input("What is a good skill to have? ")
+        if ability == "":
+            creating_stats = True
+            anim_print("This input is no good...")
+            anim_print("Retry your input.")
+            time.sleep(1)
+        else:
+            creating_stats = False
+        weakness = anim_input("In one word, what scares you? ")
+        if weakness == "":
+            creating_stats = True
+            anim_print("This input is no good...")
+            anim_print("Retry your input.")
+            time.sleep(1)
+        else:
+            creating_stats = False
+
     strength = True
     while strength:
         try:
@@ -135,7 +169,7 @@ def opening_scene():
             character_choice = anim_input("Choose wisely: ").capitalize()
             if character_choice == username.capitalize():
                 correct_choice = True
-            elif character_choice == "Syuuran" or "Ana":
+            elif character_choice == "Syuuran" or character_choice == "Ana":
                 correct_choice = False
                 anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
             else:
@@ -182,7 +216,7 @@ def opening_scene():
                 anim_print("You notice moss is slowly but surely inching its way along the walls.")
                 anim_print("In time, the walls will inevitably be covered in it.")
                 time.sleep(.75)
-                anim_print("You see that leaves adorn the floor of the metal room closest to the broken wall.")
+                anim_print("You see that fresh and rotting leaves adorn the floor of the metal room closest to the broken wall.")
                 anim_print("Leaves must have fallen into the room from outside.")
                 time.sleep(.75)
                 anim_print("You look across the room.")
@@ -218,6 +252,7 @@ def opening_scene():
         while looking:
             if seen_inputs == all_choices:
                 looking = False
+                elevated_surface = False
                 break
             to_look = anim_input("You look at the leaves, table, or wall: ").lower()
             if to_look in seen_inputs:
@@ -237,12 +272,12 @@ def opening_scene():
                         attack = 8
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-                    if seen_inputs == all_choices:
+                    if seen_inputs != all_choices:
                         anim_print("Maybe there's something else here.")
                 elif to_look == "table":
                     looking = True
                     anim_print("You walk back over to the table you woke up next to.")
-                    anim_print("When you crouch down, to look under the table.")
+                    anim_print("When you crouch down to look under the table...")
                     anim_print("You see nothing but scratches on the floor from the table legs along with greenish coloured water stains.")
                     anim_print("When you get up, you hit your head on the table.")
                     anim_print("You found nothing but a headache.")
@@ -262,7 +297,7 @@ def opening_scene():
                         attack = 3
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, attack])
-                    if seen_inputs == all_choices:
+                    if seen_inputs != all_choices:
                         anim_print("Maybe there's something else here.")
                 elif to_look == "wall":
                     looking = True
@@ -278,8 +313,16 @@ def opening_scene():
                     anim_print("Maybe there is something in the room that you can use to reach the window.")
                     elevated_surface = True
                     while elevated_surface:
-                        grab_item = anim_input("You have an idea to grab something to stand on, and you grab the... ").lower()
-                        if grab_item == "chair":
+                        grab_item = anim_input("You have an idea to grab something to stand on and you grab the... ").lower()
+                        if grab_item == "table":
+                            elevated_surface = True
+                            anim_print("You go over to the table to see if you can grab it and drag it to the wall.")
+                            anim_print("But once you reach the table and try moving it, you quickly find that the table is way too heavy to move.")
+                            anim_print("You look down and see that it's bolted to the floor...")
+                            time.sleep(1)
+                            anim_print("Maybe something that's next to the table can help you reach the window.")
+                            time.sleep(1)
+                        elif grab_item == "chair":
                             elevated_surface = False
                             anim_print("You grab the chair and set it on the floor underneath where the window is.")
                             anim_print("You put one foot on the chair and then the other and carefully climb up.")
@@ -316,11 +359,23 @@ def opening_scene():
                                 attack = 12
                                 csv_writer = csv.writer(file)
                                 csv_writer.writerow([new_item, attack])
-                            if seen_inputs == all_choices:
+                            time.sleep(1)
+                            anim_print("You think its best to use the bar to open the door rather than climb on the chair and fall again.")
+                            anim_print("You don't want to get hurt...")
+                            time.sleep(1)
+                            anim_print("Oh.")
+                            time.sleep(1)
+                            anim_print("The chair is broken anyway.")
+                            anim_print("You didn't notice that the legs of the chair were rusty.")
+                            time.sleep(1)
+                            if seen_inputs != all_choices:
                                 anim_print("Maybe there's something else here.")
                         else:
                             elevated_surface = True
                             anim_print("You don't know if that will work.")
+                else:
+                    anim_print("That is not what was asked.")
+                    time.sleep(1)
         anim_print("After you've looked around the room, you go back over to the door.")
         anim_print("You've found some things that could help you open the door.")
         anim_print("To view your inventory, press E. You can only view your inventory when prompted.")
@@ -401,7 +456,7 @@ def opening_scene():
         anim_print("But as you look around, you find that you're nowhere near the ground.")
         anim_print("And it's starting to rain.")
         trees_rustle.stop()
-        city_rain.play(loops=-1)
+        city_rain.play(-1)
         city_rain.set_volume(.5)
         time.sleep(1)
         anim_print("You look around and see that you're in an outdoor, concrete hallway of a sort.")
@@ -478,7 +533,7 @@ def opening_scene():
             reader = csv.reader(collected_items)
             items = list(reader)
             items = [row for row in items if row[0].capitalize() != item_to_remove]
-
+        print()
         with open(filename, 'w', newline='') as collected_items:
             writer = csv.writer(collected_items)
             writer.writerows(items)
@@ -488,7 +543,7 @@ def opening_scene():
         anim_print("You make your way down the hallway of the building you just came from.")
         anim_print("The smell of rain overwhelms your senses.")
         anim_print("You hope that you'll get used to it soon.")
-        anim_print("As you reach the end of the hallway, you see two sepparate metal doors.")
+        anim_print("As you reach the end of the hallway, you see two separate metal doors.")
         anim_print("The left door looks like it leads to the rest of the complex.")
         anim_print("The right door might lead to the stairs.")
         anim_print("Which one do you choose?")
@@ -501,19 +556,24 @@ def opening_scene():
                 anim_print("But its locked...")
                 anim_print("You think to yourself 'Maybe I can unlock this after the game is completed...'")
                 anim_print("Whatever that means...")
-                # when you write this part, import the scene as a custom .py file.
+                # when you write this part, import the scene as a custom [NAME_HERE].py file.
+                # the imported file MUST end with the character at the left and right door.
+                # the character automatically leaves out the right door after exploring everywhere.
                 time.sleep(1)
             elif door == "right":
                 choose_door = False
-                anim_print("You reach your hand out to open the door on the left...")
+                anim_print("You reach your hand out to open the door on the right...")
                 anim_print("And you were right.")
                 anim_print("Behind the door was a stairwell.")
                 time.sleep(1)
-                anim_print("You slowly make your way down the stairwell.")
             else:
                 choose_door = True
                 anim_print("What?", delay=0.1)
                 time.sleep(.5)
+        anim_print("You slowly make your way down the concrete stairwell.")
+        anim_print("The metal railing feels smooth and cold against your skin as you take step after step towards freedom.")
+        anim_print("You feel as if you've walked twenty flights to reach the bottom, but you finally make it.")
+
 
         # go down stairs and reach a muddy trail. Remember that it's raining. Your goal is to look for help.
         # you have to go down the trail and you reach two signs. one leads to the town.
