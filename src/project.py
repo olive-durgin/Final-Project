@@ -573,11 +573,95 @@ def opening_scene():
         anim_print("You slowly make your way down the concrete stairwell.")
         anim_print("The metal railing feels smooth and cold against your skin as you take step after step towards freedom.")
         anim_print("You feel as if you've walked twenty flights to reach the bottom, but you finally make it.")
+        anim_print("Once at ground level, you take in your surroundings.")
+        anim_print("You are surrounded by a huge, beautiful forest with a winding, muddy path directly ahead.")
+        anim_print("The combination of wind and rain brings worth a beautiful melody that sways through the trees.")
+        time.sleep(1)
+        anim_print("To your left, there are steep, sharp rocks that line the edge of what you think could be mountains.")
+        anim_print("And to your right, there is a dense forest. In the far distance, you think that you can see a cliff face.")
+        time.sleep(1)
+        anim_print("You turn around and look at the building that you just escaped from.")
+        anim_print("It's concrete and metal form is carefully merged with the cliffside.")
+        anim_print("As you scan the face of the building, you can't even see the room you were in because the trees block your view.")
+        time.sleep(1)
+        anim_print("As the grass gently rubs against your bare ankles, and the rain soaks your socks...")
+        anim_print("You think to yourself that you should keep moving. You shouldn't stay in the rain for too long.")
+        anim_print("You don't want to get sick.")
+        time.sleep(1)
+        anim_print("Knowing that you are almost entirely surrounded by walls; whether manmade or otherwise...")
+        time.sleep(1)
+        anim_print("There is no where to go but forward.")
+        print()
+        time.sleep(4)
+        anim_print("CHAPTER ONE - CITY OF SEONA (demo version)",delay=0.1)
+        inventory = []
+        with open('achievements.csv', 'r') as file:
+            reader = csv.reader(file)
+            for row in reader:
+                inventory.append(row[0])
+        items_to_add = [("finish the prologue")]
+        for item in items_to_add:
+            if item not in inventory:
+                inventory.append(item)
+                with open('achievements.csv', 'a', newline='') as file1:
+                    writer1 = csv.writer(file1)
+                    writer1.writerow([item])
+            else:
+                print()
+        anim_print("You look ahead of you at the trail.")
+        anim_print("This is the only way to go.")
+        anim_print("All trails lead to somewhere safe, right?")
+        anim_print("If you go down this trail, maybe you can find some help.")
+        anim_print("Maybe someone can help you find home.")
+        anim_print("You continue your journey, unfettered by the rain, and you head down the trail up ahead.")
+        anim_print("The mud sucks at your shoes, threatening to pull them off.")
+        anim_print("But you still continue walking.")
+        time.sleep(1)
+        anim_print("After about an hour or so of walking, you begin to get tired.")
+        anim_print("You start to think of whether this trail actually leads somewhere or not.")
+        anim_print("You consider turning around and going back to that steril building you woke up in.")
+        anim_print("At least it was much drier.")
+        anim_print("As soon as those doubts of continuing on started popping in your head, you see something in the distance.")
+        anim_print("A wooden trail sign.")
+        time.sleep(1)
+        anim_print("Excited to see something other than trees, you rush up to the sign.")
+        anim_print("You don't care that one of your shoes came off in the mud.")
+        anim_print("At least this is hope that you can find out if you're going in the right direction!")
+        anim_print("As you walk up to the sign, you notice that the path in front of your forks two ways.")
+        anim_print("The path to the left rises while the other falls.")
+        time.sleep(1)
+        anim_print("The sign is shaped like an arrow with two points going in opposite directions.")
+        anim_print("The Left Sign: 'The Seona Misty Trails'")
+        time.sleep(1)
+        anim_print("The Right Sign: 'City of Seona'")
+        anim_print("Following the left sign means that you'll head deeper into the mountains...")
+        anim_print("That might be dangerous.")
+        anim_print("No one knows where you are.")
+        time.sleep(1)
+        anim_print("Following the right sign means that you'll eventually end up in a town called Seona.")
+        anim_print("The town is only 2 miles away.")
+        time.sleep(1)
+        anim_print("Which way are you going to go?")
+        left_or_right = True
+        while left_or_right:
+            trail_choice = anim_input("You choose to go to the... ").lower()
+            if trail_choice == "left":
+                left_or_right = True
+                anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
+                time.sleep(1)
+                # when updating the demo, custom import this scene as a .py file.
+            elif trail_choice == "right":
+                anim_print("You decide to take the right path and go towards the city of Seona.")
+                anim_print("")
+                left_or_right = False
+                break
+            else:
+                left_or_right = True
+                anim_print("That isn't a choice.")
+                time.sleep(1)
 
 
-        # go down stairs and reach a muddy trail. Remember that it's raining. Your goal is to look for help.
-        # you have to go down the trail and you reach two signs. one leads to the town.
-            #  The other leads to the rest od the mountains (demo).
+
         # go to abandoned towns. you know what's in the small town by looking at a map posted in the town.
             # "You look at the map, but due to the weather, most of the words and pictures are long faded."
             # "You can make out some of the places on the map though. Maybe you can go there."
@@ -621,6 +705,10 @@ def opening_scene():
                 elif to_explore == "pond":
                     explore = True
                     anim_print("")
+                else:
+                    explore = True
+                    anim_print(f"You don't remember seeing {to_explore} on the map.")
+                    time.sleep(1)
 
         anim_print("")
 
