@@ -501,17 +501,35 @@ def opening_scene():
                 anim_print("But its locked...")
                 anim_print("You think to yourself 'Maybe I can unlock this after the game is completed...'")
                 anim_print("Whatever that means...")
+                # when you write this part, import the scene as a custom .py file.
                 time.sleep(1)
             elif door == "right":
                 choose_door = False
-                anim_print("")
+                anim_print("You reach your hand out to open the door on the left...")
+                anim_print("And you were right.")
+                anim_print("Behind the door was a stairwell.")
+                time.sleep(1)
+                anim_print("You slowly make your way down the stairwell.")
             else:
                 choose_door = True
                 anim_print("What?", delay=0.1)
                 time.sleep(.5)
 
-        # go to abandoned towns.
-        # you find a map of the whole area.
+        # go down stairs and reach a muddy trail. Remember that it's raining. Your goal is to look for help.
+        # you have to go down the trail and you reach two signs. one leads to the town.
+            #  The other leads to the rest od the mountains (demo).
+        # go to abandoned towns. you know what's in the small town by looking at a map posted in the town.
+            # "You look at the map, but due to the weather, most of the words and pictures are long faded."
+            # "You can make out some of the places on the map though. Maybe you can go there."
+        # after exploring everywhere, you are ambushed by a miniboss who has a human hostage; the mega mutation.
+        # there are two endings for the miniboss fight. if miniboss kills hostage, hostage can't tell you important info.
+            # if you kill miniboss before hostage dies, you get important info.
+            # important info is a keycard to unlock a secret base in the woods. that is where secret is revealed and you fight the final boss.
+            # you can use your special skill as a weapon. attack power is *10 of your attack. you can only use it once per round.
+            # when boss dies once, boss has a phase two.
+            # you get a lot of items to use against the boss, AND healing items too.
+            # phase 1: Boss health is 400, attack 25.
+            # phase 2: Boss health is 600, attack 40.
         seen_towns = set()
         all_choices = {"market", "school", "hospital", "playground", "pond"}
         explore = True
