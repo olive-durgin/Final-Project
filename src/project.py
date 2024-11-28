@@ -253,7 +253,6 @@ def opening_scene():
         while looking:
             if seen_inputs == all_choices:
                 looking = False
-                elevated_surface = False
                 break
             to_look = anim_input("You look at the leaves, table, or wall: ").lower()
             if to_look in seen_inputs:
@@ -316,7 +315,7 @@ def opening_scene():
                     while elevated_surface:
                         grab_item = anim_input("You have an idea to grab something to stand on and you grab the... ").lower()
                         if grab_item == "table":
-                            elevated_surface = True
+                            elevated_surface = False
                             anim_print("You go over to the table to see if you can grab it and drag it to the wall.")
                             anim_print("But once you reach the table and try moving it, you quickly find that the table is way too heavy to move.")
                             anim_print("You look down and see that it's bolted to the floor...")
@@ -372,7 +371,7 @@ def opening_scene():
                             if seen_inputs != all_choices:
                                 anim_print("Maybe there's something else here.")
                         else:
-                            elevated_surface = True
+                            elevated_surface = False
                             anim_print("You don't know if that will work.")
                 else:
                     anim_print("That is not what was asked.")
@@ -483,7 +482,7 @@ def opening_scene():
         city_rain.stop()
         anim_print("Loading...", delay=0.135)
         import first_fight
-        first_fight
+        first_fight()
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
         anim_print("You were able to defend yourself from the rat, and it drops dead.")
