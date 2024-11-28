@@ -1319,7 +1319,6 @@ def random_enemy():
                     time.sleep(1)
                     game_is_running = True
 
-
     anim_print("You leveled up!")
     anim_print("Your attack increased by 2!")
     with open(statistics, 'r') as file:
