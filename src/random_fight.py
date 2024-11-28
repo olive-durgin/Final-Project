@@ -854,6 +854,60 @@ def random_enemy():
                     win_sound.play()
                     anim_print("YOU WIN!")
                     break
+            if new_health <= 0:
+                if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                    sound.stop()
+                    anim_print(f"{enemies[idx].capitalize()} feels bad and cries.")
+                    sound.stop()
+                    time.sleep(2)
+                    anim_print("You died...")
+                    time.sleep(4)
+                    anim_print("Overriding program...")
+                    time.sleep(2)
+                    anim_print("Resetting...")
+                    time.sleep(1)
+                    data = []
+                    with open('stats.csv', 'r') as file:
+                        reader = csv.reader(file)
+                        for row in reader:
+                            data.append(row)
+                            if row[0] == "initial health":
+                                initial_health = float(row[1])
+                    for row in data:
+                        if row[0] == "your health":
+                            row[1] = str(initial_health)
+                    with open('stats.csv', 'w', newline="") as file:
+                        writer = csv.writer(file)
+                        writer.writerows(data)
+                    new_health = initial_health
+                    enemy_health = initial_enemy_health
+                    game_is_running = True
+                    sound.play(-1)
+                else:
+                    sound.stop()
+                    anim_print("You died...")
+                    time.sleep(4)
+                    anim_print("Overriding program...")
+                    time.sleep(2)
+                    anim_print("Resetting...")
+                    time.sleep(1)
+                    data = []
+                    with open('stats.csv', 'r') as file:
+                        reader = csv.reader(file)
+                        for row in reader:
+                            data.append(row)
+                            if row[0] == "initial health":
+                                initial_health = float(row[1])
+                    for row in data:
+                        if row[0] == "your health":
+                            row[1] = str(initial_health)
+                    with open('stats.csv', 'w', newline="") as file:
+                        writer = csv.writer(file)
+                        writer.writerows(data)
+                    new_health = initial_health
+                    enemy_health = initial_enemy_health
+                    game_is_running = True
+                    sound.play(-1)
         elif attack_or_dodge == "R":
             chance = random.randint(1, 100)
             if chance >= 20:

@@ -20,29 +20,38 @@ def anim_input(prompt):
     return input()
 
 seen_towns = set()
-all_choices = {"market", "school", "hospital"}
+all_choices = {"market", "school", "hospital", "playground", "pond"}
 explore = True
 while explore:
     if seen_towns == all_choices:
         explore = False
         break
-    to_explore = anim_input("You decide to explore the market, school, hospital: ").lower()
+    to_explore = anim_input("You decide to explore the market, school, hospital, playground, or pond: ").lower()
     if to_explore in seen_towns:
         looking = True
-        anim_print("Look somewhere else.")
-
+        anim_print("You already looked there. Look somewhere else.")
     else:
         seen_towns.add(to_explore)
         if to_explore == "market":
             explore = True
             city_rain.stop()
-            anim_print("You explored the market!")
+            anim_print("")
         elif to_explore == "school":
             explore = True
             city_rain.stop()
-            anim_print("You explored the school!")
+            anim_print("")
         elif to_explore == "hospital":
             explore = True
             city_rain.stop()
-            anim_print("You explored the hospital!")
+            anim_print("")
+        elif to_explore == "playground":
+            explore = True
+            anim_print("")
+        elif to_explore == "pond":
+            explore = True
+            anim_print("")
+        else:
+            explore = True
+            anim_print(f"You don't remember seeing {to_explore} on the map.")
+            time.sleep(1)
 anim_print("It works!")

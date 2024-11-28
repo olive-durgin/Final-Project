@@ -1,6 +1,6 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import time, csv, pygame
+import time, csv, pygame, random
 pygame.init()
 trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
 breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
@@ -41,38 +41,38 @@ def opening_scene():
             wrong_username = False
     creating_stats = True
     while creating_stats:
-        adjective_01 = anim_input("Adjective 01: ")
-        if adjective_01 == "":
-            creating_stats = True
+        while True:
+            adjective_01 = anim_input("Adjective 01: ")
+            if adjective_01 != "":
+                break
             anim_print("This input is no good...")
             anim_print("Retry your input.")
             time.sleep(1)
-        else:
-            creating_stats = False
-        adjective_02 = anim_input("Adjective 02: ")
-        if adjective_02 == "":
-            creating_stats = True
+        
+        while True:
+            adjective_02 = anim_input("Adjective 02: ")
+            if adjective_02 != "":
+                break
             anim_print("This input is no good...")
             anim_print("Retry your input.")
             time.sleep(1)
-        else:
-            creating_stats = False
-        ability = anim_input("What is a good skill to have? ")
-        if ability == "":
-            creating_stats = True
+        
+        while True:
+            ability = anim_input("What is a good skill to have? ")
+            if ability != "":
+                break
             anim_print("This input is no good...")
             anim_print("Retry your input.")
             time.sleep(1)
-        else:
-            creating_stats = False
-        weakness = anim_input("In one word, what scares you? ")
-        if weakness == "":
-            creating_stats = True
+        
+        while True:
+            weakness = anim_input("In one word, what scares you? ")
+            if weakness != "":
+                break
             anim_print("This input is no good...")
             anim_print("Retry your input.")
             time.sleep(1)
-        else:
-            creating_stats = False
+        creating_stats = False
 
     strength = True
     while strength:
@@ -82,10 +82,11 @@ def opening_scene():
             if 1 <= attack <= 10:
                 strength = False
             else:
-                anim_print("This is not what I asked for.")
+                anim_print("This is not what was asked of you.")
                 time.sleep(0.75)
         except ValueError:
             anim_print("Do you call that a number...?")
+            time.sleep(1)
     with open(statistics, 'a', newline='') as file:
         new_stat = "your name"
         you = username
@@ -159,7 +160,7 @@ def opening_scene():
     time.sleep(1)
     anim_print("Health: 100")
     anim_print(f"Attack: {attack:.0f}")
-    anim_print(f"Special Ability: {ability.capitalize()}")
+    anim_print(f"Special Ability: {ability.title()}")
     anim_print(f"Weakness: {weakness.capitalize()}")
     time.sleep(2)
     print()
@@ -174,7 +175,7 @@ def opening_scene():
                 anim_print("Sorry! This choice is not available for the demo! Look for updates in the future!")
             else:
                 correct_choice = False
-                anim_print("This is not what I asked for.")
+                anim_print("This is not what was asked of you.")
 
     if character_choice == username:
         health = 100
@@ -514,8 +515,9 @@ def opening_scene():
                     for row in choice:
                         new_stat, kill_power = row
                         print(f"{new_stat.title()}: {kill_power}")
-                        time.sleep(1 )
+                        time.sleep(1)
                 with open(filename, 'r') as collected_items:
+                    print()
                     anim_print("YOUR INVENTORY")
                     choice = csv.reader(collected_items)
                     for row in choice:
@@ -533,7 +535,6 @@ def opening_scene():
             reader = csv.reader(collected_items)
             items = list(reader)
             items = [row for row in items if row[0].capitalize() != item_to_remove]
-        print()
         with open(filename, 'w', newline='') as collected_items:
             writer = csv.writer(collected_items)
             writer.writerows(items)
@@ -564,7 +565,7 @@ def opening_scene():
                 choose_door = False
                 anim_print("You reach your hand out to open the door on the right...")
                 anim_print("And you were right.")
-                anim_print("Behind the door was a stairwell.")
+                anim_print("Behind the door is a stairwell.")
                 time.sleep(1)
             else:
                 choose_door = True
@@ -572,10 +573,10 @@ def opening_scene():
                 time.sleep(.5)
         anim_print("You slowly make your way down the concrete stairwell.")
         anim_print("The metal railing feels smooth and cold against your skin as you take step after step towards freedom.")
-        anim_print("You feel as if you've walked twenty flights to reach the bottom, but you finally make it.")
+        anim_print("You feel as if you've walked twenty flights to reach the bottom, but you finally make it to the bottom.")
         anim_print("Once at ground level, you take in your surroundings.")
         anim_print("You are surrounded by a huge, beautiful forest with a winding, muddy path directly ahead.")
-        anim_print("The combination of wind and rain brings worth a beautiful melody that sways through the trees.")
+        anim_print("The combination of wind and rain brings forth a beautiful melody that sways through the trees.")
         time.sleep(1)
         anim_print("To your left, there are steep, sharp rocks that line the edge of what you think could be mountains.")
         anim_print("And to your right, there is a dense forest. In the far distance, you think that you can see a cliff face.")
@@ -588,11 +589,11 @@ def opening_scene():
         anim_print("You think to yourself that you should keep moving. You shouldn't stay in the rain for too long.")
         anim_print("You don't want to get sick.")
         time.sleep(1)
-        anim_print("Knowing that you are almost entirely surrounded by walls; whether manmade or otherwise...")
+        anim_print("Knowing that you are almost entirely surrounded by walls, whether manmade or otherwise...")
         time.sleep(1)
         anim_print("There is no where to go but forward.")
-        print()
         time.sleep(4)
+        print()
         anim_print("CHAPTER ONE - CITY OF SEONA (demo version)",delay=0.1)
         inventory = []
         with open('achievements.csv', 'r') as file:
@@ -608,6 +609,7 @@ def opening_scene():
                     writer1.writerow([item])
             else:
                 print()
+        time.sleep(2)
         anim_print("You look ahead of you at the trail.")
         anim_print("This is the only way to go.")
         anim_print("All trails lead to somewhere safe, right?")
@@ -652,14 +654,68 @@ def opening_scene():
                 # when updating the demo, custom import this scene as a .py file.
             elif trail_choice == "right":
                 anim_print("You decide to take the right path and go towards the city of Seona.")
-                anim_print("")
+                anim_print("But first, you go back to retrieve your other shoe from the mud.")
+                anim_print("Now that you have both of your shoes, you continue on your journey!")
                 left_or_right = False
                 break
             else:
                 left_or_right = True
                 anim_print("That isn't a choice.")
                 time.sleep(1)
-
+        anim_print("Loading...",delay=0.135)
+        time.sleep(2)
+        anim_print("You continue down the trail, not knowing what lies ahead...")
+        anim_print("But then you hear something rustling in the underbrush.")
+        anim_print("You think that it could just be the wind and rain moving the trees, but you're not sure.")
+        anim_print("Be careful.")
+        time.sleep(1)
+        anim_print("You have no idea what could be out here with you.")
+        time.sleep(1)
+        anim_print("Type 'M' to move forward.")
+        walking_forward = True
+        count = 0
+        while walking_forward:
+            move_forward = anim_input("Continue on? ").upper()
+            while count < 6:
+                chance = random.randint(1, 100)
+                if move_forward == 'M':
+                    if chance <= 25 or chance >= 65:
+                        anim_print("You hear the rustling of plants grow louder as something approaches you!")
+                        import random_fight
+                        time.sleep(1)
+                        random_fight
+                        anim_print("You were safely able to fend off your attacker!")
+                        anim_print("You should hurry up and get off of this trail.")
+                        anim_print("You're bound to be attacked again.")
+                        time.sleep(1)
+                        move_forward = False
+                        break
+                    else:
+                        anim_print("You safely move forward along the trail.")
+                        anim_print("A sign that you just passed says that you've traveled a third of a mile.")
+                        time.sleep(1)
+                        count += 1
+                        if count == 6:
+                            walking_forward = False
+                            break
+                        else:
+                            anim_print("You best hurry to the town.")
+                            move_forward = False
+                            break
+                else:
+                    anim_print("You stop to take in your surrounding instead of moving forward.")
+                    anim_print("But you hear something rush up from behind you!")
+                    anim_print("You have no time to react!")
+                    random_fight
+                    time.sleep(1)
+                    anim_print("You were safely able to fend off your attacker!")
+                    anim_print("But in your despiration to get away...")
+                    time.sleep(1)
+                    anim_print("You ran a third of a mile in the wrong direction.")
+                    time.sleep(1)
+                    count -= 1
+                    move_forward = False
+                    break
 
 
         # go to abandoned towns. you know what's in the small town by looking at a map posted in the town.
