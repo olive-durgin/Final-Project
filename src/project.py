@@ -675,7 +675,7 @@ def opening_scene():
         walking_forward = True
         count = 0
         while walking_forward:
-            move_forward = anim_input("Continue on? ").upper()
+            move_forward = anim_input("Continue on (M)? ").upper()
             while count < 6:
                 chance = random.randint(1, 100)
                 if move_forward == 'M':
@@ -683,7 +683,7 @@ def opening_scene():
                         anim_print("You hear the rustling of plants grow louder as something approaches you!")
                         import random_fight
                         time.sleep(1)
-                        random_fight
+                        random_fight()
                         anim_print("You were safely able to fend off your attacker!")
                         anim_print("You should hurry up and get off of this trail.")
                         anim_print("You're bound to be attacked again.")
@@ -706,7 +706,7 @@ def opening_scene():
                     anim_print("You stop to take in your surrounding instead of moving forward.")
                     anim_print("But you hear something rush up from behind you!")
                     anim_print("You have no time to react!")
-                    random_fight
+                    random_fight()
                     time.sleep(1)
                     anim_print("You were safely able to fend off your attacker!")
                     anim_print("But in your despiration to get away...")
