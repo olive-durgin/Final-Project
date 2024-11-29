@@ -1363,5 +1363,7 @@ def random_enemy():
     sound.stop()
     anim_print("Loading...", delay=0.135)
     time.sleep(3)
+    pass
 
-random_enemy()
+if __name__ == "__main__":
+    random_enemy()
