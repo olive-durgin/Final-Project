@@ -23,8 +23,8 @@ def anim_input(prompt):
     return input()
 
 def random_enemy():
-
-    enemies = ["Ana"] * 1 + ["Syuuran"] * 1 + ["screaming, little freak"] * 5 + ["wild, flesh-eating monster"] * 5 +["long cat", "mutated rat", "mutated dog", "odd badger", "odd elk", "long stoat"] * 88
+    statistics = "stats.csv"
+    enemies = ["Ana"] * 1 + ["Syuuran"] * 1 + ["screaming, little freak"] * 5 + ["wild, flesh-eating monster"] * 5 + ["odd elk"] * 5 + ["long cat", "mutated rat", "mutated dog", "odd badger", "long stoat"] * 83
     selected_enemy = random.choice(enemies)
     idx = enemies.index(selected_enemy)
 
@@ -1319,8 +1319,16 @@ def random_enemy():
                     time.sleep(1)
                     game_is_running = True
 
+    time.sleep(1)
+    if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+        level_up = float(10)
+    if enemies[idx] == "odd elk" or enemies[idx] == "screaming, little freak" or enemies[idx] == "wild, flesh-eating monster":
+        level_up = float(8)
+    else:
+        level_up = float(2)
+
     anim_print("You leveled up!")
-    anim_print("Your attack increased by 2!")
+    anim_print(f"Your attack increased by {level_up}!")
     with open(statistics, 'r') as file:
         reader = csv.reader(file)
         items = list(reader)
@@ -1331,7 +1339,7 @@ def random_enemy():
         writer.writerows(items)
     with open(statistics, 'a', newline='') as file:
         new_item = "your attack"
-        health = strength + 2
+        health = strength + level_up
         csv_writer = csv.writer(file)
         csv_writer.writerow([new_item, health])
 
