@@ -505,7 +505,6 @@ def opening_scene():
             view_inventory = anim_input("View your inventory (E)? ").capitalize()
             print()
             if view_inventory == "E":
-                print()
                 with open(statistics, 'r') as file:
                     anim_print("YOUR STATISTICS")
                     time.sleep(1)
@@ -686,9 +685,9 @@ def opening_scene():
         anim_print("You have no idea what could be out here with you.")
         time.sleep(1)
         anim_print("Type 'M' to move forward.")
-        walking_forward = True
+        walking_in_woods = True
         count = 0
-        while walking_forward:
+        while walking_in_woods:
             move_forward = anim_input("Continue on (M)? ").upper()
             while count < 6:
                 chance = random.randint(1, 100)
@@ -705,13 +704,15 @@ def opening_scene():
                         break
                     else:
                         anim_print("You safely move forward along the trail.")
-                        anim_print("A sign that you just passed says that you've traveled a third of a mile.")
                         time.sleep(1)
                         count += 1
                         if count == 6:
-                            walking_forward = False
+                            anim_print("And as you reach the end of the trail, you see another sign written in huge, capital letters.")
+                            anim_print("'WELCOME TO SEONA CITY'")
+                            walking_in_woods = False
                             break
                         else:
+                            anim_print("A sign that you just passed says that you've traveled a third of a mile.")
                             anim_print("You best hurry to the town.")
                             move_forward = False
                             break
@@ -730,19 +731,24 @@ def opening_scene():
                     move_forward = False
                     break
 
-
-        # go to abandoned towns. you know what's in the small town by looking at a map posted in the town.
-            # "You look at the map, but due to the weather, most of the words and pictures are long faded."
-            # "You can make out some of the places on the map though. Maybe you can go there."
-        # after exploring everywhere, you are ambushed by a miniboss who has a human hostage; the mega mutation.
-        # there are two endings for the miniboss fight. if miniboss kills hostage, hostage can't tell you important info.
-            # if you kill miniboss before hostage dies, you get important info.
-            # important info is a keycard to unlock a secret base in the woods. that is where secret is revealed and you fight the final boss.
-            # you can use your special skill as a weapon. attack power is *10 of your attack. you can only use it once per round.
-            # when boss dies once, boss has a phase two.
-            # you get a lot of items to use against the boss, AND healing items too.
-            # phase 1: Boss health is 400, attack 25.
-            # phase 2: Boss health is 600, attack 40.
+        anim_print("The entrance to the city is not as welcoming as you thought it would be, though.")
+        anim_print("The streets are cracked and broken up, and the building are in even worse condition.")
+        anim_print("Weeds have long taken over any surface they could wrap themselves around.")
+        anim_print("Mold spots the shop signs and any porous surface within its reach.")
+        time.sleep(1)
+        anim_print("Does anyone even live here anymore?")
+        time.sleep(1)
+        anim_print("You sure hope so, but it doesn't seem like it.")
+        anim_print("You walk a couple of steps into town when you see another sign on the street corner.")
+        anim_print("You cross the deteriorating street to look at the sign...")
+        anim_print("...but upon further inspection, most of the words and pictures are eaten away by mold and time.")
+        anim_print("The title of the sign reads: 'Downtown Seona Scramble'.")
+        anim_print("This is a map of Seona's downtown area!")
+        anim_print("There were dozens of places to visit here, but on the map, its reduced to only a few.")
+        anim_print("Maybe if you use this map to look around the city, you can find out what happened here.")
+        anim_print("And maybe you can find some help.")
+        anim_print("Some of the places still marked on the map are the market, the middle school, the hospital, the playground, and Seona pond.")
+        anim_print("Where should you go first?")
         seen_towns = set()
         all_choices = {"market", "school", "hospital", "playground", "pond"}
         explore = True
@@ -759,37 +765,423 @@ def opening_scene():
                 if to_explore == "market":
                     explore = True
                     city_rain.stop()
-                    anim_print("")
+                    anim_print("You decide to head towards the produce market.")
+                    anim_print("According to the map, it's not too far from where you are now.")
+                    anim_print("As you walk down the streets, you really get a chance to see how worn down the city is.")
+                    anim_print("You are surprised that buildings are still standing.")
+                    anim_print("The only thing that is the most recognizable are the glass skyscrapers in the distance.")
+                    anim_print("But they are way to far away to reach.")
+                    anim_print("You look down at the ground for a moment as you walk.")
+                    anim_print("And you notice smudges, dirty papers are scattered all over the roads.")
+                    anim_print("You can't make out what they say.")
+                    time.sleep(1)
+                    anim_print("You pass several buildings on your way to the market.")
+                    ambushed = random.choice([True, False])
+                    if ambushed == True:
+                        anim_print("But you suddenly feel something run into you!")
+                        anim_print("You turn and you see it!")
+                        random_fight.random_enemy()
+                        anim_print("Luckily you were able to get away with your life!")
+                        anim_print("And you continue down the street, a little more aware of your surroundings, until you see the market.")
+                    if ambushed == False:
+                        anim_print("You pass an old laundromat, a cleaners, and even several building of what you think could have been restaurants.")
+                        anim_print("But you safely make it to the market.")
+                    anim_print("As you stand at the door of the market, you are reluctant to touch the door to go inside.")
+                    anim_print("The door is covered in a gross, shiny slime.")
+                    anim_print("You have no idea what it could be.")
+                    anim_print("But you must continue on.")
+                    anim_print("You place both of your hands on the door.")
+                    anim_print("The sludge feels as if it seeps into your skin.")
+                    anim_print("It feels even worse under your nails.")
+                    anim_print("You give the door a good push and the hinges on the door give way.")
+                    anim_print("The entire door falls to the ground with a thud.")
+                    anim_print("You hope that that didn't attract any unwanted attention.")
+                    time.sleep(1)
+                    anim_print("You step inside of the market.")
+                    anim_print("The muffled crunch of rotting boxes and packaging is heard from under your feet.")
+                    anim_print("You look up at the knocked over and neglected shelves that you assume once held dry goods.")
+                    anim_print("You look around the aisles and find a paper nustled in the shelving.")
+                    anim_print("You pull the paper out from underneath some exploded, oozing cans of beans.")
+                    anim_print("As you straighten the paper to read it, you recognize it from somewhere.")
+                    anim_print("It looks like one of the papers that you saw lying in the street!")
+                    anim_print("At least you're able to read this paper better despite being stained with food waste.")
+                    time.sleep(1)
+                    anim_print("It's a public service announcement...")
+                    time.sleep(1)
+                    anim_print("The city was evacuated...")
+                    time.sleep(1)
+                    anim_print("You can't quite make out the date, but this notice was issued sometime in August.")
+                    time.sleep(1)
+                    anim_print("You don't remember hearing anything about an evacuation.")
+                    time.sleep(1)
+                    anim_print("You don't remember much at all...")
+                    time.sleep(3)
+                    anim_print("You shove the paper into your pocket.")
+                    time.sleep(1)
+                    anim_print("Maybe it'll be useful later even if you can't read half of it...")
+                    time.sleep(1)
+                    anim_print("A PSA flier was added to your inventory.")
+                    with open(filename, 'a', newline='') as file:
+                        new_item = "Public Service Announcement"
+                        header = "Residents of Seona City - This is a public service announcement."
+                        body = " Please evacuate the city immediately due to an unknown [illegible]."\
+                        " This notice is put into effect as of August [illegible]."
+                        csv_writer = csv.writer(file)
+                        csv_writer.writerow([new_item, header, body])
+                    time.sleep(1)
+                    anim_print("You continue to look around the market.")
+                    anim_print("There has to be something else here.")
+                    anim_print("You round the corner, steping over overgrown trees and plant life.")
+                    anim_print("But you hear something rustling around in the meat section of the market.")
+                    anim_print("Should you leave or investigate?")
+                    anim_print("If you leave, you can't come back.")
+                    deciding = True
+                    while deciding:
+                        leave_or_stay = anim_input("You decide you 'leave' or 'investigate': ").lower()
+                        if leave_or_stay == "leave":
+                            anim_print("You don't want to take your chances and you decide to leave.")
+                            anim_print("You quietly turn around and head in the other direction.")
+                            anim_print("You don't want to risk being attacked for a helpful item that might not even be in the other room.")
+                            anim_print("Once you sneak out of the aisle, you find something blocking your way.")
+                            random_fight.random_enemy()
+                            anim_print("You successfully were able to fend off your attacker!")
+                            anim_print("It's best to not stay here. Some other monsters could be attracted by the sound of the fight.")
+                            anim_print("Once you leave the market, you find yourself outside.")
+                            anim_print("Where should you go next?")
+                            deciding = False
+                            break
+                        if leave_or_stay == "investigate":
+                            anim_print("You decide to be brave and investigate the source of the mysterious sound.")
+                            anim_print("You pick up a large stick that you find lying on the floor, and you grasp it tightly in your hands.")
+                            anim_print("You're nervous about what you might find waiting for you around the corner.")
+                            anim_print("Nevertheless, you pause before bursting around the corner.")
+                            anim_print("You swing as hard as you can towards the source of the sound!")
+                            anim_print("But you only ended up hitting a couple of small rats that were sitting on the shelves, looking for food.")
+                            anim_print("Regular rats weren't what you were expecting...")
+                            anim_print("But you're happy it wasn't anything worse...")
+                            time.sleep(1)
+                            anim_print("You look around the room you're in to see if anything can be salvaged.")
+                            anim_print("And you're in luck!")
+                            anim_print("Across the room, you see a butchers knife sitting on the counter.")
+                            anim_print("You walk over to the knife and grab it.")
+                            anim_print("It's pretty old, but it can still be great as a weapon if you get attacked again.")
+                            anim_print("A butcher's knife was added to your inventory.")
+                            with open(filename, 'a', newline='') as file:
+                                new_item = "butcher's knife"
+                                attack = 35
+                                csv_writer = csv.writer(file)
+                                csv_writer.writerow([new_item, attack])
+                            time.sleep(1)
+                            anim_print("You spend some more time looking around the market, but there isn't much else that could be useful to you.")
+                            anim_print("You turn to leave the store when something blocks your way.")
+                            anim_print("Maybe now is your chance to test out that new knife of yours.")
+                            random_fight.random_enemy()
+                            anim_print("You successfully were able to fend off your attacker!")
+                            anim_print("It's best to not stay here. Some other monsters could be attracted by the sound of the fight.")
+                            anim_print("Once you leave the market, you find yourself outside.")
+                            anim_print("Where should you go next?")
+                            deciding == False
+                            break
+                        else:
+                            print("This is not what was asked of you.")
+                            time.sleep(1)
+                            deciding == True
                 elif to_explore == "school":
                     explore = True
                     city_rain.stop()
-                    anim_print("")
+                    anim_print("You decide to head towards the middle school.")
+                    anim_print("According to the map, it's not too far from where you are now.")
+                    anim_print("As you walk down the streets towards the school, you think back on some of your memories.")
+                    anim_print("You can't remember much.")
+                    anim_print("You don't even remember whether you've been to school or not.")
+                    anim_print("All you know is that you have to find a way home.")
+                    anim_print("That is your guiding intuition.")
+                    time.sleep(1)
+                    anim_print("You pass several buildings on your way to the school.")
+                    ambushed = random.choice([True, False])
+                    if ambushed == True:
+                        anim_print("But you suddenly feel something run into you!")
+                        anim_print("You turn and you see it!")
+                        random_fight.random_enemy()
+                        anim_print("Luckily you were able to get away with your life!")
+                        anim_print("And you continue down the street, a little more aware of your surroundings, until you see the market.")
+                    if ambushed == False:
+                        anim_print("You pass an diner, a several, and a couple of delapitated apartments.")
+                        anim_print("But you safely make it to the school.")
+                    anim_print("You stand outside of the school, wondering what could await you inside.")
+                    anim_print("You walk down the school's front courtyard to reach the doors.")
+                    time.sleep(1)
+                    anim_print("The doors are already open when you get to them.")
+                    time.sleep(1)
+                    anim_print("Be careful.")
+                    time.sleep(1)
+                    anim_print("You step inside of the school and you are immediately overwelmed by the smell of mold.")
+                    anim_print("The hallways are relatively empty aside from the occasional debris.")
+                    anim_print("And the school looks better on the inside than you thought that it would.")
+                    anim_print("You just can't get over the smell of mold.")
+                    anim_print("You know that you don't want to stay here too long.")
+                    time.sleep(1)
+                    anim_print("You walk down the hallways expecting to see other people around, but it's eerily silent.")
+                    anim_print("Too silent.")
+                    anim_print("As you continue walking, you pass a classroom with an open door.")
+                    ambushed = random.choice([True, False])
+                    if ambushed == True:
+                        anim_print("And something jumps out at you!")
+                        random_fight.random_enemy()
+                        anim_print("Luckily you were able to get away with your life!")
+                        anim_print("Maybe you shouldn't just poke your head into classrooms like that.")
+                        time.sleep(1)
+                    if ambushed == False:
+                        anim_print("You peek inside but see no one there.")
+                        anim_print("You decide to walk inside the classroom, and you notice that there are some bags lying around the room.")
+                        anim_print("You look through the bags, hoping that no one would mind since they're all obviously gone...")
+                        anim_print("And you find a tape recorder.")
+                        anim_print("It is worn and dirty looking, but maybe it'll still work.")
+                        anim_print("There is nothing inside.")
+                        anim_print("A tape recorder was added to your inventory.")
+                        with open(filename, 'a', newline='') as file:
+                            new_item = "tape recorder"
+                            attack = 1
+                            csv_writer = csv.writer(file)
+                            csv_writer.writerow([new_item, attack])
+                        time.sleep(1)
+                        anim_print("Maybe you can find an important tape for it.")
+                        time.sleep(1)
+                    anim_print("You continue down the hallways until you reach the cafeteria.")
+                    anim_print("You would have taken a different turn, but most of the hallways were blocked off my broken trees or stacked up desks.")
+                    anim_print("You don't want to think about why people stacked those desks like they did.")
+                    anim_print("You walk into the cafeteria.")
+                    ambushed = random.choice([True, False])
+                    if ambushed == True:
+                        anim_print("And you hear something!")
+                        time.sleep(1)
+                        random_fight.random_enemy()
+                        anim_print("Luckily you were able to get away with your life!")
+                        time.sleep(1)
+                    if ambushed == False:
+                        anim_print("And you hear something!")
+                        time.sleep(1)
+                        anim_print("Oh.")
+                        anim_print("It was just a bird.")
+                        anim_print("A very noisy bird...")
+                        time.sleep(1)
+                    anim_print("You continue into the cafeteria, pushing the door open a little bit more with your body.")
+                    anim_print("And you see that the whole room is a complete mess.")
+                    anim_print("From a glance, you see that there is nothing of value that you can get here.")
+                    anim_print("So, you turn back and leave the cafeteria.")
+                    anim_print("You never forgot about the mold smell.")
+                    anim_print("In fact it's even gotten worse.")
+                    anim_print("Should you leave?")
+                    anim_print("If you choose to leave, you can't come back.")
+                    deciding = True
+                    while deciding:
+                        leave_or_stay = anim_input("You decide you 'leave' or 'investigate': ").lower()
+                        if leave_or_stay == "leave":
+                            anim_print("You don't want to get a serious headache from the smell...")
+                            anim_print("So, you turn around and go back the way you came.")
+                            anim_print("On the way back down the hallway, you notice something that you missed.")
+                            time.sleep(1)
+                            anim_print("A paper cutter blade was added to your inventory.")
+                            with open(filename, 'a', newline='') as file:
+                                new_item = "paper cutter blade"
+                                attack = 12
+                                csv_writer = csv.writer(file)
+                                csv_writer.writerow([new_item, attack])
+                            time.sleep(1)
+                            anim_print("You finally reach the front doors of the school, but when you turn to leave the school...")
+                            anim_print("...something blocks your way.")
+                            random_fight.random_enemy()
+                            anim_print("You're lucky to still be alive!")
+                            anim_print("You should hurry up and leave.")
+                            time.sleep(1)
+                            anim_print("Once outside where the smell of mold is noticeably less, you take a deep breath of fresh air.")
+                            time.sleep(1)
+                            anim_print("Where should you go next?")
+                            deciding = False
+                            break
+                        if leave_or_stay == "investigate":
+                            anim_print("You decide to tough it out.")
+                            anim_print("Maybe you'll find something good in here that can really help you.")
+                            time.sleep(1)
+                            anim_print("You walk down the hallway of the school, taking a different turn when you reach a block in the path...")
+                            anim_print("You feel like you were in that school all day, but you were able to get two things!")
+                            time.sleep(1)
+                            anim_print("A pair of scissors were added to your inventory.")
+                            with open(filename, 'a', newline='') as file:
+                                new_item = "pair of scissors"
+                                attack = 8
+                                csv_writer = csv.writer(file)
+                                csv_writer.writerow([new_item, attack])
+                            time.sleep(1)
+                            anim_print("A yard stick was added to your inventory.")
+                            with open(filename, 'a', newline='') as file:
+                                new_item = "yard stick"
+                                attack = 3
+                                csv_writer = csv.writer(file)
+                                csv_writer.writerow([new_item, attack])
+                            time.sleep(1)
+                            anim_print("You'd spend some more time looking around the school, but there isn't much else that could be useful to you.")
+                            anim_print("You turn to leave the school when something blocks your way.")
+                            random_fight.random_enemy()
+                            anim_print("As you fought your attacker, you ended up running somewhere behind the school!")
+                            anim_print("There is a dense, wooded area behind the school.")
+                            anim_print("While you're here, you decide to look around.")
+                            anim_print("Press 'M' to explore the woods.")
+                            anim_print("Press 'G' to give up.")
+                            walking_in_woods = True
+                            count = 0
+                            while walking_in_woods:
+                                move_forward = anim_input("Explore the woods (M)? ").upper()
+                                while count < 5:
+                                    chance = random.randint(1, 100)
+                                    if move_forward == 'M':
+                                        if chance <= 25 or chance >= 65:
+                                            anim_print("You hear something come up from behind!")
+                                            time.sleep(1)
+                                            random_fight.random_enemy()
+                                            anim_print("You were safely able to fend off your attacker!")
+                                            anim_print("Maybe exploring back here wasn't the best idea.")
+                                            time.sleep(1)
+                                            move_forward = False
+                                            break
+                                        else:
+                                            anim_print("You continue forward.")
+                                            time.sleep(1)
+                                            count += 1
+                                            if count == 5:
+                                                anim_print("You made it to the end of the visible, beaten path.")
+                                                anim_print("You look around but see nothing of interest.")
+                                                anim_print("You're about to turn around when you hear something up ahead.")
+                                                anim_print("Instinctively, you pick up a rock and throw it.")
+                                                anim_print("You hear it hit something metal, and you can hear a loud, metallic CLASH!")
+                                                anim_print("You go over to where you heard the rock hit metal...")
+                                                anim_print("And you are surprised at what you find.")
+                                                time.sleep(2)
+                                                anim_print("A bear trap was added to your inventory.")
+                                                with open(filename, 'a', newline='') as file:
+                                                    new_item = "bear trap"
+                                                    attack = 60
+                                                    csv_writer = csv.writer(file)
+                                                    csv_writer.writerow([new_item, attack])
+                                                time.sleep(1)
+                                                anim_print("When you decide to use it, you'll automatically arm it.")
+                                                time.sleep(1)
+                                                anim_print("You decide that you're done exploring the back of the school and you head back to the main road.")
+                                                time.sleep(1)
+                                                anim_print("Where should you look next?")
+                                                walking_in_woods = False
+                                                break
+                                            else:
+                                                anim_print("The school gets further behind you...")
+                                                time.sleep(1)
+                                                move_forward = False
+                                                break
+                                    if move_forward == 'G':
+                                        anim_print("You don't want to get hurt looking back here.")
+                                        anim_print("So you just decide to go back to the main road.")
+                                        time.sleep(1)
+                                        anim_print("Where should you look next?")
+                                        move_forward = False
+                                        break
+                                    else:
+                                        anim_print("You stop to take in your surrounding instead of moving forward.")
+                                        anim_print("But you hear something rush up from behind you!")
+                                        anim_print("You have no time to react!")
+                                        random_fight.random_enemy()
+                                        time.sleep(1)
+                                        anim_print("You were safely able to fend off your attacker!")
+                                        anim_print("But in your despiration to get away...")
+                                        time.sleep(1)
+                                        anim_print("You ran a third of a mile in the wrong direction.")
+                                        time.sleep(1)
+                                        count -= 1
+                                        move_forward = False
+                                        break
+                            deciding == False
+                            break
+                        else:
+                            print("This is not what was asked of you.")
+                            time.sleep(1)
+                            deciding == True
                 elif to_explore == "hospital":
                     explore = True
                     city_rain.stop()
-                    anim_print("")
+                    anim_print("You decide to go to the hospital.")
+                    anim_print("If you're attacked, there's surely something there that can help you feel better.")
+                    anim_print("As you walk towards the hosital, you see an enemy in the distance.")
+                    anim_print("It looks like this route has a lot of enemies...")
+                    anim_print("Be careful.")
+                    time.sleep(1)
+                    anim_print("Press 'M' to walk towards the hospital.")
+                    walking_in_woods = True
+                    count = 0
+                    while walking_in_woods:
+                        move_forward = anim_input("Walk towards the hospital (M)? ").upper()
+                        while count < 6:
+                            chance = random.randint(1, 100)
+                            if move_forward == 'M':
+                                if chance <= 25 or chance >= 65:
+                                    anim_print("Despite seeing enemies up ahead, you hear something come up from behind you!")
+                                    time.sleep(1)
+                                    random_fight.random_enemy()
+                                    anim_print("You were safely able to get away with your life!")
+                                    anim_print("Whatever is in the hospital better be worth it.")
+                                    time.sleep(1)
+                                    move_forward = False
+                                    break
+                                else:
+                                    anim_print("You carefully sneak past another enemy.")
+                                    anim_print("That could have been a close call.")
+                                    time.sleep(1)
+                                    count += 1
+                                    if count == 6:
+                                        anim_print("You finally make it to the hospital and quickly go inside before something attacks you.")
+                                        walking_in_woods = False
+                                        break
+                                    else:
+                                        move_forward = False
+                                        break
+                            else:
+                                anim_print("You weren't paying close enough attention to where you were going and you're attacked!")
+                                random_fight.random_enemy()
+                                time.sleep(1)
+                                anim_print("You were safely able to fend off your attacker!")
+                                anim_print("But you ended up going the wrong way.")
+                                time.sleep(1)
+                                count -= 1
+                                move_forward = False
+                                break
+                                
+
+
                 elif to_explore == "playground":
                     explore = True
                     anim_print("")
                 elif to_explore == "pond":
                     explore = True
                     anim_print("")
+                    # the pond is murky.
                 else:
                     explore = True
                     anim_print(f"You don't remember seeing {to_explore} on the map.")
                     time.sleep(1)
 
+        anim_print("You finish exploring everywhere that you saw on the map.")
+        anim_print("You think about what your next move should be when you hear a human scream.")
         anim_print("")
 
 
-        # Explore the nearby town and its abandoned buildings.
-        # Town name: Seona
-            # produce market
-            # school + woods behind the school
-            # hospital
-            # playground
-            # murky pond
-        # Final fight is spider queen.
+        # after exploring everywhere, you are ambushed by a miniboss, the user's weakness, who has a human hostage; the mega mutation.
+        # there are two endings for the miniboss fight. if miniboss kills hostage, hostage can't tell you important info.
+            # if you kill miniboss before hostage dies, you get important info.
+            # important info is a keycard to unlock a secret base in the woods. that is where secret is revealed and you fight the final boss.
+            # you can use your special skill as a weapon. attack power is *10 of your attack. you can only use it once per round.
+            # when boss dies once, boss has a phase two.
+            # you get a lot of items to use against the boss, AND healing items too.
+            # phase 1: Boss health is 400, attack 25.
+            # phase 2: Boss health is 600, attack 40.
+
+
         # To clear ALL of the contents of a CSV file at once, type the following...
         # "with open('FILENAME.csv', 'w', newline='') as file:
         # pass"
