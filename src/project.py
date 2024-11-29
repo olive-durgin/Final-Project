@@ -1,6 +1,6 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import time, csv, pygame, random
+import time, csv, pygame, random, random_fight
 pygame.init()
 trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
 breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
@@ -482,7 +482,7 @@ def opening_scene():
         city_rain.stop()
         anim_print("Loading...", delay=0.135)
         import first_fight
-        first_fight()
+        first_fight
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
         anim_print("You were able to defend yourself from the rat, and it drops dead.")
@@ -506,14 +506,28 @@ def opening_scene():
             view_inventory = anim_input("View your inventory (E)? ").capitalize()
             print()
             if view_inventory == "E":
-                inventory = True
+                print()
                 with open(statistics, 'r') as file:
                     anim_print("YOUR STATISTICS")
                     time.sleep(1)
                     choice = csv.reader(file)
+                    stats = {}
                     for row in choice:
                         new_stat, kill_power = row
-                        print(f"{new_stat.title()}: {kill_power}")
+                        stats[new_stat] = kill_power
+                    for key in ["your name", "your description", "your ability", "your weakness"]:
+                        if key in stats:
+                            if key == "your description":
+                                words = stats[key].strip("()").replace("'", "").split(", ")
+                                print(f"{key.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            else:
+                                print(f"{key.title()}: {stats[key].capitalize()}")
+                            time.sleep(1)
+                    if "your health" in stats:
+                        print(f"Your Health: {stats['your health'].capitalize()}")
+                        time.sleep(1)
+                    if "your attack" in stats:
+                        print(f"Your Attack: {stats['your attack'].capitalize()}")
                         time.sleep(1)
                 with open(filename, 'r') as collected_items:
                     print()
@@ -523,6 +537,7 @@ def opening_scene():
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
                         time.sleep(1)
+                print()
             else:
                 inventory = False
                 anim_print("Verywell then...")
@@ -635,6 +650,7 @@ def opening_scene():
         anim_print("The Left Sign: 'The Seona Misty Trails'")
         time.sleep(1)
         anim_print("The Right Sign: 'City of Seona'")
+        time.sleep(1)
         anim_print("Following the left sign means that you'll head deeper into the mountains...")
         anim_print("That might be dangerous.")
         anim_print("No one knows where you are.")
@@ -680,9 +696,8 @@ def opening_scene():
                 if move_forward == 'M':
                     if chance <= 25 or chance >= 65:
                         anim_print("You hear the rustling of plants grow louder as something approaches you!")
-                        import random_fight
                         time.sleep(1)
-                        random_fight()
+                        random_fight.random_enemy()
                         anim_print("You were safely able to fend off your attacker!")
                         anim_print("You should hurry up and get off of this trail.")
                         anim_print("You're bound to be attacked again.")
@@ -705,7 +720,7 @@ def opening_scene():
                     anim_print("You stop to take in your surrounding instead of moving forward.")
                     anim_print("But you hear something rush up from behind you!")
                     anim_print("You have no time to react!")
-                    random_fight()
+                    random_fight.main()
                     time.sleep(1)
                     anim_print("You were safely able to fend off your attacker!")
                     anim_print("But in your despiration to get away...")
