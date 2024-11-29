@@ -1,6 +1,6 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import time, csv, pygame, random, random_fight
+import time, csv, pygame, random, random_fight, first_fight
 pygame.init()
 trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
 breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
@@ -481,8 +481,7 @@ def opening_scene():
         time.sleep(1)
         city_rain.stop()
         anim_print("Loading...", delay=0.135)
-        import first_fight
-        first_fight
+        first_fight.easy_fight()
         city_rain.play(loops=-1)
         city_rain.set_volume(.5)
         anim_print("You were able to defend yourself from the rat, and it drops dead.")
@@ -720,7 +719,7 @@ def opening_scene():
                     anim_print("You stop to take in your surrounding instead of moving forward.")
                     anim_print("But you hear something rush up from behind you!")
                     anim_print("You have no time to react!")
-                    random_fight.main()
+                    random_fight.random_enemy()
                     time.sleep(1)
                     anim_print("You were safely able to fend off your attacker!")
                     anim_print("But in your despiration to get away...")
