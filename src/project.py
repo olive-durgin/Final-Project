@@ -822,7 +822,7 @@ def opening_scene():
                     time.sleep(1)
                     anim_print("A PSA flier was added to your inventory.")
                     with open(filename, 'a', newline='') as file:
-                        new_item = "Public Service Announcement"
+                        new_item = "public service announcement"
                         header = "Residents of Seona City - This is a public service announcement."
                         body = " Please evacuate the city immediately due to an unknown [illegible]."\
                         " This notice is put into effect as of August [illegible]."
@@ -1151,9 +1151,354 @@ def opening_scene():
                                 count -= 1
                                 move_forward = False
                                 break
-                                
-
-
+                    anim_print("You were able to make it to the hospital in one piece, and you quickly pry open the electric sliding doors.")
+                    anim_print("You have to fight off some monsters to get inside, but you're able to get in.")
+                    anim_print("You hold the doors closed as you drag a nearby chair over to block the monsters from getting inside the main lobby.")
+                    anim_print("You should be safe for now.")
+                    anim_print("But you don't want to stay too long.")
+                    anim_print("There were a whole bunch of floors to the hospial, but now most of the higher ones are decaying and weathered.")
+                    anim_print("You look around the bottom floor and find some places to go.")
+                    seen_hospital = set()
+                    all_choices = {"gift shop", "restrooms", "stairway"}
+                    explore = True
+                    while explore:
+                        if seen_hospital == all_choices:
+                            explore = False
+                            break
+                        to_explore = anim_input("You decide to go to the gift shop, restrooms, or stairway: ").lower()
+                        if to_explore in seen_towns:
+                            looking = True
+                            anim_print("You already looked there. Look somewhere else.")
+                        else:
+                            seen_hospital.add(to_explore)
+                            if to_explore == "gift shop":
+                                explore = True
+                                anim_print("A gift shop is bound to have something useful.")
+                                anim_print("You follow the signs until you get to the gift shop.")
+                                anim_print("The door to the gift shop is still locked and you couldn't kick it down when you tried.")
+                                anim_print("Luckily, you see a display window, and decide to break it and climb in through there.")
+                                time.sleep(1)
+                                anim_print("Once inside the gift shop, you can get a good look around.")
+                                anim_print("The gift shop seems untouched by the elements outside, and everything looks rather new.")
+                                anim_print("With the exception of the layers of dust over everything.")
+                                anim_print("You grab what you can and you leave.")
+                                time.sleep(1)
+                                anim_print("A med kit was added to your inventory.")
+                                with open('health_inventory.csv', 'a', newline='') as file:
+                                    new_item = "med kit"
+                                    attack = 15
+                                    csv_writer = csv.writer(file)
+                                    csv_writer.writerow([new_item, attack])
+                                time.sleep(1)
+                                anim_print("A bottle of rubbing alcohol was added to your inventory.")
+                                with open('health_inventory.csv', 'a', newline='') as file:
+                                    new_item = "rubbing alcohol"
+                                    attack = 10
+                                    csv_writer = csv.writer(file)
+                                    csv_writer.writerow([new_item, attack])
+                                time.sleep(1)
+                                anim_print("Clean bandages were added to your inventory.")
+                                with open('health_inventory.csv', 'a', newline='') as file:
+                                    new_item = "clean bandages"
+                                    attack = 5
+                                    csv_writer = csv.writer(file)
+                                    csv_writer.writerow([new_item, attack])
+                                time.sleep(1)
+                                anim_print("You think you've gotten enough from the gift shop and you leave through the display window.")
+                                anim_print("Where should you go next?")
+                            elif to_explore == "restrooms":
+                                explore = True
+                                anim_print("You go to the restrooms.")
+                                anim_print("You're not exactly sure what you might find in there.")
+                                anim_print("But maybe you'll find something useful.")
+                                anim_print("You go into the restroom and find that it's really dark.")
+                                # Secret 2 will be in this restroom.
+                                # If you get a flashlight and shine it in the restroom, you can find the secret item.
+                                anim_print("Just enough light from the open door shines into the room to where you can see your reflection.")
+                                anim_print(f"You look {adjective_01} and kinda {adjective_02} as usual.")
+                                time.sleep(1)
+                                anim_print("While you're in here, you decide to take a short break.")
+                                time.sleep(1)
+                                inventory = True
+                                while inventory:
+                                    print()
+                                    view_inventory = anim_input("View your inventory (E)? ").capitalize()
+                                    print()
+                                    if view_inventory == "E":
+                                        with open(statistics, 'r') as file:
+                                            anim_print("YOUR STATISTICS")
+                                            time.sleep(1)
+                                            choice = csv.reader(file)
+                                            stats = {}
+                                            for row in choice:
+                                                new_stat, kill_power = row
+                                                stats[new_stat] = kill_power
+                                            for key in ["your name", "your description", "your ability", "your weakness"]:
+                                                if key in stats:
+                                                    if key == "your description":
+                                                        words = stats[key].strip("()").replace("'", "").split(", ")
+                                                        print(f"{key.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                                                    else:
+                                                        print(f"{key.title()}: {stats[key].capitalize()}")
+                                                    time.sleep(1)
+                                            if "your health" in stats:
+                                                print(f"Your Health: {stats['your health'].capitalize()}")
+                                                time.sleep(1)
+                                            if "your attack" in stats:
+                                                print(f"Your Attack: {stats['your attack'].capitalize()}")
+                                                time.sleep(1)
+                                        with open(filename, 'r') as collected_items:
+                                            print()
+                                            anim_print("YOUR INVENTORY")
+                                            choice = csv.reader(collected_items)
+                                            for row in choice:
+                                                new_item, attack = row
+                                            for key in new_item:
+                                                if key == "public service announcement":
+                                                    print(f"{new_item.title()}: {header}\n{body}")
+                                            else:
+                                                print(f"{new_item.title()}: {attack} damage")
+                                            time.sleep(1)
+                                        with open('health_inventory.csv') as collected_health:
+                                            print()
+                                            anim_print("YOUR HEALTH ITEMS")
+                                            choice = csv.reader(collected_health)
+                                            for row in choice:
+                                                new_item, healing = row
+                                                print(f"{new_item.title()}: {healing} healing")
+                                        print()
+                                    else:
+                                        inventory = False
+                                        anim_print("Verywell then...")
+                                        time.sleep(1)
+                                anim_print("After self reflecting, you decide to leave the bathroom.")
+                                anim_print("Where should you go next?")
+                                time.sleep(1)
+                            elif to_explore == "stairway":
+                                anim_print("You follow the signs posted in the hallway until you reach the stairwell.")
+                                anim_print("You shove open the door with great force.")
+                                anim_print("It was hard to open due to the weeds and tree roots blocking the way.")
+                                anim_print("Once you're inside of the stairwell, you look up.")
+                                anim_print("There are at least 20 flights of stairs until you reach the top floor of the hospital.")
+                                anim_print("Luckily you aren't going that far.")
+                                time.sleep(1)
+                                anim_print("You go up the stairs until you find yourself on floor two.")
+                                anim_print("Once you leave the stairs and step foot on to the second floor, you hear a thud from down the hallway.")
+                                anim_print("You prepare for a fight.")
+                                time.sleep(1)
+                                anim_print("But nothing happens.")
+                                anim_print("Do you investigate the sound, or do you leave?")
+                                leave_or_stay = anim_print("You decide to... ").lower()
+                                if leave_or_stay == "leave":
+                                    anim_print("You don't want to risk your life to see what could be down the hallway.")
+                                    anim_print("So, you decide to go back to the stairwell and up to floor three.")
+                                if leave_or_stay == "investigate":
+                                    anim_print("You decide to go down the hallway and find out where the source of the sound came from.")
+                                    anim_print("Suddenly you are attacked!")
+                                    anim_print("There are three enemies waiting for you in the hallway!")
+                                    random_fight.random_enemy()
+                                    anim_print("You're still alive!")
+                                    anim_print("But there are two enemies left!")
+                                    random_fight.random_enemy()
+                                    anim_print("You're still alive!")
+                                    anim_print("But there is one enemy left!")
+                                    anim_print("You can do it!")
+                                    random_fight.random_enemy()
+                                    anim_print("You were able to stay alive!")
+                                    anim_print("Right after your fight, you hear something fall in the other room.")
+                                    anim_print("After surviving three attacks, you feel that you can do anything.")
+                                    anim_print("You go into the other room, and to your surprise...")
+                                    time.sleep(1)
+                                    anim_print("You see another person!")
+                                    anim_print("She is sitting on the dirty patient bed, holding her arm.")
+                                    anim_print("Blood from her arm trickles down and stains her clothing.")
+                                    anim_print("She must have been attacked!")
+                                    time.sleep(1)
+                                    anim_print("You quickly go over to her and try to talk to her.")
+                                    anim_print("You ask her what happened to everyone.")
+                                    anim_print("You ask her why everything looks like its falling apart.")
+                                    anim_print("You ask her where she came from.")
+                                    anim_print("You ask her why she's still here.")
+                                    anim_print("But you stop your line of questioning, because she just stares at you puzzled.")
+                                    anim_print("The woman pauses before she speaks with a hoarse voice.")
+                                    anim_print("The woman says 'Kannst du mir helfen'.")
+                                    anim_print("But you don't know what she tells you.")
+                                    anim_print("You don't recognize the language either.")
+                                    anim_print("You look around the room for something to tie around the woman's arm.")
+                                    anim_print("Maybe if you can help her out, she'll help you in return.")
+                                    anim_print("You eventually find some bandages and tie them around her arm.")
+                                    anim_print("The woman says 'vielen dank'.")
+                                    anim_print("You don't know what she means.")
+                                    anim_print("Everytime the woman speaks, she coughs a lot.")
+                                    anim_print("You expect that she won't be saying much.")
+                                    anim_print("You try your best to ask the woman for help, and you motion her to follow you.")
+                                    anim_print("You hope that she understands.")
+                                    time.sleep(1)
+                                    anim_print("The young woman has joined your team!")
+                                    anim_print("In fights, she can now help you!")
+                                    with open(filename, 'a', newline='') as file:
+                                        new_item = "unknown woman"
+                                        attack = 40
+                                        csv_writer = csv.writer(file)
+                                        csv_writer.writerow([new_item, attack])
+                                        inventory = []
+                                    with open('achievements.csv', 'r') as file:
+                                        reader = csv.reader(file)
+                                        for row in reader:
+                                            inventory.append(row[0])
+                                    items_to_add = [("find another survivor")]
+                                    for item in items_to_add:
+                                        if item not in inventory:
+                                            inventory.append(item)
+                                            with open('achievements.csv', 'a', newline='') as file1:
+                                                writer1 = csv.writer(file1)
+                                                writer1.writerow([item])
+                                        else:
+                                            time.sleep(1)
+                                    anim_print("After finding the woman, you are excited to have someone else with you.")
+                                    anim_print("Even if she couldn't understand you.")
+                                    anim_print("After finding your new friend, you decide to continue on your journey.")
+                                    anim_print("And you make your way to floor three.")
+                                    anim_print("The woman follows behind you.")
+                                explore = False
+                                break
+                            else:
+                                explore = True
+                                anim_print(f"You don't remember seeing {to_explore} on the bottom floor.")
+                                time.sleep(1)
+                    anim_print("As you make your way up to floor three, you think to yourself that this is the last floor that you'll visit.")
+                    anim_print("You don't feel comfortable staying in one place for too long.")
+                    anim_print("As you make it to the third floor, you see that the nature had already started reclaiming the floor.")
+                    anim_print("Light pours into the room from the huge holes in the wall, and the wind blows leaves from trees onto the dirty, cracked tile floors.")
+                    anim_print("At least the rain has all but calmed down outside.")
+                    anim_print("This floor mainly has hospital rooms for patients.")
+                    anim_print("You don't know what you'll find.")
+                    anim_print("You go to the front desk and you look through the papers, hoping to find a layout of the floor.")
+                    anim_print("And you see a paper map of the floor.")
+                    anim_print("You were honestly surprised to find this.")
+                    anim_print("These places look like some places you could visit.")
+                    anim_print("Where should you go?")
+                    anim_print("You're only going to visit three places.")
+                    seen_three = set()
+                    all_choices = {"301", "302", "303", "304", "storage"}
+                    exploring_floor_three = True
+                    count = 0
+                    while exploring_floor_three:
+                        enter_area = anim_input("You decide to visit '301', '302', '303', '304', or the 'storage': ").lower().strip()
+                        while count < 3:
+                            if to_explore in seen_towns:
+                                looking = True
+                                anim_print("You already looked there. Look somewhere else.")
+                            else:
+                                seen_three.add(enter_area)
+                                if enter_area == "301":
+                                    anim_print("You walk into room 301 not knowing what to expect.")
+                                    anim_print("And you find a normal room.")
+                                    time.sleep(1)
+                                    anim_print("Unfortunately, there's nothing of interest in this room.")
+                                    anim_print("Maybe a different room had something of use.")
+                                    time.sleep(1)
+                                    count += 1
+                                    enter_area = False
+                                    break
+                                elif enter_area == "302":
+                                    anim_print("You walk into room 302 not knowing what to expect.")
+                                    anim_print("And you find a normal room.")
+                                    time.sleep(1)
+                                    random_fight.random_enemy()
+                                    anim_print("You must have missed that enemy being in the room!")
+                                    anim_print("You missed it hiding behind the bed!")
+                                    time.sleep(1)
+                                    anim_print("At least your fight wasn't in vain and you find something of use in the room.")
+                                    time.sleep(1)
+                                    with open('health_inventory.csv', 'a', newline='') as file:
+                                        new_item = "strong medicine"
+                                        attack = 20
+                                        csv_writer = csv.writer(file)
+                                        csv_writer.writerow([new_item, attack])
+                                    anim_print("Strong medicine was added to your inventory.")
+                                    time.sleep(1)
+                                    count += 1
+                                    enter_area = False
+                                    break
+                                elif enter_area == "303":
+                                    anim_print("You walk into room 303 not knowing what to expect.")
+                                    anim_print("And the room is a mess.")
+                                    anim_print("The walls are scratched up and the carpets are in ruin.")
+                                    anim_print("Something's in here.")
+                                    random_fight.random_enemy()
+                                    anim_print("There's a second one!")
+                                    random_fight.random_enemy()
+                                    time.sleep(1)
+                                    anim_print("At least your fight wasn't in vain and you find something of use in the room.")
+                                    time.sleep(1)
+                                    with open('project_inventory.csv', 'a', newline='') as file1, open('health_inventory.csv', 'a', newline='') as file2:
+                                        health_item = "mysterious pills"
+                                        health_attack = 25
+                                        attack_item = "mysterious pills"
+                                        attack_attack = 100
+                                        writer1 = csv.writer(file1)
+                                        writer2 = csv.writer(file2)
+                                        writer1.writerow([attack_item, attack_attack])
+                                        writer2.writerow([health_item, health_attack])
+                                    anim_print("Two bottles of mysterious pills were added to your inventory.")
+                                    time.sleep(1)
+                                    anim_print("You're... worried to use these on yourself...")
+                                    time.sleep(1)
+                                    anim_print("Maybe you'll test them on your enemy first...")
+                                    count += 1
+                                    enter_area = False
+                                    break
+                                elif enter_area == "304":
+                                    anim_print("You walk into room 304 not knowing what to expect.")
+                                    anim_print("And you find a normal room.")
+                                    time.sleep(1)
+                                    anim_print("Unfortunately, there's nothing of interest in this room.")
+                                    anim_print("Maybe a different room had something of use.")
+                                    time.sleep(1)
+                                    count += 1
+                                    enter_area = False
+                                    break
+                                elif enter_area == "storage":
+                                    anim_print("You walk into the storage room, not knowing what to expect.")
+                                    anim_print("And you find a whole bunch of stuff thrown in the room.")
+                                    anim_print("Among cleaning supplies, you find spare medical supplies sloppily placed in the closet.")
+                                    anim_print("Even with the building itself being in decay, you don't understand why the storage room is such a mess.")
+                                    anim_print("Someone must have thrown these things in here in a rush.")
+                                    time.sleep(1)
+                                    anim_print("You dig through the storage room and the items thrown about...")
+                                    anim_print("...and you find a duffle bag.")
+                                    anim_print("It's filled with empty boxes.")
+                                    anim_print("Wait. One of these boxes has something in it.")
+                                    time.sleep(1)
+                                    with open(filename, 'a', newline='') as file:
+                                        new_item = "box of unused syringes"
+                                        attack = 22
+                                        csv_writer = csv.writer(file)
+                                        csv_writer.writerow([new_item, attack])
+                                    anim_print("A box of unused syringes was added to your inventory.")
+                                    time.sleep(1)
+                                    count += 1
+                                    enter_area = False
+                                    break
+                                if count == 3:
+                                    anim_print("You've in three different places on this floor, but you think that it's about time to leave.")
+                                    anim_print("The sun is starting to set.")
+                                    anim_print("You walk back down to the bottom floor of the hospital and you're happy that the monsters that were outside are gone now.")
+                                    anim_print("You leave out of the front door of the hospital.")
+                                    time.sleep(1)
+                                    anim_print("And you aren't ambushed.")
+                                    time.sleep(1)
+                                    exploring_floor_three = False
+                                    break
+                                if count < 3:
+                                    anim_print("Where should I go next?")
+                                    enter_area = False
+                                    break
+                                else:
+                                    anim_print("That isn't on the map.")
+                                    move_forward = False
+                                    break
                 elif to_explore == "playground":
                     explore = True
                     anim_print("")
