@@ -730,7 +730,6 @@ def opening_scene():
                     count -= 1
                     move_forward = False
                     break
-
         anim_print("The entrance to the city is not as welcoming as you thought it would be, though.")
         anim_print("The streets are cracked and broken up, and the building are in even worse condition.")
         anim_print("Weeds have long taken over any surface they could wrap themselves around.")
@@ -763,7 +762,6 @@ def opening_scene():
             else:
                 seen_towns.add(to_explore)
                 if to_explore == "market":
-                    explore = True
                     city_rain.stop()
                     anim_print("You decide to head towards the produce market.")
                     anim_print("According to the map, it's not too far from where you are now.")
@@ -887,7 +885,6 @@ def opening_scene():
                             time.sleep(1)
                             deciding == True
                 elif to_explore == "school":
-                    explore = True
                     city_rain.stop()
                     anim_print("You decide to head towards the middle school.")
                     anim_print("According to the map, it's not too far from where you are now.")
@@ -1104,7 +1101,6 @@ def opening_scene():
                             time.sleep(1)
                             deciding == True
                 elif to_explore == "hospital":
-                    explore = True
                     city_rain.stop()
                     anim_print("You decide to go to the hospital.")
                     anim_print("If you're attacked, there's surely something there that can help you feel better.")
@@ -1160,7 +1156,6 @@ def opening_scene():
                     anim_print("You look around the bottom floor and find some places to go.")
                     seen_hospital = set()
                     all_choices = {"gift shop", "restrooms", "stairway"}
-                    explore = True
                     while explore:
                         if seen_hospital == all_choices:
                             explore = False
@@ -1172,7 +1167,6 @@ def opening_scene():
                         else:
                             seen_hospital.add(to_explore)
                             if to_explore == "gift shop":
-                                explore = True
                                 anim_print("A gift shop is bound to have something useful.")
                                 anim_print("You follow the signs until you get to the gift shop.")
                                 anim_print("The door to the gift shop is still locked and you couldn't kick it down when you tried.")
@@ -1207,7 +1201,6 @@ def opening_scene():
                                 anim_print("You think you've gotten enough from the gift shop and you leave through the display window.")
                                 anim_print("Where should you go next?")
                             elif to_explore == "restrooms":
-                                explore = True
                                 anim_print("You go to the restrooms.")
                                 anim_print("You're not exactly sure what you might find in there.")
                                 anim_print("But maybe you'll find something useful.")
@@ -1360,10 +1353,8 @@ def opening_scene():
                                     anim_print("After finding your new friend, you decide to continue on your journey.")
                                     anim_print("And you make your way to floor three.")
                                     anim_print("The woman follows behind you.")
-                                explore = False
                                 break
                             else:
-                                explore = True
                                 anim_print(f"You don't remember seeing {to_explore} on the bottom floor.")
                                 time.sleep(1)
                     anim_print("As you make your way up to floor three, you think to yourself that this is the last floor that you'll visit.")
@@ -1500,14 +1491,11 @@ def opening_scene():
                                     move_forward = False
                                     break
                 elif to_explore == "playground":
-                    explore = True
                     anim_print("")
                 elif to_explore == "pond":
-                    explore = True
                     anim_print("")
                     # the pond is murky.
                 else:
-                    explore = True
                     anim_print(f"You don't remember seeing {to_explore} on the map.")
                     time.sleep(1)
 
