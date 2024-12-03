@@ -188,7 +188,6 @@ def hard_random_enemy():
                 initial_health = float(new_life)
     if enemies[idx] == "sickly screaming, little freak":
         strength = strength/4
-        new_health = new_health/2   
     sound.play(-1)
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}...")
     anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
@@ -282,6 +281,7 @@ def hard_random_enemy():
                     time.sleep(1)
                     anim_print("Continuing code where it left off...")
                     time.sleep(1)
+                    sound.play(loops=-1)
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
@@ -322,6 +322,7 @@ def hard_random_enemy():
                     time.sleep(1)
                     anim_print("Continuing code where it left off...")
                     time.sleep(1)
+                    sound.play(loops=-1)
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
@@ -350,7 +351,6 @@ def hard_random_enemy():
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, health])
                         new_health = 100
-            sound.play(loops=-1)
             anim_print("Now is your chance!")
             anim_print("You remember what to do, right?")
             anim_print(f"Show that {enemies[idx]} what you got before {she_he_it} gets a chance to attack again!")
@@ -488,7 +488,7 @@ def hard_random_enemy():
                  "Run",
                  "You have a 1% chance of running away successfully",
                  "Type 'bones are bones' when you are asked to attack, dodge, run, or check your inventory",
-                 "There is a 10% chance of your item failing."]
+                 "There is a 10% chance of your item failing..."]
 
     woman_attack_counter = 0
     last_input = None
@@ -496,7 +496,7 @@ def hard_random_enemy():
     game_is_running = True
     while game_is_running:
         if not secret_hint:
-            hint_chance = random.randint(1,4)
+            hint_chance = random.randint(1,3)
             if hint_chance == 1:
                 hint_yes_or_no = anim_input("Do you want a hint? Yes or no: ").capitalize()
                 if hint_yes_or_no == "Yes":
