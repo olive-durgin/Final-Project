@@ -362,7 +362,6 @@ def random_enemy():
         new_health = new_health/2   
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}!")
 
-
     with open('stats.csv', 'r') as file:
         choice = csv.reader(file)
         for row in choice:
