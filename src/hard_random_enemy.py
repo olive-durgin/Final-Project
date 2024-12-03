@@ -2,7 +2,7 @@ import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame, time, random, csv
 pygame.init()
-sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
+sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
 win_sound = pygame.mixer.Sound(r'sounds\winner.mp3')
 lose_sound = pygame.mixer.Sound(r'sounds\death.mp3')
 hero_attack = pygame.mixer.Sound(r'sounds\hero_attack.mp3')
@@ -21,7 +21,6 @@ def anim_input(prompt):
     return input()
 
 def hard_random_enemy():
-    print("DEBUGGY: Duplicate function called")
     filename = "project_inventory.csv"
     statistics = "stats.csv"
     enemies = ["Ana", "Syuuran", "sickly screaming, little freak", "sickly wild, flesh-eating monster", "sickly odd elk"]
@@ -29,7 +28,7 @@ def hard_random_enemy():
     selected_enemy = random.choices(enemies, weights=weights, k=1)[0]
     idx = enemies.index(selected_enemy)
 
-    if enemies[idx] != "Ana" and enemies[idx] != "Syuuran" and enemies[idx] != "sickly odd elk":
+    if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
         the_or_no = "the "
         her_him_it = "it"
         she_he_it = "it"
@@ -40,11 +39,6 @@ def hard_random_enemy():
         a_or_an = ""
 
     if enemies[idx] == "sickly wild, flesh-eating monster":
-        if "sickly wild, flesh-eating monster" == "sickly wild, flesh-eating monster":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
-        else:
-            sound.play(-1)
         description = "It was hard to comprehend what was coming towards you at first, but as it got closer, you wish it didn't."\
         "\nIts twelve pair of backwards, twisted limbs thrusted the thing closer and closer to you."\
         "\nIf you weren't mistaken, it smiled at you.\nOr maybe that's just how its decaying face looks."\
@@ -74,11 +68,6 @@ def hard_random_enemy():
             else:
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "sickly screaming, little freak":
-        if "sickly wild, flesh-eating monster" == "sickly wild, flesh-eating monster":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
-        else:
-            sound.play(-1)
         description = "You suddenly feel a chill as you see it...\nYou want to look away but you can't take your eyes off of it..."\
         "\nIt's shrill scream hurts your ears...\nIt's uncanny, yellow-toothed smile unsettles you..."\
         "\nIt moves like it doesn't belong here.\nIt's gross, oily, black hair sticks to its face and gets stuck between its teeth."\
@@ -108,15 +97,11 @@ def hard_random_enemy():
             else:
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "sickly odd elk":
-        if enemies[idx] == "sickly wild, flesh-eating monster" or enemies[idx] == "sickly screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
-        else:
-            sound.play(-1)
         description = "The thing approaching you is rather strange!\nWait a minute...\nIt's running at you a little too fast!"\
         "\nYou only got a glimpse of it before it was right on top of you."\
         "\nIt smells like mold and wet hair.\nSomething about it is terribly wrong...\nThis... somehow... looks even worse than it should..."\
-        "\nThis thing is sickly..."
+        "\nThis thing is sickly...\nIt's jaw unhinged slightly when it breathes, revealing its rotting teeth."\
+        "\nIt's eyes are dull and murky.\nIt looks pale..."
         attack_type = "\nThe sickly odd elk throws its antlers around, hoping to hit you.\nUnfortunately it succeeds and the sickly odd elk hurts you!"\
         "\nYou're just happy that you didn't break a bone!"
         initial_enemy_health = float(200)
@@ -140,11 +125,6 @@ def hard_random_enemy():
             else:
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "Ana":
-        if enemies[idx] == "sickly wild, flesh-eating monster" or enemies[idx] == "sickly screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
-        else:
-            sound.play(-1)
         initial_enemy_health = float(124)
         enemy_health = initial_enemy_health
         enemy_attack = float(9)
@@ -169,11 +149,6 @@ def hard_random_enemy():
             else:
                 see_or_not = f"{she_he_it.capitalize()} looks familiar! Didn't you kill {her_him_it} before?"
     if enemies[idx] == "Syuuran":
-        if enemies[idx] == "sickly wild, flesh-eating monster" or enemies[idx] == "sickly screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
-        else:
-            sound.play(-1)
         initial_enemy_health = float(120)
         enemy_health = initial_enemy_health
         enemy_attack = float(11)
@@ -214,75 +189,9 @@ def hard_random_enemy():
     if enemies[idx] == "sickly screaming, little freak":
         strength = strength/4
         new_health = new_health/2   
+    sound.play(-1)
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}...")
-    anim_print(f"Despite being so sick, {enemies[idx]}'s health and attack are higher...")
-
-    with open('stats.csv', 'r') as file:
-        choice = csv.reader(file)
-        for row in choice:
-            if row[0] == "your attack":
-                new_stat, kill_power = row
-                strength = float(kill_power)
-    if strength >= 20 and strength < 30:
-        enemy_attack += 5
-        enemy_health *= 3
-        inventory = []
-        with open('achievements.csv', 'r') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                inventory.append(row[0])
-        items_to_add = [("enemy grows stronger")]
-        for item in items_to_add:
-            if item not in inventory:
-                time.sleep(1)
-                anim_print("Now that you're stronger, you enemies will be stronger too!")
-                anim_print("Just remember that next time.")
-                time.sleep(1)
-                inventory.append(item)
-                with open('achievements.csv', 'a', newline='') as file1:
-                    writer1 = csv.writer(file1)
-                    writer1.writerow([item])
-                time.sleep(2)
-    elif strength >= 30 and strength < 40:
-        enemy_attack += 10
-        enemy_health *= 5
-        inventory = []
-        with open('achievements.csv', 'r') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                inventory.append(row[0])
-        items_to_add = [("enemy grows stronger")]
-        for item in items_to_add:
-            if item not in inventory:
-                time.sleep(1)
-                anim_print("Now that you're stronger, you enemies will be stronger too!")
-                anim_print("Just remember that next time.")
-                time.sleep(1)
-                inventory.append(item)
-                with open('achievements.csv', 'a', newline='') as file1:
-                    writer1 = csv.writer(file1)
-                    writer1.writerow([item])
-                time.sleep(2)
-    elif strength >= 40:
-        enemy_attack += 20
-        enemy_health *= 6
-        inventory = []
-        with open('achievements.csv', 'r') as file:
-            reader = csv.reader(file)
-            for row in reader:
-                inventory.append(row[0])
-        items_to_add = [("enemy grows stronger")]
-        for item in items_to_add:
-            if item not in inventory:
-                time.sleep(1)
-                anim_print("Now that you're stronger, you enemies will be stronger too!")
-                anim_print("Just remember that next time.")
-                time.sleep(1)
-                inventory.append(item)
-                with open('achievements.csv', 'a', newline='') as file1:
-                    writer1 = csv.writer(file1)
-                    writer1.writerow([item])
-                time.sleep(2)
+    anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
 
     if enemies[idx] == "Ana":
         anim_print("ERROR...")
@@ -588,8 +497,8 @@ def hard_random_enemy():
     game_is_running = True
     while game_is_running:
         if not secret_hint:
-            hint_chance = random.randint(1,25)
-            if hint_chance == 4:
+            hint_chance = random.randint(1,4)
+            if hint_chance == 1:
                 hint_yes_or_no = anim_input("Do you want a hint? Yes or no: ").capitalize()
                 if hint_yes_or_no == "Yes":
                     hint = random.choice(hint_list)
@@ -817,6 +726,64 @@ def hard_random_enemy():
                     win_sound.play()
                     anim_print("YOU WIN!")
                     break
+            if new_health <= 0:
+                if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+                    sound.stop()
+                    anim_print(f"{enemies[idx].capitalize()} feels bad and cries.")
+                    sound.stop()
+                    time.sleep(2)
+                    anim_print("You died...")
+                    time.sleep(4)
+                    anim_print("Overriding program...")
+                    time.sleep(2)
+                    anim_print("Resetting...")
+                    time.sleep(1)
+                    woman_attack_counter = 0
+                    new_health = initial_health
+                    data = []
+                    with open('stats.csv', 'r') as file:
+                        reader = csv.reader(file)
+                        for row in reader:
+                            data.append(row)
+                            if row[0] == "initial health":
+                                initial_health = float(row[1])
+                    for row in data:
+                        if row[0] == "your health":
+                            row[1] = str(initial_health)
+                    with open('stats.csv', 'w', newline="") as file:
+                        writer = csv.writer(file)
+                        writer.writerows(data)
+                    new_health = initial_health
+                    enemy_health = initial_enemy_health
+                    game_is_running = True
+                    sound.play(-1)
+                    break
+                else:
+                    sound.stop()
+                    anim_print("You died...")
+                    time.sleep(4)
+                    anim_print("Overriding program...")
+                    time.sleep(2)
+                    anim_print("Resetting...")
+                    time.sleep(1)
+                    woman_attack_counter = 0
+                    data = []
+                    with open('stats.csv', 'r') as file:
+                        reader = csv.reader(file)
+                        for row in reader:
+                            data.append(row)
+                            if row[0] == "initial health":
+                                initial_health = float(row[1])
+                    for row in data:
+                        if row[0] == "your health":
+                            row[1] = str(initial_health)
+                    with open('stats.csv', 'w', newline="") as file:
+                        writer = csv.writer(file)
+                        writer.writerows(data)
+                    new_health = initial_health
+                    enemy_health = initial_enemy_health
+                    game_is_running = True
+                    sound.play(-1)
         elif attack_or_dodge == "R":
             chance = random.randint(1, 100)
             if chance >= 2:
