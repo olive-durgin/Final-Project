@@ -268,10 +268,9 @@ def hard_random_enemy():
             anim_print(f"Your health decreases by {enemy_attack}!")
             anim_print(f"Your health dropped to {new_health}!")
             if new_health <= 0:
+                sound.stop()
                 if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
-                    sound.stop()
                     anim_print(f"{enemies[idx].capitalize()} feels bad for killing you so soon...")
-                    sound.stop()
                     time.sleep(2)
                     anim_print("You died already...")
                     time.sleep(4)
@@ -312,7 +311,6 @@ def hard_random_enemy():
                         csv_writer.writerow([new_item, health])
                         new_health = 100
                 else:
-                    sound.stop()
                     time.sleep(2)
                     anim_print("You died already...")
                     time.sleep(4)
@@ -352,6 +350,7 @@ def hard_random_enemy():
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, health])
                         new_health = 100
+            sound.play(loops=-1)
             anim_print("Now is your chance!")
             anim_print("You remember what to do, right?")
             anim_print(f"Show that {enemies[idx]} what you got before {she_he_it} gets a chance to attack again!")
