@@ -24,7 +24,7 @@ def hard_random_enemy():
     filename = "project_inventory.csv"
     statistics = "stats.csv"
     enemies = ["Ana", "Syuuran", "sickly screaming, little freak", "sickly wild, flesh-eating monster", "sickly odd elk"]
-    weights = [0.5, 0.5, 33, 33, 33]
+    weights = [15, 15, 22, 22, 26]
     selected_enemy = random.choices(enemies, weights=weights, k=1)[0]
     idx = enemies.index(selected_enemy)
 
@@ -190,8 +190,6 @@ def hard_random_enemy():
         strength = strength/4
     sound.play(-1)
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}...")
-    anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
-
     if enemies[idx] == "Ana":
         anim_print("ERROR...")
         time.sleep(1)
@@ -208,6 +206,7 @@ def hard_random_enemy():
         anim_print("ERROR...")
         time.sleep(4)
         anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}...")
+        anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
         time.sleep(1)
         anim_print("Some say she's happy and kinda brave.")
         time.sleep(1)
@@ -236,6 +235,7 @@ def hard_random_enemy():
         anim_print("ERROR...")
         time.sleep(4)
         anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}!")
+        anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
         time.sleep(1)
         anim_print("Some say he's scared and kinda alone.")
         time.sleep(1)
@@ -249,6 +249,7 @@ def hard_random_enemy():
         "You've never thought of a frying pan as being a weapon...\nIt still hurts..."
         enemy_desc = "swings"
     if enemies[idx] != "Ana" and enemies[idx] != "Syuuran":
+        anim_print(f"Despite being so sick, {the_or_no}{enemies[idx]}'s health and attack are higher...")
         anim_print(description)
     anim_print(see_or_not)
     inventory = []
@@ -485,10 +486,10 @@ def hard_random_enemy():
         writer = csv.writer(file)
         writer.writerows(data)
     hint_list = [f"\nThe enemy's health is {enemy_health}.\nThe enemy's attack is {enemy_attack}",
-                 "Run",
+                 "Great victories lead to great rewards. Don't run",
                  "You have a 1% chance of running away successfully",
                  "Type 'bones are bones' when you are asked to attack, dodge, run, or check your inventory",
-                 "There is a 10% chance of your item failing..."]
+                 "There is a 10% chance of your item failing.."]
 
     woman_attack_counter = 0
     last_input = None
@@ -503,13 +504,13 @@ def hard_random_enemy():
                     hint = random.choice(hint_list)
                     anim_print(f"Secret Hint: {hint}.")
                     time.sleep(1)
-                    secret_hint = True
+                    secret_hint = False
                 elif hint_yes_or_no == "No":
                     anim_print("Okay then.")
                     secret_hint = True
                 else:
                     anim_print("Incorrect input...")
-                    secret_hint = True  
+                    secret_hint = False
             else:
                 secret_hint = False
         data = []
@@ -539,6 +540,7 @@ def hard_random_enemy():
         attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access your inventory: ").capitalize()
         if attack_or_dodge == "E" and last_input == "E":
             anim_print("You can't access your inventory 2 times in a row.")
+            continue
         else:
             last_input = attack_or_dodge
         chance = random.choice([True, False])
@@ -967,6 +969,7 @@ def hard_random_enemy():
                 with open(filename, 'r') as collected_items:
                     print()
                     anim_print("YOUR INVENTORY")
+                    time.sleep(1)
                     choice = csv.reader(collected_items)
                     for row in choice:
                         new_item, attack = row
@@ -1071,7 +1074,6 @@ def hard_random_enemy():
                                                     nonexistent_item = True
                                                     anim_print(f"{item_to_remove.capitalize()} is not in your inventory.")
                                                     print()
-                                        break
                                     if enemy_health <= 0:
                                         if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
                                             sound.stop()
@@ -1163,7 +1165,8 @@ def hard_random_enemy():
                                             win_sound.play()
                                             anim_print("YOU WIN!")
                                             break
-                                    break
+                        attack_or_dodge = True
+                        break
                     if yes_no == "N":
                         anim_print("Very well.")
                         time.sleep(1)
@@ -1341,10 +1344,29 @@ def hard_random_enemy():
         elif enemies[idx] == "sickly odd elk" or enemies[idx] == "sickly screaming, little freak" or enemies[idx] == "sickly wild, flesh-eating monster":
             level_up = float(15)
 
+    if attack_or_dodge == "R":
+        time.sleep(1)
+        anim_print(f"You ran away from {the_or_no}{enemies[idx]}.")
+        anim_print(f"Because you ran, you missed out on an opportunity.")
+        time.sleep(1)
+    else:
+        time.sleep(1)
+        anim_print(f"Because you killed {the_or_no}{enemies[idx]}, you get a special item!")
+        time.sleep(1)
+        anim_print("You claim your trophy...", delay=0.135)
+        time.sleep(1)
+        anim_print(f"Check your inventory next time!")
+        with open(filename, 'a', newline='') as file:
+            new_item = f"the heart of {the_or_no}{enemies[idx]}"
+            attack = 25
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_item, attack])
+        time.sleep(1)
+
     time.sleep(1)
     anim_print("You leveled up!")
     anim_print(f"Your attack increased by {level_up}!")
-    anim_print("Your health increases by 100!")
+    anim_print("Your health increased by 100!")
     with open(statistics, 'r') as file:
         reader = csv.reader(file)
         items = list(reader)
