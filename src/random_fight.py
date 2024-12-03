@@ -1,6 +1,6 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import pygame, time, random, csv, project
+import pygame, time, random, csv
 pygame.init()
 sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
 win_sound = pygame.mixer.Sound(r'sounds\winner.mp3')
@@ -21,10 +21,12 @@ def anim_input(prompt):
     return input()
 
 def random_enemy():
+    print("DEBUGGY: Original function called")
     filename = "project_inventory.csv"
     statistics = "stats.csv"
-    enemies = ["Ana"] * 1 + ["Syuuran"] * 1 + ["screaming, little freak"] * 5 + ["wild, flesh-eating monster"] * 5 +["long cat", "mutated rat", "mutated dog", "odd badger", "odd elk", "long stoat"] * 88
-    selected_enemy = random.choice(enemies)
+    enemies = ["Ana", "Syuuran", "screaming, little freak", "wild, flesh-eating monster", "odd elk", "long cat", "mutated rat", "mutated dog", "odd badger", "long stoat"]
+    weights = [1, 1, 3, 5, 5, 17, 17, 17, 17, 17]
+    selected_enemy = random.choices(enemies, weights=weights, k=1)[0]
     idx = enemies.index(selected_enemy)
 
     if enemies[idx] != "Ana" and enemies[idx] != "Syuuran" and enemies[idx] != "odd badger" and enemies[idx] != "odd elk":
@@ -306,7 +308,7 @@ def random_enemy():
         items_to_add = [("meet Ana")]
         for item in items_to_add:
             if item not in inventory:
-                see_or_not = "This is something you've never seen before!"
+                see_or_not = "This is someone you've never seen before!"
                 inventory.append(item)
                 with open('achievements.csv', 'a', newline='') as file1:
                     writer1 = csv.writer(file1)
@@ -335,7 +337,7 @@ def random_enemy():
         items_to_add = [("meet Ana")]
         for item in items_to_add:
             if item not in inventory:
-                see_or_not = "This is something you've never seen before!"
+                see_or_not = "This is someone you've never seen before!"
                 inventory.append(item)
                 with open('achievements.csv', 'a', newline='') as file1:
                     writer1 = csv.writer(file1)
@@ -1479,9 +1481,19 @@ def random_enemy():
                     time.sleep(1)
                     game_is_running = True
 
+    if attack_or_dodge == "R":
+        level_up = float(1)
+    else:
+        if enemies[idx] == "Ana" or enemies[idx] == "Syuuran":
+            level_up = float(10)
+        if enemies[idx] == "odd elk" or enemies[idx] == "screaming, little freak" or enemies[idx] == "wild, flesh-eating monster":
+            level_up = float(8)
+        else:
+            level_up = float(2)
+
     time.sleep(1)
     anim_print("You leveled up!")
-    anim_print("Your attack increased by 2!")
+    anim_print(f"Your attack increased by {level_up}!")
     with open(statistics, 'r') as file:
         reader = csv.reader(file)
         items = list(reader)
@@ -1492,7 +1504,7 @@ def random_enemy():
         writer.writerows(items)
     with open(statistics, 'a', newline='') as file:
         new_item = "your attack"
-        health = strength + 2
+        health = strength + level_up
         csv_writer = csv.writer(file)
         csv_writer.writerow([new_item, health])
 
