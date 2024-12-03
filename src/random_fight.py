@@ -359,7 +359,6 @@ def random_enemy():
                 initial_health = float(new_life)
     if enemies[idx] == "screaming, little freak":
         strength = strength/4
-        new_health = new_health/2   
     anim_print(f"You've been ambushed by{a_or_an} {enemies[idx]}!")
 
     with open('stats.csv', 'r') as file:
@@ -510,6 +509,7 @@ def random_enemy():
                     time.sleep(1)
                     anim_print("Continuing code where it left off...")
                     time.sleep(1)
+                    sound.play(loops=-1)
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
@@ -550,6 +550,7 @@ def random_enemy():
                     time.sleep(1)
                     anim_print("Continuing code where it left off...")
                     time.sleep(1)
+                    sound.play(loops=-1)
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
@@ -578,7 +579,6 @@ def random_enemy():
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, health])
                         new_health = 100
-            sound.play(loops=-1)
             anim_print("Now is your chance!")
             anim_print("You remember what to do, right?")
             anim_print(f"Show that {enemies[idx]} what you got before {she_he_it} gets a chance to attack again!")
@@ -667,6 +667,7 @@ def random_enemy():
                     time.sleep(1)
                     anim_print("Continuing code where it left off...")
                     time.sleep(1)
+                    sound.play(loops=-1)
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
@@ -695,7 +696,6 @@ def random_enemy():
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, health])
                         new_health = 100
-                    sound.play(loops=-1)
             anim_print("Now is your chance!")
             anim_print("You remember what to do, right?")
             anim_print(f"Show that {enemies[idx]} what you got before {she_he_it} gets a chance to attack again!")
