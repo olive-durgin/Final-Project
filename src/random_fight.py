@@ -21,7 +21,6 @@ def anim_input(prompt):
     return input()
 
 def random_enemy():
-    print("DEBUGGY: Original function called")
     filename = "project_inventory.csv"
     statistics = "stats.csv"
     enemies = ["Ana", "Syuuran", "screaming, little freak", "wild, flesh-eating monster", "odd elk", "long cat", "mutated rat", "mutated dog", "odd badger", "long stoat"]
