@@ -435,7 +435,7 @@ def opening_scene():
                 elif item_to_remove != "Thick, metal bar" and item_to_remove != "Rusty crowbar":
                     opening_door = True
                     anim_print(f"You try to use the {item_to_remove} to pry open the door.")
-                    print("It does not work.")
+                    anim_print("It does not work.")
                     with open(filename, 'a', newline='') as file:
                         new_item = item_to_remove
                         attack = 2
@@ -534,7 +534,6 @@ def opening_scene():
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
                         time.sleep(1)
-                print()
             else:
                 inventory = False
                 anim_print("Verywell then...")
@@ -549,7 +548,7 @@ def opening_scene():
         with open(filename, 'w', newline='') as collected_items:
             writer = csv.writer(collected_items)
             writer.writerows(items)
-        anim_print("The bandage was removed from your inventory.")
+        anim_print("The bandages were removed from your inventory.")
         time.sleep(1)
         anim_print("It's best if you get out of this area.")
         anim_print("You make your way down the hallway of the building you just came from.")
@@ -753,10 +752,15 @@ def opening_scene():
         while explore:
             if seen_towns == all_choices:
                 explore = False
+                deciding = False
+                inventory = False
+                count = False
+                walking_in_woods = False
+                exploring_floor_three = False
                 break
             to_explore = anim_input("You decide to explore the market, school, hospital, playground, or pond: ").lower()
             if to_explore in seen_towns:
-                looking = True
+                explore = True
                 anim_print("You already looked there. Look somewhere else.")
             else:
                 seen_towns.add(to_explore)
@@ -767,9 +771,9 @@ def opening_scene():
                     anim_print("As you walk down the streets, you really get a chance to see how worn down the city is.")
                     anim_print("You are surprised that buildings are still standing.")
                     anim_print("The only thing that is the most recognizable are the glass skyscrapers in the distance.")
-                    anim_print("But they are way to far away to reach.")
+                    anim_print("But they are way too far away to reach.")
                     anim_print("You look down at the ground for a moment as you walk.")
-                    anim_print("And you notice smudged, dirty papers are scattered all over the roads.")
+                    anim_print("And you notice smudges, dirty papers are scattered all over the roads.")
                     anim_print("You can't make out what they say.")
                     time.sleep(1)
                     anim_print("You pass several buildings on your way to the market.")
@@ -777,7 +781,7 @@ def opening_scene():
                     if ambushed == True:
                         anim_print("But you suddenly feel something run into you!")
                         anim_print("You turn and you see it!")
-                        random_fight.random_enemy()
+                        print("YOU ARE ATTACKED NOW!!!!")
                         anim_print("Luckily you were able to get away with your life!")
                         anim_print("And you continue down the street, a little more aware of your surroundings, until you see the market.")
                     if ambushed == False:
@@ -811,7 +815,7 @@ def opening_scene():
                     time.sleep(1)
                     anim_print("You don't remember hearing anything about an evacuation.")
                     time.sleep(1)
-                    anim_print("You don't remember much at all...", delay=0.135)
+                    anim_print("You don't remember much at all...")
                     time.sleep(3)
                     anim_print("You shove the paper into your pocket.")
                     time.sleep(1)
@@ -820,7 +824,7 @@ def opening_scene():
                     anim_print("A PSA flier was added to your inventory.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "public service announcement"
-                        body = "Residents of Seona City - This is a public service announcement.\nPlease evacuate the city immediately due to an unknown [illegible].\nThis notice is put into effect as of August [illegible]."
+                        body = 1
                         csv_writer = csv.writer(file)
                         csv_writer.writerow([new_item, body])
                     time.sleep(1)
@@ -838,7 +842,7 @@ def opening_scene():
                             anim_print("You quietly turn around and head in the other direction.")
                             anim_print("You don't want to risk being attacked for a helpful item that might not even be in the other room.")
                             anim_print("Once you sneak out of the aisle, you find something blocking your way.")
-                            random_fight.random_enemy()
+                            print("YOU ARE ATTACKED NOW!!!!")
                             anim_print("You successfully were able to fend off your attacker!")
                             anim_print("It's best to not stay here. Some other monsters could be attracted by the sound of the fight.")
                             anim_print("Once you leave the market, you find yourself outside.")
@@ -870,8 +874,7 @@ def opening_scene():
                             anim_print("You spend some more time looking around the market, but there isn't much else that could be useful to you.")
                             anim_print("You turn to leave the store when something blocks your way.")
                             anim_print("Maybe now is your chance to test out that new knife of yours.")
-                            time.sleep(1)
-                            random_fight.random_enemy()
+                            print("YOU ARE ATTACKED NOW!!!!")
                             anim_print("You successfully were able to fend off your attacker!")
                             anim_print("It's best to not stay here. Some other monsters could be attracted by the sound of the fight.")
                             anim_print("Once you leave the market, you find yourself outside.")
@@ -897,7 +900,7 @@ def opening_scene():
                     if ambushed == True:
                         anim_print("But you suddenly feel something run into you!")
                         anim_print("You turn and you see it!")
-                        random_fight.random_enemy()
+                        print("YOU ARE ATTACKED NOW!!!!")
                         anim_print("Luckily you were able to get away with your life!")
                         anim_print("And you continue down the street, a little more aware of your surroundings, until you see the market.")
                     if ambushed == False:
@@ -922,7 +925,7 @@ def opening_scene():
                     ambushed = random.choice([True, False])
                     if ambushed == True:
                         anim_print("And something jumps out at you!")
-                        random_fight.random_enemy()
+                        print("YOU ARE ATTACKED NOW!!!!")
                         anim_print("Luckily you were able to get away with your life!")
                         anim_print("Maybe you shouldn't just poke your head into classrooms like that.")
                         time.sleep(1)
@@ -943,20 +946,21 @@ def opening_scene():
                         anim_print("Maybe you can find an important tape for it.")
                         time.sleep(1)
                     anim_print("You continue down the hallways until you reach the cafeteria.")
-                    anim_print("You would have taken a different turn, but most of the hallways were blocked off my broken trees or stacked up desks.")
+                    anim_print("You would have taken a different turn, but most of the hallways were blocked off by broken trees or stacked up desks.")
                     anim_print("You don't want to think about why people stacked those desks like they did.")
                     anim_print("You walk into the cafeteria.")
                     ambushed = random.choice([True, False])
                     if ambushed == True:
                         anim_print("And you hear something!")
                         time.sleep(1)
-                        random_fight.random_enemy()
+                        print("YOU ARE ATTACKED NOW!!!!")
                         anim_print("Luckily you were able to get away with your life!")
                         time.sleep(1)
                     if ambushed == False:
                         anim_print("And you hear something!")
                         time.sleep(1)
                         anim_print("Oh.")
+                        time.sleep(1)
                         anim_print("It was just a bird.")
                         anim_print("A very noisy bird...")
                         time.sleep(1)
@@ -985,7 +989,7 @@ def opening_scene():
                             time.sleep(1)
                             anim_print("You finally reach the front doors of the school, but when you turn to leave the school...")
                             anim_print("...something blocks your way.")
-                            random_fight.random_enemy()
+                            print("YOU ARE ATTACKED NOW!!!!")
                             anim_print("You're lucky to still be alive!")
                             anim_print("You should hurry up and leave.")
                             time.sleep(1)
@@ -1017,7 +1021,7 @@ def opening_scene():
                             time.sleep(1)
                             anim_print("You'd spend some more time looking around the school, but there isn't much else that could be useful to you.")
                             anim_print("You turn to leave the school when something blocks your way.")
-                            random_fight.random_enemy()
+                            print("YOU ARE ATTACKED NOW!!!!")
                             anim_print("As you fought your attacker, you ended up running somewhere behind the school!")
                             anim_print("There is a dense, wooded area behind the school.")
                             anim_print("While you're here, you decide to look around.")
@@ -1026,14 +1030,14 @@ def opening_scene():
                             walking_in_woods = True
                             count = 0
                             while walking_in_woods:
-                                move_forward = anim_input("Explore the woods (M)? ").upper()
+                                move_forward = anim_input("Explore the woods (M)? Give up (G)? ").upper()
                                 while count < 5:
                                     chance = random.randint(1, 100)
                                     if move_forward == 'M':
-                                        if chance <= 25 or chance >= 65:
+                                        if chance <= 25 or chance >= 85:
                                             anim_print("You hear something come up from behind!")
                                             time.sleep(1)
-                                            random_fight.random_enemy()
+                                            print("YOU ARE ATTACKED NOW!!!!")
                                             anim_print("You were safely able to fend off your attacker!")
                                             anim_print("Maybe exploring back here wasn't the best idea.")
                                             time.sleep(1)
@@ -1048,7 +1052,7 @@ def opening_scene():
                                                 anim_print("You look around but see nothing of interest.")
                                                 anim_print("You're about to turn around when you hear something up ahead.")
                                                 anim_print("Instinctively, you pick up a rock and throw it.")
-                                                anim_print("You hear it hit something metal, and you can hear a loud, metallic CLASH!")
+                                                anim_print("You hear it hit something, and you can hear a loud, metallic CLASH!")
                                                 anim_print("You go over to where you heard the rock hit metal...")
                                                 anim_print("And you are surprised at what you find.")
                                                 time.sleep(2)
@@ -1082,7 +1086,7 @@ def opening_scene():
                                         anim_print("You stop to take in your surrounding instead of moving forward.")
                                         anim_print("But you hear something rush up from behind you!")
                                         anim_print("You have no time to react!")
-                                        random_fight.random_enemy()
+                                        print("YOU ARE ATTACKED NOW!!!!")
                                         time.sleep(1)
                                         anim_print("You were safely able to fend off your attacker!")
                                         anim_print("But in your despiration to get away...")
@@ -1114,10 +1118,10 @@ def opening_scene():
                         while count < 6:
                             chance = random.randint(1, 100)
                             if move_forward == 'M':
-                                if chance <= 25 or chance >= 65:
+                                if chance <= 40:
                                     anim_print("Despite seeing enemies up ahead, you hear something come up from behind you!")
                                     time.sleep(1)
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("You were safely able to get away with your life!")
                                     anim_print("Whatever is in the hospital better be worth it.")
                                     time.sleep(1)
@@ -1137,7 +1141,7 @@ def opening_scene():
                                         break
                             else:
                                 anim_print("You weren't paying close enough attention to where you were going and you're attacked!")
-                                random_fight.random_enemy()
+                                print("YOU ARE ATTACKED NOW!!!!")
                                 time.sleep(1)
                                 anim_print("You were safely able to fend off your attacker!")
                                 anim_print("But you ended up going the wrong way.")
@@ -1145,7 +1149,7 @@ def opening_scene():
                                 count -= 1
                                 move_forward = False
                                 break
-                    anim_print("You were able to make it to the hospital in one piece, and you quickly pry open the electric sliding doors.")
+                    anim_print("You quickly pry open the sliding doors.")
                     anim_print("You have to fight off some monsters to get inside, but you're able to get in.")
                     anim_print("You hold the doors closed as you drag a nearby chair over to block the monsters from getting inside the main lobby.")
                     anim_print("You should be safe for now.")
@@ -1154,13 +1158,14 @@ def opening_scene():
                     anim_print("You look around the bottom floor and find some places to go.")
                     seen_hospital = set()
                     all_choices = {"gift shop", "restrooms", "stairway"}
+                    explore = True
                     while explore:
                         if seen_hospital == all_choices:
                             explore = False
                             break
                         to_explore = anim_input("You decide to go to the gift shop, restrooms, or stairway: ").lower()
                         if to_explore in seen_towns:
-                            looking = True
+                            explore = True
                             anim_print("You already looked there. Look somewhere else.")
                         else:
                             seen_hospital.add(to_explore)
@@ -1206,7 +1211,7 @@ def opening_scene():
                                 # Secret 2 will be in this restroom.
                                 # If you get a flashlight and shine it in the restroom, you can find the secret item.
                                 anim_print("Just enough light from the open door shines into the room to where you can see your reflection.")
-                                anim_print(f"You look {adjective_01} and kinda {adjective_02} as usual.")
+                                anim_print(f"You look coolio and kinda bossio as usual.")
                                 time.sleep(1)
                                 anim_print("While you're in here, you decide to take a short break.")
                                 time.sleep(1)
@@ -1246,7 +1251,8 @@ def opening_scene():
                                                 new_item, attack = row
                                             for key in new_item:
                                                 if key == "public service announcement":
-                                                    print(f"{new_item.title()}: {new_item}\n{body}")
+                                                    new_item, body = row
+                                                    print(f"{new_item.title()}: The PSA reads...\nResidents of Seona City - This is a public service announcement.\nPlease evacuate the city immediately due to an unknown [illegible].\nThis notice is put into effect as of August [illegible].\n{body} damage.")
                                                 else:
                                                     print(f"{new_item.title()}: {attack} damage")
                                             time.sleep(1)
@@ -1278,8 +1284,9 @@ def opening_scene():
                                 anim_print("You prepare for a fight.")
                                 time.sleep(1)
                                 anim_print("But nothing happens.")
+                                time.sleep(1)
                                 anim_print("Do you investigate the sound, or do you leave?")
-                                leave_or_stay = anim_print("You decide to... ").lower()
+                                leave_or_stay = anim_input("You decide to... ").lower()
                                 if leave_or_stay == "leave":
                                     anim_print("You don't want to risk your life to see what could be down the hallway.")
                                     anim_print("So, you decide to go back to the stairwell and up to floor three.")
@@ -1287,14 +1294,14 @@ def opening_scene():
                                     anim_print("You decide to go down the hallway and find out where the source of the sound came from.")
                                     anim_print("Suddenly you are attacked!")
                                     anim_print("There are three enemies waiting for you in the hallway!")
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("You're still alive!")
                                     anim_print("But there are two enemies left!")
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("You're still alive!")
                                     anim_print("But there is one enemy left!")
                                     anim_print("You can do it!")
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("You were able to stay alive!")
                                     anim_print("Right after your fight, you hear something fall in the other room.")
                                     anim_print("After surviving three attacks, you feel that you can do anything.")
@@ -1376,7 +1383,7 @@ def opening_scene():
                         enter_area = anim_input("You decide to visit '301', '302', '303', '304', or the 'storage': ").lower().strip()
                         while count < 3:
                             if to_explore in seen_towns:
-                                looking = True
+                                exploring_floor_three = True
                                 anim_print("You already looked there. Look somewhere else.")
                             else:
                                 seen_three.add(enter_area)
@@ -1394,7 +1401,7 @@ def opening_scene():
                                     anim_print("You walk into room 302 not knowing what to expect.")
                                     anim_print("And you find a normal room.")
                                     time.sleep(1)
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("You must have missed that enemy being in the room!")
                                     anim_print("You missed it hiding behind the bed!")
                                     time.sleep(1)
@@ -1415,9 +1422,9 @@ def opening_scene():
                                     anim_print("And the room is a mess.")
                                     anim_print("The walls are scratched up and the carpets are in ruin.")
                                     anim_print("Something's in here.")
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     anim_print("There's a second one!")
-                                    random_fight.random_enemy()
+                                    print("YOU ARE ATTACKED NOW!!!!")
                                     time.sleep(1)
                                     anim_print("At least your fight wasn't in vain and you find something of use in the room.")
                                     time.sleep(1)
@@ -1573,16 +1580,34 @@ def opening_scene():
         time.sleep(2)
         anim_print("Thank you for playing the demo of 'Mystery of Seona!")
         anim_print("Come back in the future for the completed game!")
-        with open('achievements.csv', 'w', newline='') as file:
-            pass
-        with open('health_inventory.csv', 'w', newline='') as file:
-            pass
-        with open('project_inventory.csv', 'w', newline='') as file:
-            pass
-        with open('secret_items.csv', 'w', newline='') as file:
-            pass
-        with open('stats.csv', 'w', newline='') as file:
-            pass
+        anim_print("There will probably be an update in the future!")
+        time.sleep(1)
+        anim_print("These are your achievements!")
+        time.sleep(1)
+        with open(filename, 'r') as collected_items:
+            print()
+            anim_print("YOUR ACHIEVEMENTS!")
+            time.sleep(1)
+            choice = csv.reader(collected_items)
+            for row in choice:
+                new_item, attack = row
+                print(f"{new_item.title()}: {attack} damage")
+                time.sleep(1)
+        response = anim_input("Type something to quit: ")
+        if response == response:
+            anim_print("Deleting files...",delay=0.135)
+            time.sleep(1)
+            anim_print("Loading...",delay=0.135)
+            with open('achievements.csv', 'w', newline='') as file:
+                pass
+            with open('health_inventory.csv', 'w', newline='') as file:
+                pass
+            with open('project_inventory.csv', 'w', newline='') as file:
+                pass
+            with open('secret_items.csv', 'w', newline='') as file:
+                pass
+            with open('stats.csv', 'w', newline='') as file:
+                pass
 
 
         # after exploring everywhere, you are ambushed by a miniboss, the user's weakness, who has a human hostage; the mega mutation.
