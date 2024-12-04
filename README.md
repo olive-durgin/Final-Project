@@ -1,4 +1,4 @@
-# Project Title
+# PROJECT TITLE
 MYSTEYR OF SEONA (demo)
 
 ## Demo Video
@@ -52,12 +52,28 @@ Once the player wins, their attack increases by a specified amount. If the playe
 Hard_random_enemy.py is a fight file that is imported into the main script. It is nearly identical to random_fight.py, but the enemy list is shorter, containing only the harder enemies to fight in random_fight.py. This script is essentially a mini boss fight, and there is a lesser chance that the player can run away when fighting. Some of the descriptions are also different and the enemies are stronger. If you win this fight, the player's attack AND health increases.
 
 ## CSV Files
+I created many different csv files for information from my main code to be stored to.
 
+### Project_inventory.csv
+I created the project_inventory.csv file to store data for the items that the player collects as they play through the game. It's use is rather self explanatory, but it allows me to store items and you can read items from that list when the player wants to view their inventory, and you can also remove items from the list when that item is used as a weapon.
+
+### Stats.csv
+I created the stats.csv file to keep track of the player's attack and health. The file also contains the other player information that was entered at the start of the game. Having the health and attack in a csv file makes it easy to update.
+
+### Achievements.csv
+I mainly created this file to have special text printed to the screen if something is in this file. For example, if you run into the "odd badger" as an enemy, "meet odd badger" is added to the achievements. And since it was your first time meeting the badger, the code might print "You've never seen this before!" The next time you run into odd badger, the achievements file is read, and if the meet odd badger achievement is in the file, the text that is printed instead might be "You've seen this before!"
+
+### Secret_items.csv
+I created this csv item to store secrets that you collect in the game. Once they are stored in this file, the code reads the file later on. If the secret is stored in this file, you cannot get the same secret again.
+
+### Health_inventory.csv
+I created this file to store all healing items that the player collects. I was initially going to have the player access their healing items in the fight scene when they type "E", but the code under that block was getting really complex, being almost 300 lines, so when I update the demo, I'll just add the option to use a healing item by typing "H". This feature would have worked in the same way as using an item to attack an enemy, but instead, the item heals you.
 
 ## Future Changes
-In the future, there are several changes that I would like to make. First, I would want to work on the actual story more and give it a better plot and direction. I felt that the story itself ___.
+In the future, there are several changes that I would like to make. First, I would want to work on the actual story more and give it a better plot and direction. I felt that the story itself could have used some work since I wrote most of it as I went along, and I felt that nothing was truly established, storywise. I also want to impliment some of the following changes.
 
-future changes
-- no max health.
-- healing items. accessed via, attack, dodge, etc... heal.
-- timeout mechanic so that if a player takes too long to do something, the enemy attacks. This will specifically be for the mini bosses, bosses, and final bosses.
+- I want to establish a max health that can increase after you win a fight.
+- I want to create a way to heal the player outside of aving your health automatically set to 100 when you die when the enemy first ambushes you.
+- I want to impliment a timeout mechanic so that if the player takes too long to do something in a fight scene, the enemy automatically attacks. This woudl specifically apply to fights against bosses, mini bosses, final bosses, and secret bosses.
+- I want to impliment the use of abilites which is what the player types at the beginning of the game.
+- I want to use the player's weakness in the game's fight scene, whether it is encorporated into the enemy itself or something else.
