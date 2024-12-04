@@ -1191,8 +1191,8 @@ def random_enemy():
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
                         if key == "public service announcement":
-                            new_item, header, body = row
-                            print(f"{new_item.title()}: {header}\n{body}")
+                            new_item, body = row
+                            print(f"{new_item.title()}: {new_item}\n{body}")
                         time.sleep(1)
                 print()
                 inventory_yes_or_no = True

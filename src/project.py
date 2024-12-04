@@ -1,6 +1,6 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
-import time, csv, pygame, random, random_fight, first_fight
+import time, csv, pygame, random, random_fight, hard_random_enemy, first_fight
 pygame.init()
 trees_rustle = pygame.mixer.Sound(r'sounds\wind_trees.mp3')
 breaking_wall = pygame.mixer.Sound(r'sounds\wall_break.mp3')
@@ -315,7 +315,6 @@ def opening_scene():
                     while elevated_surface:
                         grab_item = anim_input("You have an idea to grab something to stand on and you grab the... ").lower()
                         if grab_item == "table":
-                            elevated_surface = False
                             anim_print("You go over to the table to see if you can grab it and drag it to the wall.")
                             anim_print("But once you reach the table and try moving it, you quickly find that the table is way too heavy to move.")
                             anim_print("You look down and see that it's bolted to the floor...")
@@ -692,7 +691,7 @@ def opening_scene():
             while count < 6:
                 chance = random.randint(1, 100)
                 if move_forward == 'M':
-                    if chance <= 25 or chance >= 65:
+                    if chance <= 15 or chance >= 75:
                         anim_print("You hear the rustling of plants grow louder as something approaches you!")
                         time.sleep(1)
                         random_fight.random_enemy()
@@ -763,14 +762,14 @@ def opening_scene():
                 seen_towns.add(to_explore)
                 if to_explore == "market":
                     city_rain.stop()
-                    anim_print("You decide to head towards the produce market.")
+                    anim_print("You decide to head towards the market.")
                     anim_print("According to the map, it's not too far from where you are now.")
                     anim_print("As you walk down the streets, you really get a chance to see how worn down the city is.")
                     anim_print("You are surprised that buildings are still standing.")
                     anim_print("The only thing that is the most recognizable are the glass skyscrapers in the distance.")
                     anim_print("But they are way to far away to reach.")
                     anim_print("You look down at the ground for a moment as you walk.")
-                    anim_print("And you notice smudges, dirty papers are scattered all over the roads.")
+                    anim_print("And you notice smudged, dirty papers are scattered all over the roads.")
                     anim_print("You can't make out what they say.")
                     time.sleep(1)
                     anim_print("You pass several buildings on your way to the market.")
@@ -812,7 +811,7 @@ def opening_scene():
                     time.sleep(1)
                     anim_print("You don't remember hearing anything about an evacuation.")
                     time.sleep(1)
-                    anim_print("You don't remember much at all...")
+                    anim_print("You don't remember much at all...", delay=0.135)
                     time.sleep(3)
                     anim_print("You shove the paper into your pocket.")
                     time.sleep(1)
@@ -821,11 +820,9 @@ def opening_scene():
                     anim_print("A PSA flier was added to your inventory.")
                     with open(filename, 'a', newline='') as file:
                         new_item = "public service announcement"
-                        header = "Residents of Seona City - This is a public service announcement."
-                        body = " Please evacuate the city immediately due to an unknown [illegible]."\
-                        " This notice is put into effect as of August [illegible]."
+                        body = "Residents of Seona City - This is a public service announcement.\nPlease evacuate the city immediately due to an unknown [illegible].\nThis notice is put into effect as of August [illegible]."
                         csv_writer = csv.writer(file)
-                        csv_writer.writerow([new_item, header, body])
+                        csv_writer.writerow([new_item, body])
                     time.sleep(1)
                     anim_print("You continue to look around the market.")
                     anim_print("There has to be something else here.")
@@ -873,6 +870,7 @@ def opening_scene():
                             anim_print("You spend some more time looking around the market, but there isn't much else that could be useful to you.")
                             anim_print("You turn to leave the store when something blocks your way.")
                             anim_print("Maybe now is your chance to test out that new knife of yours.")
+                            time.sleep(1)
                             random_fight.random_enemy()
                             anim_print("You successfully were able to fend off your attacker!")
                             anim_print("It's best to not stay here. Some other monsters could be attracted by the sound of the fight.")
@@ -1248,9 +1246,9 @@ def opening_scene():
                                                 new_item, attack = row
                                             for key in new_item:
                                                 if key == "public service announcement":
-                                                    print(f"{new_item.title()}: {header}\n{body}")
-                                            else:
-                                                print(f"{new_item.title()}: {attack} damage")
+                                                    print(f"{new_item.title()}: {new_item}\n{body}")
+                                                else:
+                                                    print(f"{new_item.title()}: {attack} damage")
                                             time.sleep(1)
                                         with open('health_inventory.csv') as collected_health:
                                             print()
@@ -1491,17 +1489,100 @@ def opening_scene():
                                     move_forward = False
                                     break
                 elif to_explore == "playground":
-                    anim_print("")
+                    anim_print("You decide to go to the playground.")
+                    anim_print("As you walk to the playground, you don't expect to find much.")
+                    anim_print("On the way to the playground, yuo are surprised that there was nothing there to attack you.")
+                    anim_print("When you reach the playground, you even more surprised that it's completely empty.")
+                    anim_print("It's entirely quiet.")
+                    anim_print("Too quiet...")
+                    time.sleep(1)
+                    anim_print("Be careful.")
+                    time.sleep(1)
+                    anim_print("You go over to the overgrown, grassy field connected to the playground.")
+                    anim_print("Little gnats start to swarm around you the closer you get.")
+                    anim_print("You swat at them to try and keep them away from your eyes.")
+                    anim_print("Something bad is here.")
+                    anim_print("You just have a feeling.")
+                    time.sleep(1)
+                    anim_print("You see two different places to go.")
+                    anim_print("The swings.")
+                    anim_print("Or the playset.")
+                    swing_playset = anim_input("You go to the 'swings' or the 'playset': ").lower().strip()
+                    if swing_playset == "swings":
+                        anim_print("You walk over to the creaking swingset.")
+                        anim_print("The swings are slowly swaying back and forth as if someone just got off of them moments before.")
+                        anim_print("Just being in the area makes you feel a little sick.")
+                        time.sleep(1)
+                        anim_print("Upon closer inspection of the swings.")
+                        anim_print("You notice thick, oily hair stuck to it.")
+                        anim_print("That hair is surely not human.")
+                        anim_print("Despite your instincts telling you to leave, you continue to look around the area.")
+                        anim_print("Decay eats away and the plants in the area.")
+                        anim_print("This place is unusually eerie.")
+                        time.sleep(1)
+                        anim_print("Suddenly...")
+                        hard_random_enemy.hard_random_enemy()
+                        anim_print("You're still alive and you try to run.")
+                        time.sleep(1)
+                        anim_print("But...")
+                        hard_random_enemy.hard_random_enemy()
+                        anim_print("You're still alive and you run away as fast as you can from the area.")
+                        anim_print("You don't look behind you.")
+                        anim_print("Maybe next time you'll listen to your instincts.")
+                        time.sleep(1)
+                    if swing_playset == "playset":
+                        anim_print("You decide to go over to the playset.")
+                        anim_print("The metal is slick with water from the rain.")
+                        anim_print("And you almost fall as you're walking over the rubber foundation that the playset is built on.")
+                        anim_print("You're not sure of what kid would want to be here.")
+                        anim_print("This place is creepy.")
+                        anim_print("But at least visiting here wasn't in vain.")
+                        anim_print("You found... something...")
+                        time.sleep(1)
+                        with open(filename, 'a', newline='') as file:
+                            new_item = "stuffed animal"
+                            attack = 8
+                            csv_writer = csv.writer(file)
+                            csv_writer.writerow([new_item, attack])
+                        anim_print("A stained stuffed animal was added to your inventory.")
+                        anim_print("You think it was a bear.")
+                        time.sleep(1)
+                    else:
+                        anim_print("You decide to just leave. You don't want to risk getting hurt.")
+                        time.sleep(1)
                 elif to_explore == "pond":
-                    anim_print("")
-                    # the pond is murky.
+                    anim_print("You figure that you'll investigate the pond first.")
+                    anim_print("The map says that it's one of furthest places to travel to...")
+                    anim_print("But you have nothing to lose.")
+                    anim_print("Once you finally reach the pond, you find that its filthy.")
+                    anim_print("Not only is the pond overgrown with moss and mold...")
+                    anim_print("But there is a surprising amound of trash around too.")
+                    anim_print("The people that used to live here must have thought that this was some kind of landfill.")
+                    anim_print("You go towards the murky pond, and as you stand over it, you find that you can't even see your reflection in the water.")
+                    anim_print("You regret coming here.")
+                    anim_print("There's nothing of interest...")
+                    time.sleep(1)
                 else:
                     anim_print(f"You don't remember seeing {to_explore} on the map.")
                     time.sleep(1)
 
         anim_print("You finish exploring everywhere that you saw on the map.")
-        anim_print("You think about what your next move should be when you hear a human scream.")
-        anim_print("")
+        anim_print("You think about what your next move should be when you hear a human scream from down the street.")
+        anim_print("You run towards the scream to see if you can help, when you see it!")
+        anim_print("You don't know what to think of it!")
+        time.sleep(2)
+        anim_print("Thank you for playing the demo of 'Mystery of Seona!")
+        anim_print("Come back in the future for the completed game!")
+        with open('achievements.csv', 'w', newline='') as file:
+            pass
+        with open('health_inventory.csv', 'w', newline='') as file:
+            pass
+        with open('project_inventory.csv', 'w', newline='') as file:
+            pass
+        with open('secret_items.csv', 'w', newline='') as file:
+            pass
+        with open('stats.csv', 'w', newline='') as file:
+            pass
 
 
         # after exploring everywhere, you are ambushed by a miniboss, the user's weakness, who has a human hostage; the mega mutation.
