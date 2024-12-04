@@ -768,6 +768,7 @@ def random_enemy():
         attack_or_dodge = anim_input("Type 'A' to attack, 'D' to dodge, 'R' to run away, or 'E' to access your inventory: ").capitalize()
         if attack_or_dodge == "E" and last_input == "E":
             anim_print("You can't access your inventory 2 times in a row.")
+            continue
         else:
             last_input = attack_or_dodge
         chance = random.choice([True, False])
