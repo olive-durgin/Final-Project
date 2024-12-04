@@ -69,6 +69,9 @@ I created this csv item to store secrets that you collect in the game. Once they
 ### Health_inventory.csv
 I created this file to store all healing items that the player collects. I was initially going to have the player access their healing items in the fight scene when they type "E", but the code under that block was getting really complex, being almost 300 lines, so when I update the demo, I'll just add the option to use a healing item by typing "H". This feature would have worked in the same way as using an item to attack an enemy, but instead, the item heals you.
 
+## Encorporating Sounds
+I was happy that I found a pretty good, royalty free sound library online, and I was able to use pygame to add sounds to my project. Since my code is a little bit lengthy, I might have missed adding sound effects in certain places, but overall, I think I did a good job with placign sounds. One of the biggest issues was getting the audio to balance well. I notice, specifically for the fight scene, that the music in the background is a little bit too loud. I attempted to fix it, but I just ended up leaving it like it was.
+
 ## Future Changes
 In the future, there are several changes that I would like to make. First, I would want to work on the actual story more and give it a better plot and direction. I felt that the story itself could have used some work since I wrote most of it as I went along, and I felt that nothing was truly established, storywise. I also want to impliment some of the following changes.
 
@@ -77,3 +80,4 @@ In the future, there are several changes that I would like to make. First, I wou
 - I want to impliment a timeout mechanic so that if the player takes too long to do something in a fight scene, the enemy automatically attacks. This woudl specifically apply to fights against bosses, mini bosses, final bosses, and secret bosses.
 - I want to impliment the use of abilites which is what the player types at the beginning of the game.
 - I want to use the player's weakness in the game's fight scene, whether it is encorporated into the enemy itself or something else.
+- I was considering encorporating visuals into this game, but I decided that I would have the final boss fight or the secret boss fight be a 2D top-down pixel experience. The fight would most likely be in a bullet hell style once the fight starts. This is just the prologue and first part of chapter one for the game, so that would be added much later on.
