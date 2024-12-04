@@ -2,7 +2,7 @@
 MYSTEYR OF SEONA (demo)
 
 ## Demo Video
-Demo Video Link: [LINK GOES HERE]
+Demo Video Link: https://vimeo.com/1036178466?share=copy#t=0
 
 ## GitHub Repository
 GitHub Repository Link: https://github.com/olive-durgin/Final-Project.git
