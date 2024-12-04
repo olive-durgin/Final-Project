@@ -975,6 +975,9 @@ def hard_random_enemy():
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
                         time.sleep(1)
+                        if key == "public service announcement":
+                            new_item, header, body = row
+                            print(f"{new_item.title()}: {header}\n{body}")
                 print()
                 inventory_yes_or_no = True
                 while inventory_yes_or_no:
@@ -1165,7 +1168,11 @@ def hard_random_enemy():
                                             win_sound.play()
                                             anim_print("YOU WIN!")
                                             break
-                        attack_or_dodge = True
+                        inventory_empty = False
+                        inventory_yes_or_no = False
+                        item_as_weapon = False
+                        nonexistent_item = False
+                        item_fails = False
                         break
                     if yes_no == "N":
                         anim_print("Very well.")
