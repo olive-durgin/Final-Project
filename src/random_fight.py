@@ -46,8 +46,8 @@ def random_enemy():
 
     if enemies[idx] == "long cat":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "At first, you couldn't tell what was off about it, but then you realized..."\
@@ -75,8 +75,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "mutated rat":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "Like the first rat that ambushed you when you left that metal room, this one looks no different."\
@@ -105,8 +105,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "mutated dog":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "As it runs towards you at full speed, you feel fear rush over you like a wave!"\
@@ -135,8 +135,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "wild, flesh-eating monster":
         if "wild, flesh-eating monster" == "wild, flesh-eating monster":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "It was hard to comprehend what was coming towards you at first, but as it got closer, you wish it didn't."\
@@ -167,8 +167,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "screaming, little freak":
         if "wild, flesh-eating monster" == "wild, flesh-eating monster":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "You suddenly feel a chill as you see it...\nYou want to look away but you can't take your eyes off of it..."\
@@ -200,8 +200,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "odd badger":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "It would almost be a normal badger if something wasn't off about it.\nYou can't tell what it is."\
@@ -229,8 +229,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "odd elk":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "The thing approaching you is rather strange!\nWait a minute...\nIt's running at you a little too fast!"\
@@ -260,8 +260,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "long stoat":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         description = "Rather, you've been ambushed by an abnormally long stoat!\nIt would be a normal stoat if it weren't double the length!"
@@ -288,8 +288,8 @@ def random_enemy():
                 see_or_not = f"{the_or_no.capitalize()}{enemies[idx]} looks familiar! You've seen {her_him_it} before!"
     if enemies[idx] == "Ana":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         initial_enemy_health = float(100)
@@ -317,8 +317,8 @@ def random_enemy():
                 see_or_not = f"{she_he_it.capitalize()} looks familiar! Didn't you kill {her_him_it} before?"
     if enemies[idx] == "Syuuran":
         if enemies[idx] == "wild, flesh-eating monster" or enemies[idx] == "screaming, little freak":
-            eerie_sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
-            eerie_sound.play(-1)
+            sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
+            sound.play(-1)
         else:
             sound.play(-1)
         initial_enemy_health = float(100)
@@ -1192,7 +1192,7 @@ def random_enemy():
                         print(f"{new_item.title()}: {attack} damage")
                         if key == "public service announcement":
                             new_item, body = row
-                            print(f"{new_item.title()}: {new_item}\n{body}")
+                            print(f"{new_item.title()}: The PSA reads...\nResidents of Seona City - This is a public service announcement.\nPlease evacuate the city immediately due to an unknown [illegible].\nThis notice is put into effect as of August [illegible].\n{body} damage.")
                         time.sleep(1)
                 print()
                 inventory_yes_or_no = True
