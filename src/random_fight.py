@@ -1594,4 +1594,5 @@ def random_enemy():
     anim_print("Loading...", delay=0.135)
     time.sleep(3)
 
-random_enemy()
+if __name__ == "__main__":
+    random_enemy()
