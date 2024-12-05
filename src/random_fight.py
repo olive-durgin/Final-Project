@@ -49,6 +49,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "At first, you couldn't tell what was off about it, but then you realized..."\
         "\nIt is unusually long!\nAs it moves, its spine bends awkwardly, and it looks as if its in pain!"
@@ -78,6 +79,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "Like the first rat that ambushed you when you left that metal room, this one looks no different."\
         "\nBoth were rather disfigured.\nBoth were nearly as big as you were!"
@@ -108,6 +110,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "As it runs towards you at full speed, you feel fear rush over you like a wave!"\
         "\nIt's awkward, broken run is accompanied by it's wheezing bark.\nYou have no time to react!"
@@ -138,6 +141,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "It was hard to comprehend what was coming towards you at first, but as it got closer, you wish it didn't."\
         "\nIts twelve pair of backwards, twisted limbs thrusted the thing closer and closer to you."\
@@ -170,6 +174,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "You suddenly feel a chill as you see it...\nYou want to look away but you can't take your eyes off of it..."\
         "\nIt's shrill scream hurts your ears...\nIt's uncanny, yellow-toothed smile unsettles you..."\
@@ -203,6 +208,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "It would almost be a normal badger if something wasn't off about it.\nYou can't tell what it is."\
         "\nMaybe its the odd badger's extra head."
@@ -232,6 +238,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "The thing approaching you is rather strange!\nWait a minute...\nIt's running at you a little too fast!"\
         "\nYou only got a glimpse of it before it was right on top of you."\
@@ -263,6 +270,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         description = "Rather, you've been ambushed by an abnormally long stoat!\nIt would be a normal stoat if it weren't double the length!"
         attack_type = "\nIt's little blunt teeth nick at your skin!"
@@ -291,6 +299,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         initial_enemy_health = float(100)
         enemy_health = initial_enemy_health
@@ -320,6 +329,7 @@ def random_enemy():
             sound = pygame.mixer.Sound(r'sounds\eerie_enemy.mp3')
             sound.play(-1)
         else:
+            sound = pygame.mixer.Sound(r'sounds\medium_fight.mp3')
             sound.play(-1)
         initial_enemy_health = float(100)
         enemy_health = initial_enemy_health
@@ -1190,9 +1200,6 @@ def random_enemy():
                     for row in choice:
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
-                        if key == "public service announcement":
-                            new_item, body = row
-                            print(f"{new_item.title()}: The PSA reads...\nResidents of Seona City - This is a public service announcement.\nPlease evacuate the city immediately due to an unknown [illegible].\nThis notice is put into effect as of August [illegible].\n{body} damage.")
                         time.sleep(1)
                 print()
                 inventory_yes_or_no = True
