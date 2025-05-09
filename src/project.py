@@ -19,7 +19,19 @@ def anim_input(prompt):
         time.sleep(0.062)
     return input()
 
+with open('achievements.csv', 'w', newline='') as file:
+    pass
+with open('health_inventory.csv', 'w', newline='') as file:
+    pass
+with open('project_inventory.csv', 'w', newline='') as file:
+    pass
+with open('secret_items.csv', 'w', newline='') as file:
+    pass
+with open('stats.csv', 'w', newline='') as file:
+    pass
+
 def opening_scene():
+
     time.sleep(.07)
     anim_print("Loading...", delay=0.135)
     time.sleep(1.5)
@@ -367,7 +379,7 @@ def opening_scene():
                             anim_print("Oh.")
                             time.sleep(1)
                             anim_print("The chair is broken anyway.")
-                            anim_print("You didn't notice that the legs of the chair were rusty.")
+                            anim_print("You didn't notice that the legs of the chair were almost rusted entirely through.")
                             time.sleep(1)
                             if seen_inputs != all_choices:
                                 anim_print("Maybe there's something else here.")
@@ -522,6 +534,8 @@ def opening_scene():
                             if key == "your description":
                                 words = stats[key].strip("()").replace("'", "").split(", ")
                                 print(f"{key.title()}: You are {words[0]} and kinda {words[1]}. There is not much else to say.")
+                            elif key == "your name":
+                                print(key.title())
                             else:
                                 print(f"{key.title()}: {stats[key].capitalize()}")
                             time.sleep(1)
@@ -660,7 +674,7 @@ def opening_scene():
         anim_print("Following the right sign means that you'll eventually end up in a town called Seona.")
         anim_print("The town is only 2 miles away.")
         time.sleep(1)
-        anim_print("Which way are you going to go?")
+        anim_print("Which way are you going to go? Left or right?")
         left_or_right = True
         while left_or_right:
             trail_choice = anim_input("You choose to go to the... ").lower()
@@ -706,6 +720,8 @@ def opening_scene():
                         anim_print("You should hurry up and get off of this trail.")
                         anim_print("You're bound to be attacked again.")
                         time.sleep(1)
+                        if count == 4:
+                            count += 1
                         move_forward = False
                         break
                     else:
@@ -1140,6 +1156,8 @@ def opening_scene():
                                     anim_print("You were safely able to get away with your life!")
                                     anim_print("Whatever is in the hospital better be worth it.")
                                     time.sleep(1)
+                                    if count == 3:
+                                        count += 1
                                     move_forward = False
                                     break
                                 else:
