@@ -156,7 +156,7 @@ def opening_scene():
 
     anim_print(f"Character: {username.title()}")
     time.sleep(1)
-    anim_print(f"Description: {username.title()} is {adjective_01} and kinda {adjective_02}. There's not much else to say.")
+    anim_print(f"Description: {username.title()} is {adjective_01.lower()} and kinda {adjective_02.lower()}. There's not much else to say.")
     time.sleep(1)
     anim_print("Health: 100")
     anim_print(f"Attack: {attack:.0f}")
