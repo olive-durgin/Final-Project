@@ -523,8 +523,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "your health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "your health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -537,8 +537,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "initial health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "initial health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -564,8 +564,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "your health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "your health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -578,8 +578,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "initial health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "initial health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -602,7 +602,6 @@ def random_enemy():
             anim_print("Remember...")
             anim_print(f"Your attack is {strength:.0f}.")
             anim_print(f"Your health is {new_health:.0f}!")
-            anim_print("If you die, these are the stats that will be used.")
             time.sleep(1)
             anim_print("Get ready!")
             time.sleep(1)
@@ -610,8 +609,6 @@ def random_enemy():
             with open('stats.csv', 'a', newline='') as file1:
                 writer1 = csv.writer(file1)
                 writer1.writerow([item, attack])
-            anim_print("Something's changed...")
-            time.sleep(2)
         else:
             anim_print(f"{the_or_no.capitalize()}{enemies[idx]} prepares to attack!")
             anim_print("Since you weren't expecting an ambush, you've been hit!")
@@ -639,8 +636,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "your health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "your health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -654,8 +651,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "initial health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "initial health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -681,8 +678,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "your health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "your health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -695,8 +692,8 @@ def random_enemy():
                     with open(statistics, 'r') as file:
                         reader = csv.reader(file)
                         items = list(reader)
-                        item_to_remove = "initial health".strip().capitalize()
-                        items = [row for row in items if row[0].capitalize() != item_to_remove]
+                        item_to_remove = "initial health".strip().lower()
+                        items = [row for row in items if row[0].lower() != item_to_remove]
                     with open(statistics, 'w', newline='') as file:
                         writer = csv.writer(file)
                         writer.writerows(items)
@@ -898,7 +895,7 @@ def random_enemy():
                     game_is_running = True
                     anim_print(f"{the_or_no.capitalize()}{enemies[idx]} {enemy_desc} at you with the intention to kill!")
                     time.sleep(2)
-                    anim_print("But you trip and fall.")
+                    anim_print("But you trip and fall when trying to avoid it.")
                     time.sleep(1)
                     anim_print(f"{the_or_no.capitalize()}{enemies[idx]} is able to strike you while you're down.")
                     monster_attack.play()
@@ -1208,12 +1205,16 @@ def random_enemy():
                     yes_no = anim_input("'Y' for yes or 'N' for no: ").upper()
                     if yes_no == "Y":
                         with open(filename, 'r') as collected_items:
-                            choice = csv.reader(collected_items)
-                            for row in choice:
-                                new_item, attack = row
-                                if "unknown woman" in new_item:
-                                    print()
-                                    anim_print("Select something to use against your enemy.")
+                            reader = csv.reader(collected_items)
+                            items = list(reader)
+                            nonexistent_item = True
+                            while nonexistent_item:
+                                anim_print("Select something to use against your enemy.")
+                                item_to_remove = anim_input("Choose an item to use: ").strip().lower()
+                                item_exists = any(row[0].lower() == item_to_remove for row in items)
+                                if item_exists:
+                                    nonexistent_item = False
+                                    inventory_yes_or_no = False
                                     item_as_weapon = True
                                     while item_as_weapon:
                                         item_as_weapon = True
@@ -1222,23 +1223,21 @@ def random_enemy():
                                             items = list(reader)
                                             nonexistent_item = True
                                             while nonexistent_item:
-                                                item_to_remove = anim_input("Choose an item to use: ").strip().capitalize()
-                                                item_exists = any(row[0].capitalize() == item_to_remove for row in items)
+                                                item_exists = any(row[0].lower() == item_to_remove for row in items)
                                                 if item_exists:
                                                     nonexistent_item = False
                                                     for row in items:
-                                                        if row[0].capitalize() == item_to_remove.capitalize():
+                                                        if row[0].lower() == item_to_remove.lower():
                                                             item_attack = row[1]
-                                                            
+
                                                             item_fails = True
                                                             item_chance = random.randint(1,100)
                                                             while item_fails:
-                                                                if item_to_remove == "Unknown woman":
+                                                                if item_to_remove == "unknown woman":
                                                                     if woman_attack_counter < 2:
                                                                             anim_print("She doesn't seem ready to fight yet.")
                                                                             time.sleep(1)
-                                                                            nonexistent_item = True
-                                                                            break
+                                                                            item_fails = False
                                                                     elif woman_attack_counter >= 2:
                                                                         inventory_empty = False
                                                                         inventory_yes_or_no = False
@@ -1267,7 +1266,7 @@ def random_enemy():
                                                                             item_as_weapon = False
                                                                             item_fails = False
                                                                             break
-                                                                elif item_to_remove != "Unknown woman":
+                                                                elif item_to_remove != "unknown woman":
                                                                     if item_chance >= 10:
                                                                         enemy_health -= float(item_attack)
                                                                         anim_print(f"You hit {the_or_no}{enemies[idx]} as hard as you can with your {item_to_remove.lower()}!")
@@ -1291,14 +1290,14 @@ def random_enemy():
                                                                         item_fails = False
 
                                                                         break
-                                                        if item_to_remove != "Unknown woman":
-                                                            items = [row for row in items if row[0].capitalize() != item_to_remove]
+                                                        if item_to_remove != "unknown woman":
+                                                            items = [row for row in items if row[0].lower() != item_to_remove]
                                                         with open('project_inventory.csv', 'w', newline='') as collected_items:
                                                             writer = csv.writer(collected_items)
                                                             writer.writerows(items)
                                                 else:
                                                     nonexistent_item = True
-                                                    anim_print(f"{item_to_remove.capitalize()} is not in your inventory.")
+                                                    anim_print(f"{item_to_remove.lower()} is not in your inventory.")
                                                     print()
                                         break
                                     if enemy_health <= 0:
@@ -1320,7 +1319,8 @@ def random_enemy():
                                             anim_print("YOU WIN!")
                                             break
                                     break
-                                elif "unknown woman" not in new_item:
+                                else:
+                                    inventory_yes_or_no = False
                                     anim_print("")
                                     anim_print("Select something to use against your enemy.")
                                     item_as_weapon = True
@@ -1331,12 +1331,12 @@ def random_enemy():
                                             items = list(reader)
                                             nonexistent_item = True
                                             while nonexistent_item:
-                                                item_to_remove = anim_input("Choose an item to use: ").strip().capitalize()
-                                                item_exists = any(row[0].capitalize() == item_to_remove for row in items)
+                                                item_to_remove = anim_input("Choose an item to use: ").strip().lower()
+                                                item_exists = any(row[0].lower() == item_to_remove for row in items)
                                                 if item_exists:
                                                     nonexistent_item = False
                                                     for row in items:
-                                                        if row[0].capitalize() == item_to_remove.capitalize():
+                                                        if row[0].lower() == item_to_remove.lower():
                                                             item_attack = row[1]
                                                             
                                                             item_fails = True
@@ -1353,13 +1353,13 @@ def random_enemy():
                                                                     anim_print("But you miss your target, and your item is lost.")
                                                                     anim_print(f"You no longer have {item_to_remove}.")
                                                                     break
-                                                    items = [row for row in items if row[0].capitalize() != item_to_remove]
+                                                    items = [row for row in items if row[0].lower() != item_to_remove]
                                                     with open('project_inventory.csv', 'w', newline='') as collected_items:
                                                         writer = csv.writer(collected_items)
                                                         writer.writerows(items)
                                                 else:
                                                     nonexistent_item = True
-                                                    anim_print(f"{item_to_remove.capitalize()} is not in your inventory.")
+                                                    anim_print(f"{item_to_remove.lower()} is not in your inventory.")
                                                     print()
                                         break
                                     if enemy_health <= 0:
@@ -1570,8 +1570,8 @@ def random_enemy():
     with open(statistics, 'r') as file:
         reader = csv.reader(file)
         items = list(reader)
-        item_to_remove = "your attack".strip().capitalize()
-        items = [row for row in items if row[0].capitalize() != item_to_remove]
+        item_to_remove = "your attack".strip().lower()
+        items = [row for row in items if row[0].lower() != item_to_remove]
     with open(statistics, 'w', newline='') as file:
         writer = csv.writer(file)
         writer.writerows(items)
