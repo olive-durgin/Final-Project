@@ -33,22 +33,17 @@ while explore:
     else:
         seen_towns.add(to_explore)
         if to_explore == "market":
-            explore = True
             city_rain.stop()
             anim_print("")
         elif to_explore == "school":
-            explore = True
             city_rain.stop()
             anim_print("")
         elif to_explore == "hospital":
-            explore = True
             city_rain.stop()
             anim_print("")
         elif to_explore == "playground":
-            explore = True
             anim_print("")
         elif to_explore == "pond":
-            explore = True
             anim_print("")
         else:
             explore = True
