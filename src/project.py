@@ -201,6 +201,7 @@ def opening_scene():
         anim_print("You can hear the faint squeak of mice in the distance along with the rustling of trees.")
         anim_print("Despite there being a metal table in the room with a metal chair, you are lying on the cold, wet floor.")
         anim_print("Your clothes smell like mildew and moss now.")
+        anim_print("From what you thought was rain, ")
         anim_print("What do you do? Leave or look around?")
         response = True
         while response:
@@ -386,14 +387,17 @@ def opening_scene():
             view_inventory = anim_input("View your inventory? ").capitalize()
             print()
             if view_inventory == "E":
+                time.sleep(1)
                 inventory = True
                 with open(filename, 'r') as collected_items:
                     choice = csv.reader(collected_items)
                     for row in choice:
                         new_item, attack = row
                         print(f"{new_item.title()}: {attack} damage")
+                        time.sleep(1)
             else:
                 inventory = False
+                time.sleep(1)
                 anim_print("Verywell then...")
                 time.sleep(1)
         anim_print("What can help you pry open the door?")
@@ -530,6 +534,7 @@ def opening_scene():
                 with open(filename, 'r') as collected_items:
                     print()
                     anim_print("YOUR INVENTORY")
+                    time.sleep(1)
                     choice = csv.reader(collected_items)
                     for row in choice:
                         new_item, attack = row
@@ -1568,7 +1573,7 @@ def opening_scene():
                         anim_print("You decide to just leave. You don't want to risk getting hurt.")
                         time.sleep(1)
                 elif to_explore == "pond":
-                    anim_print("You figure that you'll investigate the pond first.")
+                    anim_print("You figure that you'll investigate the pond.")
                     anim_print("The map says that it's one of furthest places to travel to...")
                     anim_print("But you have nothing to lose.")
                     anim_print("Once you finally reach the pond, you find that its filthy.")
@@ -1637,10 +1642,39 @@ def opening_scene():
         # inventory clears and stats clear when you finish the game so you can play again without having to clear your inventory manually.
 
     if character_choice == "Syuuran":
-        health = 100
-        attack = 4
-        syuuran_special_ability = "persuasion"
-        syuuran_weakness = "mice"
+        with open('stats.csv', 'w', newline='') as file:
+            pass
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your name"
+            you = "syuuran"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, you])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your description"
+            description = "scared", "alone"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, description])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your ability"
+            player_ability = "persuasion"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, player_ability])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your weakness"
+            player_weakness = "mice"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, player_weakness])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your attack"
+            kill_power = 4
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, kill_power])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your health"
+            life = 100
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, life])
+
         anim_print("Interesting...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
@@ -1650,10 +1684,39 @@ def opening_scene():
         # Syuuran finds himself in the middle of the woods at night.
 
     if character_choice == "Ana":
-        health = 100
-        player_attack = attack
-        ana_special_ability = "observation"
-        ana_weakness = "mice"
+        with open('stats.csv', 'w', newline='') as file:
+            pass
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your name"
+            you = "ana"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, you])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your description"
+            description = "happy", "brave"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, description])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your ability"
+            player_ability = "observation"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, player_ability])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your weakness"
+            player_weakness = "spiders"
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, player_weakness])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your attack"
+            kill_power = 6
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, kill_power])
+        with open(statistics, 'a', newline='') as file:
+            new_stat = "your health"
+            life = 100
+            csv_writer = csv.writer(file)
+            csv_writer.writerow([new_stat, life])
+
         anim_print("I see...")
         time.sleep(1)
         anim_print("Creating scenario...", delay=0.135)
