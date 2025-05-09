@@ -1406,6 +1406,7 @@ def random_enemy():
             for item, attack in items_to_add:
                 if item not in inventory:
                     time.sleep(2)
+                    sound.stop()
                     anim_print("Where did you hear that...?", delay=0.182)
                     time.sleep(4)
                     inventory.append(item)
@@ -1416,6 +1417,7 @@ def random_enemy():
                         writer2.writerow([item, attack])
                     anim_print("Something's changed...")
                     time.sleep(2)
+                    sound.play(-1)
                 else:
                     monster_attack.play()
                     anim_print("You've been hit! What are you doing?")
