@@ -42,7 +42,7 @@ def opening_scene():
     creating_stats = True
     while creating_stats:
         while True:
-            adjective_01 = anim_input("Adjective 01: ")
+            adjective_01 = anim_input("Adjective 01: ".lower())
             if adjective_01 != "":
                 break
             anim_print("This input is no good...")
@@ -50,7 +50,7 @@ def opening_scene():
             time.sleep(1)
         
         while True:
-            adjective_02 = anim_input("Adjective 02: ")
+            adjective_02 = anim_input("Adjective 02: ".lower())
             if adjective_02 != "":
                 break
             anim_print("This input is no good...")
@@ -691,7 +691,7 @@ def opening_scene():
             while count < 6:
                 chance = random.randint(1, 100)
                 if move_forward == 'M':
-                    if chance <= 15 or chance >= 75:
+                    if chance <= 15 or chance >= 75 or count == 4:
                         anim_print("You hear the rustling of plants grow louder as something approaches you!")
                         time.sleep(1)
                         city_rain.stop()
@@ -1121,7 +1121,7 @@ def opening_scene():
                         while count < 6:
                             chance = random.randint(1, 100)
                             if move_forward == 'M':
-                                if chance <= 40:
+                                if chance <= 40 or count == 3:
                                     anim_print("Despite seeing enemies up ahead, you hear something come up from behind you!")
                                     time.sleep(1)
                                     random_fight.random_enemy()
